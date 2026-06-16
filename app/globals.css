@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #f6f7fb;
+  --bg-alt: #ffffff;
+  --ink: #0f1f3a;
+  --ink-2: #1a2a4a;
+  --muted: #5b6b87;
+  --muted-2: #8390a8;
+  --line: #e6e9f1;
+  --line-2: #d8dde8;
+  --primary: #1a3a5c;
+  --primary-2: #244a73;
+  --primary-soft: #e6edf6;
+  --accent: #ff6b3d;
+  --accent-2: #ff8c66;
+  --accent-soft: #fff1ec;
+  --x: #1a3a5c;
+  --y: #6b46c1;
+  --calc: #ff6b3d;
+  --vga: #14b8a6;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 { font-family: 'Lora', Georgia, serif; color: var(--ink-2); line-height: 1.2; }
+
+/* Smooth reveal on scroll */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.in  { opacity: 1; transform: translateY(0); }
+
+/* Number formatting */
+.tabular { font-variant-numeric: tabular-nums; }
+
+/* Focus styles */
+*:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }

@@ -1,0 +1,92 @@
+{
+  "turmas": [
+    {
+      "id": "x",
+      "nome": "Turma X",
+      "ano": null,
+      "descricao": "Turma X (período letivo não informado, dados anônimos)",
+      "disciplinas": [
+        {
+          "id": "x-calculo1",
+          "turma_id": "x",
+          "nome": "Cálculo I",
+          "codigo": "Cálculo I",
+          "cor": "#ff6b3d",
+          "notas": [
+            0.74, 0, 2.52, 7.35, 0.3, 0, 0, 0.99, 0, 5.88,
+            0.3, 4.19, 4.11, 0, 1.83, 0.92, 0, 0, 0, 0.59,
+            9.63, 2.79, 0, 0.48, 8.5, 0, 0.15, 0, 0.15, 3.15,
+            6.02, 4.07, 0.3, 5.03, 0, 0, 0, 1.21, 0, 0,
+            5.05, 9.54, 5.24, 0, 2.91, 0, 3.85, 0, 5.54, 1.56,
+            0.77, 0.59, 5.62
+          ]
+        },
+        {
+          "id": "x-vga",
+          "turma_id": "x",
+          "nome": "Vetores e Geometria Analítica",
+          "codigo": "VGA",
+          "cor": "#14b8a6",
+          "notas": [
+            5.09, 0, 0.875, 5.34, 6.92, 0, 0.92, 0, 5.25, 0.5,
+            6.34, 0.71, 2.85, 5.96, 0.75, 0.5, 0, 0.5, 0, 0,
+            6.92, 0.5, 1, 0.5, 3.5, 0, 8.17, 0.25, 2.95, 0.25,
+            4.3, 3.3, 5, 3.5, 5.34, 0, 0, 3.21, 0, 0.67,
+            0, 5.5, 7.75, 5, 0, 1.3, 0, 0.71, 0.42, 0,
+            5.875, 5.09
+          ]
+        }
+      ]
+    },
+    {
+      "id": "y",
+      "nome": "Turma Y",
+      "ano": null,
+      "descricao": "Turma Y (período letivo não informado, dados anônimos)",
+      "disciplinas": [
+        {
+          "id": "y-calculo1",
+          "turma_id": "y",
+          "nome": "Cálculo I",
+          "codigo": "Cálculo I",
+          "cor": "#ff6b3d",
+          "notas": [
+            0, 0, 0, 9.45, 0, 0, 0, 6.55, 0, 0,
+            8.38, 0, 0.84, 7.38, 7.73, 0, 0, 0, 0, 0,
+            0.4, 0, 0, 0, 0.725, 0, 0, 0, 0, 5.3,
+            6.54, 0, 0.35, 0.3, 2.49, 0.375, 0, 0.49, 0, 6.4,
+            7.35, 0, 3.19, 0, 0, 0.45, 2.04, 5.7, 2.6, 0.425,
+            0.925, 9
+          ]
+        },
+        {
+          "id": "y-vga",
+          "turma_id": "y",
+          "nome": "Vetores e Geometria Analítica",
+          "codigo": "VGA",
+          "cor": "#14b8a6",
+          "notas": [
+            0, 1.96, 0.42, 0, 7.09, 5, 0.21, 0, 0, 5.92,
+            0, 0, 3.35, 2.46, 1.5, 5, 6.46, 1.25, 0.21, 0,
+            0.835, 0, 7.5, 1.25, 0.42, 0.625, 1.75, 8.5, 1.46, 0,
+            2.3, 5.42, 0, 2.5, 5.46, 0, 4.5, 1.5, 8.5, 0.625,
+            0, 8.75, 1.75, 0, 2.96, 1.75, 6.67, 5, 0, 3.96,
+            5.46, 4.5, 7.5, 8.55, 5, 0.42, 7.5, 6.35, 0.835
+          ]
+        }
+      ]
+    }
+  ],
+  "autores": [
+    { "nome": "Davi Roque Luiz", "papel": "Graduando", "iniciais": "DR" },
+    { "nome": "João Baptista Zanin", "papel": "Graduando", "iniciais": "JB" },
+    { "nome": "Prof. Dr. Laudino Roces Rodrigues", "papel": "Orientador", "iniciais": "LR", "orientador": true }
+  ],
+  "metadata": {
+    "titulo": "Análise de Desempenho Acadêmico em Cálculo I e VGA — UFMT",
+    "universidade": "Universidade Federal de Mato Grosso",
+    "orientador": "Prof. Dr. Laudino Roces Rodrigues",
+    "referencia": "Dados fornecidos pela UFMT para as disciplinas de Cálculo I e Vetores e Geometria Analítica (VGA).",
+    "criterio_aprovacao": 5.0
+  }
+}
