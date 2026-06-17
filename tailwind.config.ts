@@ -57,8 +57,33 @@ const config: Config = {
         "on-dark-muted": "oklch(65% 0.025 250)",// was arbitrary #8c9bb6
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        // Body: IBM Plex Sans — has more character than Inter (open apertures,
+        // humanist proportions). Free, ships in 4 weights, pairs cleanly with
+        // Lora. Loaded via Google Fonts; weight range trimmed to 400/500/600/700
+        // (no 800 — unused, costs bandwidth).
+        sans: ['"IBM Plex Sans"', 'system-ui', 'sans-serif'],
         serif: ['Lora', 'Georgia', 'serif'],
+        // Mono: IBM Plex Mono for code blocks and aluno_id (NotasTable)
+        mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
+      },
+      fontSize: {
+        // 5-size scale covers the page; ratio ~1.25 (major third).
+        // xs  = 12px  (caption / legal)
+        // sm  = 14px  (secondary UI, metadata)
+        // base = 16px (body — never below this)
+        // lg  = 20px  (subheading / lead)
+        // xl  = 25px  (h3)
+        // 2xl = 31px  (h2)
+        // 3xl = 39px  (h1)
+        // display = 49px (hero, fluid via clamp in component)
+        xs: ['0.75rem', { lineHeight: '1.4' }],
+        sm: ['0.875rem', { lineHeight: '1.5' }],
+        base: ['1rem', { lineHeight: '1.65' }],
+        lg: ['1.25rem', { lineHeight: '1.5' }],
+        xl: ['1.5625rem', { lineHeight: '1.3' }],
+        '2xl': ['1.953rem', { lineHeight: '1.25' }],
+        '3xl': ['2.441rem', { lineHeight: '1.15' }],
+        display: ['3.052rem', { lineHeight: '1.05', letterSpacing: '-0.02em' }],
       },
       boxShadow: {
         // Adjusted alpha for OKLCH perception — softer, less "cardstock"

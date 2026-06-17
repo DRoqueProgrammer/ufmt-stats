@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Lora:ital,wght@0,500;0,600;1,400&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -35,12 +35,13 @@
 
 html { scroll-behavior: smooth; }
 body {
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'IBM Plex Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--ink);
   background: var(--bg);
-  line-height: 1.6;
+  line-height: 1.65;  /* slightly looser for IBM Plex Sans (humanist, breathes) */
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
 }
 
 h1, h2, h3, h4 {
@@ -48,6 +49,7 @@ h1, h2, h3, h4 {
   color: var(--ink-2);
   line-height: 1.2;
   text-wrap: balance;  /* even line lengths for headings */
+  letter-spacing: -0.01em;  /* tighten serif display, prevents letters touching */
 }
 
 /* ===== Eyebrow / kicker =====
@@ -58,11 +60,11 @@ h1, h2, h3, h4 {
   display: inline-block;
   font-size: 0.6875rem;       /* 11px */
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--accent);
   margin-bottom: 0.75rem;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
 }
 .eyebrow--primary { color: var(--primary); }
 .eyebrow--muted   { color: var(--muted); }
