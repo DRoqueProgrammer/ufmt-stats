@@ -1,13 +1,17 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Grupo } from "@/lib/types";
 import { binNotes } from "@/lib/stats";
 
-/* Chart.js carregado uma vez no client */
-declare global {
-  interface Window {
-    Chart?: any;
+/* Chart.js is loaded via dynamic import (bundled, not CDN).
+ *  One-time module-level promise so 3 charts share the same instance. */
+let _chartJsPromise: Promise<typeof import("chart.js/auto").default> | null = null;
+function loadChartJs() {
+  if (typeof window === "undefined") return null;
+  if (!_chartJsPromise) {
+    _chartJsPromise = import("chart.js/auto").then((m) => m.default);
   }
+  return _chartJsPromise;
 }
 
 /** Reads the OKLCH tokens from :root at chart init time. Charts now
@@ -37,32 +41,47 @@ function readTheme() {
   };
 }
 
-let _chartJsPromise: Promise<any> | null = null;
-async function loadChartJs() {
-  if (typeof window === "undefined") return null;
-  if (window.Chart) return window.Chart;
-  if (_chartJsPromise) return _chartJsPromise;
-  _chartJsPromise = new Promise((resolve, reject) => {
-    const s = document.createElement("script");
-    s.src = "https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js";
-    s.onload = () => resolve(window.Chart);
-    s.onerror = reject;
-    document.head.appendChild(s);
-  });
-  return _chartJsPromise;
+/** Fallback UI when Chart.js fails to load (offline, blocked CDN, etc). */
+function ChartError({ message }: { message: string }) {
+  return (
+    <div
+      role="img"
+      aria-label="Gráfico indisponível"
+      className="h-[360px] grid place-items-center bg-bg-subtle rounded-[14px] border border-dashed border-line-2"
+    >
+      <div className="text-center max-w-xs">
+        <div aria-hidden="true" className="w-10 h-10 mx-auto mb-3 rounded-full bg-warn-soft text-warn grid place-items-center">
+          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+            <line x1="12" y1="9" x2="12" y2="13" />
+            <line x1="12" y1="17" x2="12.01" y2="17" />
+          </svg>
+        </div>
+        <p className="text-sm text-ink-2 font-semibold m-0">Gráfico indisponível</p>
+        <p className="text-xs text-muted m-0 mt-1">{message}</p>
+      </div>
+    </div>
+  );
 }
 
 /* ---------------- BOXPLOT ---------------- */
 export function Boxplot({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?: number }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const tooltipRef = useRef<HTMLDivElement | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let chart: any = null;
     let disposed = false;
     (async () => {
-      const Chart = await loadChartJs();
-      if (!Chart || !canvasRef.current || disposed) return;
+      let Chart: any;
+      try {
+        Chart = await loadChartJs();
+        if (!Chart || !canvasRef.current || disposed) return;
+      } catch (e) {
+        setError("Não foi possível carregar o módulo de gráficos.");
+        return;
+      }
       const theme = readTheme();
 
       const boxplotPlugin = {
@@ -192,19 +211,26 @@ export function Boxplot({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?: numb
     return () => { disposed = true; chart?.destroy?.(); tooltipRef.current?.remove(); tooltipRef.current = null; };
   }, [grupos, cutoff]);
 
-  return <div className="relative h-[360px]"><canvas ref={canvasRef} /></div>;
+  return error ? <ChartError message={error} /> : <div className="relative h-[360px]"><canvas ref={canvasRef} /></div>;
 }
 
 /* ---------------- HISTOGRAM ---------------- */
 export function Histogram({ grupos, cutoff = 5, bins = 10 }: { grupos: Grupo[]; cutoff?: number; bins?: number }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let chart: any = null;
     let disposed = false;
     (async () => {
-      const Chart = await loadChartJs();
-      if (!Chart || !canvasRef.current || disposed) return;
+      let Chart: any;
+      try {
+        Chart = await loadChartJs();
+        if (!Chart || !canvasRef.current || disposed) return;
+      } catch (e) {
+        setError("Não foi possível carregar o módulo de gráficos.");
+        return;
+      }
       const theme = readTheme();
       const referencePlugin = {
         id: "referenceLine",
@@ -266,19 +292,26 @@ export function Histogram({ grupos, cutoff = 5, bins = 10 }: { grupos: Grupo[]; 
     return () => { disposed = true; chart?.destroy?.(); };
   }, [grupos, cutoff, bins]);
 
-  return <div className="relative h-[360px]"><canvas ref={canvasRef} /></div>;
+  return error ? <ChartError message={error} /> : <div className="relative h-[360px]"><canvas ref={canvasRef} /></div>;
 }
 
 /* ---------------- APPROVAL BARS ---------------- */
 export function ApprovalBars({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?: number }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let chart: any = null;
     let disposed = false;
     (async () => {
-      const Chart = await loadChartJs();
-      if (!Chart || !canvasRef.current || disposed) return;
+      let Chart: any;
+      try {
+        Chart = await loadChartJs();
+        if (!Chart || !canvasRef.current || disposed) return;
+      } catch (e) {
+        setError("Não foi possível carregar o módulo de gráficos.");
+        return;
+      }
       const theme = readTheme();
       const referencePlugin = {
         id: "referenceLine",
@@ -356,5 +389,5 @@ export function ApprovalBars({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?:
     return () => { disposed = true; chart?.destroy?.(); };
   }, [grupos, cutoff]);
 
-  return <div className="relative h-[360px]"><canvas ref={canvasRef} /></div>;
+  return error ? <ChartError message={error} /> : <div className="relative h-[360px]"><canvas ref={canvasRef} /></div>;
 }

@@ -25,14 +25,15 @@ export default function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 backdrop-blur transition-colors ${
+      className={`sticky z-50 backdrop-blur transition-colors ${
         scrolled ? "bg-white/85 border-b border-line" : "bg-transparent"
       }`}
-      style={{ top: scrolled ? 0 : 24 }}
+      style={{ top: scrolled ? 0 : 24, paddingTop: "env(safe-area-inset-top)" }}
     >
       <div className="container mx-auto px-6 max-w-[1200px] flex items-center justify-between py-3.5">
         <a href="#hero" className="flex items-center gap-3 no-underline">
           <span
+            aria-hidden="true"
             className="w-10 h-10 rounded-[10px] grid place-items-center text-white font-serif text-lg font-semibold shadow-sm"
             style={{ background: "linear-gradient(135deg, var(--primary), var(--primary-2))" }}
           >
@@ -58,29 +59,33 @@ export default function Navbar() {
           ))}
           <a
             href="/admin"
-            className="ml-2 px-4 py-1.5 text-xs font-semibold text-white rounded-full bg-ink-2 hover:bg-ink transition-colors"
+            className="ml-2 px-4 py-1.5 text-xs font-semibold text-white rounded-full bg-ink-2 hover:bg-ink transition-colors min-h-[36px] grid place-items-center"
           >
             Admin
           </a>
         </nav>
 
         <button
-          className="md:hidden border border-line-2 rounded-md px-2 py-1 text-lg"
+          className="md:hidden min-h-[44px] min-w-[44px] grid place-items-center border border-line-2 rounded-md text-ink-2 hover:border-accent hover:text-accent transition-colors"
           onClick={() => setOpen(!open)}
-          aria-label="Menu"
+          aria-label={open ? "Fechar menu" : "Abrir menu"}
+          aria-expanded={open}
         >
-          ☰
+          <span aria-hidden="true" className="text-lg leading-none">{open ? "✕" : "☰"}</span>
         </button>
       </div>
 
       {open && (
-        <nav className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-line shadow-md flex flex-col px-6 py-3 gap-1">
+        <nav
+          className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-line shadow-md flex flex-col px-6 py-3 gap-1"
+          aria-label="Navegação principal"
+        >
           {links.map(([href, label]) => (
             <a
               key={href}
               href={href}
               onClick={() => setOpen(false)}
-              className="text-sm text-ink-2 py-2 border-b border-line/50"
+              className="text-sm text-ink-2 py-3 min-h-[44px] flex items-center border-b border-line/50"
             >
               {label}
             </a>
@@ -88,7 +93,7 @@ export default function Navbar() {
           <a
             href="/admin"
             onClick={() => setOpen(false)}
-            className="text-sm font-semibold text-accent py-2"
+            className="text-sm font-semibold text-accent py-3 min-h-[44px] flex items-center"
           >
             Admin →
           </a>

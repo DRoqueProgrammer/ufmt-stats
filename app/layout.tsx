@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
@@ -15,12 +15,29 @@ export const metadata: Metadata = {
   },
 };
 
+// viewport-fit=cover enables env(safe-area-inset-*) on notched phones
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f6f7fb" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f1f3a" },
+  ],
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
       <body>
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2 focus:bg-ink-2 focus:text-white focus:rounded-md focus:shadow-lg focus:outline-none"
+        >
+          Pular para o conteúdo principal
+        </a>
         {isDemoMode() && <DemoBanner />}
-        {children}
+        <main id="main">{children}</main>
         <Analytics />
         <SpeedInsights />
       </body>
@@ -30,9 +47,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 function DemoBanner() {
   return (
-    <div className="bg-amber-100 border-b border-amber-300 text-amber-900 text-xs text-center py-1.5 px-4">
-      <strong>Modo demo:</strong> lendo dados de <code className="font-mono">data/seed.json</code>.
-      Configure <code className="font-mono">NEXT_PUBLIC_SUPABASE_URL</code> para usar o banco real.
+    <div
+      role="status"
+      className="bg-warn-soft border-b border-warn text-warn text-xs text-center py-1.5 px-4"
+      style={{ paddingLeft: "max(1rem, env(safe-area-inset-left))", paddingRight: "max(1rem, env(safe-area-inset-right))" }}
+    >
+      <strong>Modo demo:</strong> lendo dados de <code className="font-mono text-ink-2">data/seed.json</code>.
+      Configure <code className="font-mono text-ink-2">NEXT_PUBLIC_SUPABASE_URL</code> para usar o banco real.
     </div>
   );
 }
