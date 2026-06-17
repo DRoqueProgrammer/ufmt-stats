@@ -86,14 +86,14 @@ export function NotasTable({ disciplinaId, disciplinaLabel, notas: initialNotas,
           { label: "Mediana", value: liveStats.median.toFixed(2).replace(".", ",") },
           { label: "Aprovação (live)", value: liveStats.approval.toFixed(1).replace(".", ",") + "%" },
         ].map((k) => (
-          <div key={k.label} className="bg-white border border-line rounded-[14px] p-4 shadow-sm">
+          <div key={k.label} className="bg-bg-alt border border-line rounded-[14px] p-4 shadow-sm">
             <div className="font-serif text-2xl font-semibold text-ink-2 tabular-nums">{k.value}</div>
             <div className="text-xs text-muted mt-1">{k.label}</div>
           </div>
         ))}
       </div>
 
-      <form onSubmit={onAdd} className="bg-white border border-line rounded-[14px] p-4 shadow-sm mb-4 grid md:grid-cols-[1fr_1fr_auto] gap-3 items-end">
+      <form onSubmit={onAdd} className="bg-bg-alt border border-line rounded-[14px] p-4 shadow-sm mb-4 grid md:grid-cols-[1fr_1fr_auto] gap-3 items-end">
         <div>
           <label className="block text-xs font-semibold tracking-wide uppercase text-muted mb-1.5">Aluno (anônimo)</label>
           <input
@@ -124,7 +124,7 @@ export function NotasTable({ disciplinaId, disciplinaLabel, notas: initialNotas,
         </button>
       </form>
 
-      <div className="bg-white border border-line rounded-[14px] shadow-sm overflow-hidden">
+      <div className="bg-bg-alt border border-line rounded-[14px] shadow-sm overflow-hidden">
         <div className="flex flex-wrap items-center gap-3 p-3 border-b border-line bg-bg/50">
           <div className="flex gap-1.5 text-xs">
             {(["all", "aprovado", "reprovado"] as const).map((f) => (
@@ -132,7 +132,7 @@ export function NotasTable({ disciplinaId, disciplinaLabel, notas: initialNotas,
                 key={f}
                 onClick={() => setFilter(f)}
                 className={`px-3 py-1.5 rounded-full font-semibold transition-colors ${
-                  filter === f ? "bg-ink-2 text-white" : "bg-white border border-line-2 text-ink-2 hover:border-accent"
+                  filter === f ? "bg-ink-2 text-white" : "bg-bg-alt border border-line-2 text-ink-2 hover:border-accent"
                 }`}
               >
                 {f === "all" ? "Todos" : f === "aprovado" ? "Aprovados" : "Reprovados"}
@@ -149,7 +149,7 @@ export function NotasTable({ disciplinaId, disciplinaLabel, notas: initialNotas,
 
         <div className="overflow-x-auto max-h-[600px] overflow-y-auto">
           <table className="w-full border-collapse text-sm">
-            <thead className="sticky top-0 bg-white">
+            <thead className="sticky top-0 bg-bg-alt">
               <tr className="border-b border-line">
                 <th className="text-left px-4 py-2.5 text-[11px] tracking-wider uppercase text-muted font-semibold">Aluno</th>
                 <th className="text-center px-4 py-2.5 text-[11px] tracking-wider uppercase text-muted font-semibold w-32">Nota</th>
@@ -173,14 +173,14 @@ export function NotasTable({ disciplinaId, disciplinaLabel, notas: initialNotas,
                           className="w-20 px-2 py-1 border border-accent rounded text-sm text-center tabular-nums"
                         />
                       ) : (
-                        <span className={`font-semibold tabular-nums ${aprovado ? "text-emerald-600" : "text-red-600"}`}>
+                        <span className={`font-semibold tabular-nums ${aprovado ? "text-success" : "text-danger"}`}>
                           {n.nota.toFixed(2).replace(".", ",")}
                         </span>
                       )}
                     </td>
                     <td className="px-4 py-2.5 text-center">
                       <span className={`inline-block px-2 py-0.5 rounded-full text-[11px] font-semibold ${
-                        aprovado ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-700"
+                        aprovado ? "bg-success-soft text-success" : "bg-danger-soft text-danger"
                       }`}>
                         {aprovado ? "Aprovado" : "Reprovado"}
                       </span>
@@ -188,13 +188,13 @@ export function NotasTable({ disciplinaId, disciplinaLabel, notas: initialNotas,
                     <td className="px-4 py-2.5 text-right">
                       {editingId === n.id ? (
                         <div className="flex gap-1.5 justify-end">
-                          <button onClick={() => onSave(n.id)} className="text-xs px-2.5 py-1 rounded bg-emerald-600 text-white hover:bg-emerald-700">Salvar</button>
-                          <button onClick={() => setEditingId(null)} className="text-xs px-2.5 py-1 rounded bg-white border border-line-2 hover:border-ink-2">Cancelar</button>
+                          <button onClick={() => onSave(n.id)} className="text-xs px-2.5 py-1 rounded bg-success text-white hover:bg-success/90">Salvar</button>
+                          <button onClick={() => setEditingId(null)} className="text-xs px-2.5 py-1 rounded bg-bg-alt border border-line-2 hover:border-ink-2">Cancelar</button>
                         </div>
                       ) : (
                         <div className="flex gap-1.5 justify-end">
-                          <button onClick={() => { setEditingId(n.id); setEditValue(String(n.nota)); }} className="text-xs px-2.5 py-1 rounded bg-white border border-line-2 hover:border-accent hover:text-accent">Editar</button>
-                          <button onClick={() => onDelete(n.id)} className="text-xs px-2.5 py-1 rounded bg-white border border-line-2 hover:border-red-500 hover:text-red-600">Excluir</button>
+                          <button onClick={() => { setEditingId(n.id); setEditValue(String(n.nota)); }} className="text-xs px-2.5 py-1 rounded bg-bg-alt border border-line-2 hover:border-accent hover:text-accent">Editar</button>
+                          <button onClick={() => onDelete(n.id)} className="text-xs px-2.5 py-1 rounded bg-bg-alt border border-line-2 hover:border-danger hover:text-danger">Excluir</button>
                         </div>
                       )}
                     </td>

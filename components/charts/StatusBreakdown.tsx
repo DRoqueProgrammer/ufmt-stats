@@ -20,7 +20,7 @@ export function StatusBreakdown({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutof
         return (
           <article
             key={g.id}
-            className="relative bg-white border border-line rounded-[14px] p-4 shadow-sm"
+            className="relative bg-bg-alt border border-line rounded-[14px] p-4 shadow-sm"
           >
             {/* Top accent rule — full hairline, not a side-stripe.
                 Color encodes the subject discipline (Cálculo I vs VGA). */}

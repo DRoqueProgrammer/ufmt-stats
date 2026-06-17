@@ -30,7 +30,7 @@ export default async function NotasPage({ searchParams }: { searchParams: Promis
             className={`px-3.5 py-2 rounded-full text-sm font-semibold border transition-colors no-underline ${
               g.id === selected.id
                 ? "bg-ink-2 text-white border-ink-2"
-                : "bg-white text-ink-2 border-line-2 hover:border-accent hover:text-accent"
+                : "bg-bg-alt text-ink-2 border-line-2 hover:border-accent hover:text-accent"
             }`}
           >
             {g.short}

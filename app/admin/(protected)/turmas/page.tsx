@@ -18,7 +18,7 @@ export default async function TurmasPage() {
         {turmas.map((t) => {
           const tgrupos = grupos.filter((g) => g.id.startsWith(t.id + "__"));
           return (
-            <div key={t.id} className="bg-white border border-line rounded-[14px] p-5 shadow-sm">
+            <div key={t.id} className="bg-bg-alt border border-line rounded-[14px] p-5 shadow-sm">
               <header className="mb-3">
                 <strong className="block text-lg font-semibold text-ink-2">{t.nome}</strong>
                 <small className="text-muted text-xs">{t.ano ? `Ano: ${t.ano}` : "Ano não informado"} · {tgrupos.length} disciplinas</small>
@@ -42,11 +42,11 @@ export default async function TurmasPage() {
       </div>
 
       <div className="grid md:grid-cols-2 gap-4">
-        <section className="bg-white border border-line rounded-[14px] p-5 shadow-sm">
+        <section className="bg-bg-alt border border-line rounded-[14px] p-5 shadow-sm">
           <h2 className="text-lg font-semibold text-ink-2 mb-3">+ Nova turma</h2>
           <NovaTurmaForm />
         </section>
-        <section className="bg-white border border-line rounded-[14px] p-5 shadow-sm">
+        <section className="bg-bg-alt border border-line rounded-[14px] p-5 shadow-sm">
           <h2 className="text-lg font-semibold text-ink-2 mb-3">+ Nova disciplina</h2>
           <NovaDisciplinaForm turmas={turmas} />
         </section>

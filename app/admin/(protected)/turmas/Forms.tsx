@@ -78,7 +78,7 @@ export function NovaDisciplinaForm({ turmas }: { turmas: { id: string; nome: str
     <form onSubmit={onSubmit} className="space-y-3">
       <div>
         <label className="block text-xs font-semibold tracking-wide uppercase text-muted mb-1.5">Turma</label>
-        <select value={turmaId} onChange={(e) => setTurmaId(e.target.value)} className="w-full px-3 py-2 border border-line-2 rounded-md text-sm focus:border-accent focus:outline-none bg-white">
+        <select value={turmaId} onChange={(e) => setTurmaId(e.target.value)} className="w-full px-3 py-2 border border-line-2 rounded-md text-sm focus:border-accent focus:outline-none bg-bg-alt">
           {turmas.map((t) => <option key={t.id} value={t.id}>{t.nome}</option>)}
         </select>
       </div>

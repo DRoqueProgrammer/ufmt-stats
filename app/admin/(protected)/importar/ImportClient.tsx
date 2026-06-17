@@ -69,11 +69,11 @@ export function ImportClient({ grupos }: { grupos: Grupo[] }) {
 
   return (
     <div className="space-y-5">
-      <div className="bg-white border border-line rounded-[14px] p-5 shadow-sm">
+      <div className="bg-bg-alt border border-line rounded-[14px] p-5 shadow-sm">
         <div className="grid md:grid-cols-[1fr_1fr] gap-4 mb-4">
           <div>
             <label className="block text-xs font-semibold tracking-wide uppercase text-muted mb-1.5">Disciplina de destino</label>
-            <select value={targetDisc} onChange={(e) => setTargetDisc(e.target.value)} className="w-full px-3 py-2 border border-line-2 rounded-md text-sm focus:border-accent focus:outline-none bg-white">
+            <select value={targetDisc} onChange={(e) => setTargetDisc(e.target.value)} className="w-full px-3 py-2 border border-line-2 rounded-md text-sm focus:border-accent focus:outline-none bg-bg-alt">
               {grupos.map((g) => <option key={g.id} value={g.id}>{g.label}</option>)}
             </select>
           </div>
@@ -99,10 +99,10 @@ export function ImportClient({ grupos }: { grupos: Grupo[] }) {
         </details>
       </div>
 
-      {error && <div className="bg-red-50 border border-red-200 text-red-700 rounded-md px-4 py-3 text-sm">{error}</div>}
+      {error && <div className="bg-danger-soft border border-danger/20 text-danger rounded-md px-4 py-3 text-sm">{error}</div>}
 
       {parsed.length > 0 && (
-        <div className="bg-white border border-line rounded-[14px] shadow-sm overflow-hidden">
+        <div className="bg-bg-alt border border-line rounded-[14px] shadow-sm overflow-hidden">
           <div className="p-4 border-b border-line flex items-center justify-between">
             <div>
               <strong className="font-semibold text-ink-2">Pré-visualização</strong>
@@ -118,7 +118,7 @@ export function ImportClient({ grupos }: { grupos: Grupo[] }) {
           </div>
           <div className="max-h-[400px] overflow-y-auto">
             <table className="w-full text-sm">
-              <thead className="sticky top-0 bg-white border-b border-line">
+              <thead className="sticky top-0 bg-bg-alt border-b border-line">
                 <tr>
                   <th className="text-left px-4 py-2 text-xs uppercase text-muted font-semibold">Aluno</th>
                   <th className="text-center px-4 py-2 text-xs uppercase text-muted font-semibold">Nota</th>
@@ -132,7 +132,7 @@ export function ImportClient({ grupos }: { grupos: Grupo[] }) {
                     <td className="px-4 py-2 text-center tabular-nums font-semibold text-ink-2">{r.nota.toFixed(2).replace(".", ",")}</td>
                     <td className="px-4 py-2 text-center">
                       <span className={`inline-block px-2 py-0.5 rounded-full text-[11px] font-semibold ${
-                        r.nota >= 5 ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-700"
+                        r.nota >= 5 ? "bg-success-soft text-success" : "bg-danger-soft text-danger"
                       }`}>
                         {r.nota >= 5 ? "Aprovado" : "Reprovado"}
                       </span>
@@ -149,7 +149,7 @@ export function ImportClient({ grupos }: { grupos: Grupo[] }) {
       )}
 
       {imported != null && (
-        <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-md px-4 py-3 text-sm">
+        <div className="bg-success-soft border border-success/20 text-success rounded-md px-4 py-3 text-sm">
           ✓ {imported} notas importadas com sucesso{pending ? " (simulado em modo demo)" : ""}.
         </div>
       )}

@@ -21,7 +21,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
             <span className="font-sans font-bold text-base tracking-wider text-ink">Painel Admin · UFMT</span>
           </a>
         </div>
-        <div className="bg-white border border-line rounded-[14px] p-8 shadow-md">
+        <div className="bg-bg-alt border border-line rounded-[14px] p-8 shadow-md">
           <h1 className="font-serif text-2xl font-semibold text-ink-2 mb-1">Entrar</h1>
           <p className="text-muted text-sm mb-6">
             {isSupabaseEnabled

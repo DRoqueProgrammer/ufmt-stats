@@ -65,7 +65,7 @@ export default async function AdminOverview() {
           ].map((kpi) => (
             <div
               key={kpi.label}
-              className="bg-white border border-line rounded-[14px] p-4 shadow-sm"
+              className="bg-bg-alt border border-line rounded-[14px] p-4 shadow-sm"
             >
               <div className="font-serif text-2xl font-semibold text-ink-2 leading-none tabular-nums">
                 {kpi.value}
@@ -81,7 +81,7 @@ export default async function AdminOverview() {
           <Link
             key={g.id}
             href={`/admin/notas?disc=${encodeURIComponent(g.id)}`}
-            className="block bg-white border border-line rounded-[14px] p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all no-underline"
+            className="block bg-bg-alt border border-line rounded-[14px] p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all no-underline"
           >
             <div className="flex items-start justify-between mb-3">
               <div>
@@ -166,7 +166,7 @@ export default async function AdminOverview() {
         <div className="grid grid-rows-2 gap-3">
           <Link
             href="/admin/turmas"
-            className="bg-white border border-line rounded-[14px] p-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all no-underline flex items-start gap-3"
+            className="bg-bg-alt border border-line rounded-[14px] p-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all no-underline flex items-start gap-3"
           >
             <span aria-hidden="true" className="w-8 h-8 rounded-md bg-primary-soft text-primary grid place-items-center flex-shrink-0">
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -181,7 +181,7 @@ export default async function AdminOverview() {
           </Link>
           <Link
             href="/admin/importar"
-            className="bg-white border border-line rounded-[14px] p-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all no-underline flex items-start gap-3"
+            className="bg-bg-alt border border-line rounded-[14px] p-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all no-underline flex items-start gap-3"
           >
             <span aria-hidden="true" className="w-8 h-8 rounded-md bg-accent-soft text-accent grid place-items-center flex-shrink-0">
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

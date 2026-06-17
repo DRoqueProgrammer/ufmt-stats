@@ -64,7 +64,7 @@ export default async function HomePage() {
             </ul>
           </div>
 
-          <aside className="bg-white border border-line rounded-[22px] p-8 shadow-md relative">
+          <aside className="bg-bg-alt border border-line rounded-[22px] p-8 shadow-md relative">
             <div className="absolute top-0 left-6 right-6 h-1 bg-gradient-to-r from-accent to-accent-2 rounded-b" />
             <span className="text-[11px] font-semibold tracking-widest uppercase text-muted">
               Taxa média de aprovação
@@ -150,7 +150,7 @@ export default async function HomePage() {
       </section>
 
       {/* ============== METODOLOGIA ============== */}
-      <section id="metodologia" className="py-20 bg-white border-y border-line">
+      <section id="metodologia" className="py-20 bg-bg-alt border-y border-line">
         <div className="container mx-auto px-6 max-w-[860px]">
           <span className="eyebrow">Metodologia</span>
           <h2 className="text-3xl md:text-4xl font-semibold mb-5">Como os dados foram tratados</h2>
@@ -165,7 +165,7 @@ export default async function HomePage() {
               ["2", "Taxas de aprovação", "Considerou-se aprovada a obtenção de nota ≥ 5,0, conforme as diretrizes da UFMT."],
               ["3", "Visualização dos dados", "Boxplots e histogramas para a distribuição de notas, e gráfico de barras para comparar as taxas de aprovação."],
             ].map(([num, title, desc]) => (
-              <li key={num} className="grid grid-cols-[auto_1fr] gap-4 bg-white border border-line rounded-[14px] p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
+              <li key={num} className="grid grid-cols-[auto_1fr] gap-4 bg-bg-alt border border-line rounded-[14px] p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
                 <span className="w-10 h-10 rounded-[10px] grid place-items-center bg-primary-soft text-primary font-serif font-semibold text-lg">{num}</span>
                 <div>
                   <h3 className="text-lg font-semibold mb-1.5">{title}</h3>
@@ -187,7 +187,7 @@ export default async function HomePage() {
             disciplinas, com medianas que evidenciam a dificuldade geral dos estudantes.
           </p>
 
-          <div className="border border-line rounded-[14px] overflow-hidden bg-white shadow-sm overflow-x-auto">
+          <div className="border border-line rounded-[14px] overflow-hidden bg-bg-alt shadow-sm overflow-x-auto">
             <table className="w-full min-w-[640px] border-collapse">
               <thead>
                 <tr>
@@ -211,7 +211,7 @@ export default async function HomePage() {
                   ["Nº de alunos", (g: Grupo) => String(g.notas.length)],
                   ["Aprovação (%)", (g: Grupo) => g.approval.toFixed(2).replace(".", ",") + "%"],
                 ].map(([label, fn]: any, i) => (
-                  <tr key={label} className={i % 2 === 0 ? "bg-white" : "bg-bg-subtle"}>
+                  <tr key={label} className={i % 2 === 0 ? "bg-bg-alt" : "bg-bg-subtle"}>
                     <th scope="row" className="px-4 py-3 text-left font-semibold text-ink-2 border-t border-line text-sm">{label}</th>
                     {grupos.map((g) => (
                       <td key={g.id} className="px-4 py-3 text-center text-sm border-t border-line tabular-nums">
@@ -240,7 +240,7 @@ export default async function HomePage() {
                 { label: "VGA levemente melhor", body: "Em ambas as turmas, VGA apresenta médias e medianas superiores às de Cálculo I — perfis de dificuldade distintos." },
                 { label: "Zeros pesam mais do que a taxa sugere", body: "Em 3 dos 4 grupos, mais de 40% zeraram ou não compareceram à prova final." },
               ].map((o) => (
-                <li key={o.label} className="bg-white border border-line rounded-[14px] p-4 shadow-sm flex gap-4">
+                <li key={o.label} className="bg-bg-alt border border-line rounded-[14px] p-4 shadow-sm flex gap-4">
                   <span aria-hidden="true" className="flex-shrink-0 mt-1 w-2 h-2 rounded-full bg-accent" />
                   <div>
                     <strong className="block text-ink-2 font-semibold mb-1">{o.label}</strong>
@@ -254,7 +254,7 @@ export default async function HomePage() {
       </section>
 
       {/* ============== DISTRIBUIÇÃO ============== */}
-      <section id="distribuicao" className="py-20 bg-white border-y border-line">
+      <section id="distribuicao" className="py-20 bg-bg-alt border-y border-line">
         <div className="container mx-auto px-6 max-w-[1200px]">
           <span className="eyebrow">Visualizações</span>
           <h2 className="text-3xl md:text-4xl font-semibold mb-4">Distribuição das notas</h2>
@@ -263,26 +263,14 @@ export default async function HomePage() {
             colada ao quartil inferior e alguns valores atípicos superiores.
           </p>
 
-          <div className="bg-white border border-line rounded-[14px] p-6 shadow-sm mb-5">
+          <div className="bg-bg-alt border border-line rounded-[14px] p-6 shadow-sm mb-5">
             <div className="flex items-center justify-between flex-wrap gap-3 mb-5">
               <h3 className="text-lg font-semibold m-0">Figura 1 · Boxplot (min, Q1, mediana, Q3, máximo)</h3>
-              <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-xs text-muted">
-                <span className="flex items-center gap-1.5">
-                  <span className="w-3 h-3 inline-block rounded-sm" style={{background:"var(--x)"}} aria-hidden="true" />
-                  Turma X <small className="text-muted-2">(caixa)</small>
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <span className="w-3 h-3 inline-block rounded-sm" style={{background:"var(--y)"}} aria-hidden="true" />
-                  Turma Y <small className="text-muted-2">(caixa)</small>
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <span className="w-2 h-2 inline-block rotate-45" style={{background:"var(--calc)"}} aria-hidden="true" />
-                  Cálculo I <small className="text-muted-2">(◇ média)</small>
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <span className="w-2 h-2 inline-block rotate-45" style={{background:"var(--vga)"}} aria-hidden="true" />
-                  VGA <small className="text-muted-2">(◇ média)</small>
-                </span>
+              <div className="flex flex-wrap gap-3 text-xs text-muted">
+                <span className="flex items-center gap-1.5 before:content-[''] before:w-3 before:h-3 before:rounded-sm before:bg-x" style={{ position: "relative" }}><span className="w-3 h-3 inline-block rounded-sm" style={{background:"var(--x)"}}/>Turma X</span>
+                <span className="flex items-center gap-1.5"><span className="w-3 h-3 inline-block rounded-sm" style={{background:"var(--y)"}}/>Turma Y</span>
+                <span className="flex items-center gap-1.5"><span className="w-3 h-3 inline-block rounded-sm" style={{background:"var(--calc)"}}/>Cálculo I</span>
+                <span className="flex items-center gap-1.5"><span className="w-3 h-3 inline-block rounded-sm" style={{background:"var(--vga)"}}/>VGA</span>
               </div>
             </div>
             <Boxplot grupos={grupos} cutoff={5} />
@@ -297,7 +285,7 @@ export default async function HomePage() {
             </p>
           </div>
 
-          <div className="bg-white border border-line rounded-[14px] p-6 shadow-sm">
+          <div className="bg-bg-alt border border-line rounded-[14px] p-6 shadow-sm">
             <div className="flex items-center justify-between flex-wrap gap-3 mb-5">
               <h3 className="text-lg font-semibold m-0">Figura 2 · Histograma — frequência de notas</h3>
               <span className="text-muted text-xs">Calculado a partir das notas brutas</span>
@@ -322,13 +310,13 @@ export default async function HomePage() {
           </p>
 
           <div className="grid md:grid-cols-[1.7fr_1fr] gap-5">
-            <div className="bg-white border border-line rounded-[14px] p-6 shadow-sm" style={{ background: "linear-gradient(180deg, #fff 0%, #fafbfd 100%)" }}>
+            <div className="bg-bg-alt border border-line rounded-[14px] p-6 shadow-sm" style={{ background: "linear-gradient(180deg, #fff 0%, #fafbfd 100%)" }}>
               <h3 className="text-lg font-semibold mb-4">Figura 3 · Taxa de aprovação por turma e disciplina</h3>
               <ApprovalBars grupos={grupos} cutoff={5} />
             </div>
             <ul className="space-y-2.5">
               {grupos.map((g) => (
-                <li key={g.id} className="flex items-center gap-3 bg-white border border-line rounded-[14px] p-4 shadow-sm">
+                <li key={g.id} className="flex items-center gap-3 bg-bg-alt border border-line rounded-[14px] p-4 shadow-sm">
                   <span className="w-3 h-3 rounded-full flex-shrink-0" style={{ background: g.disciplinaColor }} />
                   <div>
                     <strong className="font-serif text-2xl text-ink-2 font-semibold leading-none block">
@@ -349,7 +337,7 @@ export default async function HomePage() {
       </section>
 
       {/* ============== STATUS / ANÁLISE APROFUNDADA ============== */}
-      <section id="status" className="py-20 bg-white border-y border-line">
+      <section id="status" className="py-20 bg-bg-alt border-y border-line">
         <div className="container mx-auto px-6 max-w-[1200px]">
           <span className="eyebrow">Análise de status</span>
           <h2 className="text-3xl md:text-4xl font-semibold mb-4">Aprovados, reprovados e zeros</h2>
@@ -370,8 +358,8 @@ export default async function HomePage() {
                 isso indica que boa parte dos "reprovados" nem chegou a ser avaliada de fato.
               </p>
             </div>
-            <div className="bg-emerald-50 border border-emerald-200 rounded-[14px] p-5">
-              <div className="text-xs font-semibold tracking-wide uppercase text-emerald-700 mb-1">Leitura por disciplina</div>
+            <div className="bg-success-soft border border-success/20 rounded-[14px] p-5">
+              <div className="text-xs font-semibold tracking-wide uppercase text-success mb-1">Leitura por disciplina</div>
               <p className="text-ink-2 m-0 text-sm">
                 <strong>VGA</strong> consistentemente apresenta mais aprovados que <strong>Cálculo I</strong>
                 em ambas as turmas. A diferença é pequena em números absolutos, mas sugere perfis de
@@ -391,7 +379,7 @@ export default async function HomePage() {
       </section>
 
       {/* ============== CONCLUSÃO ============== */}
-      <section id="conclusao" className="py-20 bg-white border-y border-line">
+      <section id="conclusao" className="py-20 bg-bg-alt border-y border-line">
         <div className="container mx-auto px-6 max-w-[1200px]">
           <span className="eyebrow">Conclusão</span>
           <h2 className="text-3xl md:text-4xl font-semibold mb-4">Um quadro que pede ação</h2>
@@ -403,7 +391,7 @@ export default async function HomePage() {
           </p>
 
           <div className="grid md:grid-cols-2 gap-5">
-            <article className="bg-white border border-line rounded-[14px] p-6 shadow-sm relative overflow-hidden">
+            <article className="bg-bg-alt border border-line rounded-[14px] p-6 shadow-sm relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-1 bg-primary" />
               <header className="flex items-center gap-2 mb-3"><span aria-hidden="true" className="text-xl">🔍</span><h3 className="text-lg font-semibold m-0">Diagnóstico</h3></header>
               <p className="text-muted m-0">
@@ -411,7 +399,7 @@ export default async function HomePage() {
                 pré-requisitos dos ingressantes e adequação da carga horária.
               </p>
             </article>
-            <article className="bg-white border border-line rounded-[14px] p-6 shadow-sm relative overflow-hidden">
+            <article className="bg-bg-alt border border-line rounded-[14px] p-6 shadow-sm relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-1 bg-accent" />
               <header className="flex items-center gap-2 mb-3"><span aria-hidden="true" className="text-xl">🎯</span><h3 className="text-lg font-semibold m-0">Ação</h3></header>
               <p className="text-muted m-0">
@@ -436,7 +424,7 @@ export default async function HomePage() {
 
           <div className="grid md:grid-cols-3 gap-4">
             {autores.map((a) => (
-              <article key={a.nome} className="bg-white border border-line rounded-[14px] p-6 text-center shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
+              <article key={a.nome} className="bg-bg-alt border border-line rounded-[14px] p-6 text-center shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
                 <div
                   className="w-16 h-16 rounded-full mx-auto mb-4 grid place-items-center text-white font-serif font-semibold text-xl"
                   style={{ background: a.orientador ? "linear-gradient(135deg, #ff6b3d, #ff8c66)" : "linear-gradient(135deg, #1a3a5c, #244a73)" }}

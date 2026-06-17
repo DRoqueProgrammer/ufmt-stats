@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { ThemeToggle } from "./ThemeToggle";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -26,7 +27,7 @@ export default function Navbar() {
   return (
     <header
       className={`sticky z-50 backdrop-blur transition-colors ${
-        scrolled ? "bg-white/85 border-b border-line" : "bg-transparent"
+        scrolled ? "bg-bg-alt/85 border-b border-line" : "bg-transparent"
       }`}
       style={{ top: scrolled ? 0 : 24, paddingTop: "env(safe-area-inset-top)" }}
     >
@@ -63,21 +64,25 @@ export default function Navbar() {
           >
             Admin
           </a>
+          <ThemeToggle />
         </nav>
 
-        <button
-          className="md:hidden min-h-[44px] min-w-[44px] grid place-items-center border border-line-2 rounded-md text-ink-2 hover:border-accent hover:text-accent transition-colors"
-          onClick={() => setOpen(!open)}
-          aria-label={open ? "Fechar menu" : "Abrir menu"}
-          aria-expanded={open}
-        >
-          <span aria-hidden="true" className="text-lg leading-none">{open ? "✕" : "☰"}</span>
-        </button>
+        <div className="md:hidden flex items-center gap-2">
+          <ThemeToggle />
+          <button
+            className="min-h-[44px] min-w-[44px] grid place-items-center border border-line-2 rounded-md text-ink-2 hover:border-accent hover:text-accent transition-colors"
+            onClick={() => setOpen(!open)}
+            aria-label={open ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={open}
+          >
+            <span aria-hidden="true" className="text-lg leading-none">{open ? "✕" : "☰"}</span>
+          </button>
+        </div>
       </div>
 
       {open && (
         <nav
-          className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-line shadow-md flex flex-col px-6 py-3 gap-1"
+          className="md:hidden absolute top-full left-0 right-0 bg-bg-alt border-b border-line shadow-md flex flex-col px-6 py-3 gap-1"
           aria-label="Navegação principal"
         >
           {links.map(([href, label]) => (
