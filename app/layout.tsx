@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { isDemoMode } from "@/lib/data";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "Análise de Desempenho Acadêmico em Cálculo I e VGA — UFMT",
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         {isDemoMode() && <DemoBanner />}
         {children}
+        <Analytics />
       </body>
     </html>
   );
