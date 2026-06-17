@@ -164,7 +164,7 @@ export function Boxplot({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?: numb
             legend: { display: false },
             tooltip: {
               enabled: true,
-              backgroundColor: theme.ink, titleColor: theme.white, bodyColor: theme.onDark, padding: 10,
+              backgroundColor: theme.ink, titleColor: theme.bg, bodyColor: theme.bg, padding: 10,
               external: (ctx: any) => {
                 const tooltip = ctx.tooltip;
                 const chart = ctx.chart;
@@ -283,7 +283,7 @@ export function Histogram({ grupos, cutoff = 5, bins = 10 }: { grupos: Grupo[]; 
           },
           plugins: {
             legend: { position: "top", align: "end", labels: { boxWidth: 12, boxHeight: 12, color: theme.ink2, font: { size: 11 } } },
-            tooltip: { backgroundColor: theme.ink, titleColor: theme.white, bodyColor: theme.onDark, padding: 10,
+            tooltip: { backgroundColor: theme.ink, titleColor: theme.bg, bodyColor: theme.bg, padding: 10,
               callbacks: { title: (items: any) => `Faixa ${items[0].label}`, label: (c: any) => ` ${c.dataset.label}: ${c.parsed.y.toFixed(1)}%` }
             },
             referenceLine: { value: cutoff },
@@ -374,7 +374,7 @@ export function ApprovalBars({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?:
           },
           plugins: {
             legend: { display: false },
-            tooltip: { backgroundColor: theme.ink, titleColor: theme.white, bodyColor: theme.onDark, padding: 10,
+            tooltip: { backgroundColor: theme.ink, titleColor: theme.bg, bodyColor: theme.bg, padding: 10,
               callbacks: { title: (items: any) => items[0].label, label: (c: any) => {
                 const g = grupos[c.dataIndex];
                 return ` ${g.approval.toFixed(2)}% de aprovação`;

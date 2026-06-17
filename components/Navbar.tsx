@@ -60,7 +60,7 @@ export default function Navbar() {
           ))}
           <a
             href="/admin"
-            className="ml-2 px-4 py-1.5 text-xs font-semibold text-white rounded-full bg-ink-2 hover:bg-ink transition-colors min-h-[36px] grid place-items-center"
+            className="ml-2 px-4 py-1.5 text-xs font-semibold text-bg rounded-full bg-ink-2 hover:bg-ink transition-colors min-h-[36px] grid place-items-center"
           >
             Admin
           </a>

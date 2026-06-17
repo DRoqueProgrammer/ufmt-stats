@@ -452,15 +452,15 @@ export default async function HomePage() {
       </section>
 
       {/* ============== FOOTER ============== */}
-      <footer className="bg-ink-2 text-on-dark py-9 text-sm">
+      <footer className="bg-ink text-bg py-9 text-sm">
         <div className="container mx-auto px-6 max-w-[1200px] flex items-start justify-between flex-wrap gap-8">
           <div>
             <strong className="text-bg block">{meta.universidade}</strong>
-            <small className="text-on-dark-muted">Análise de Desempenho Acadêmico em Cálculo I e VGA</small>
+            <small className="text-muted-2">Análise de Desempenho Acadêmico em Cálculo I e VGA</small>
           </div>
           <div className="max-w-[540px]">
             <span className="text-accent font-semibold">Referência: </span>
-            <em className="not-italic text-on-dark italic">{meta.referencia}</em>
+            <em className="not-italic text-muted-2 italic">{meta.referencia}</em>
           </div>
         </div>
       </footer>
