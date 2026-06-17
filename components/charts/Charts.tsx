@@ -158,7 +158,7 @@ export function Boxplot({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?: numb
           layout: { padding: { top: 18 } },
           scales: {
             x: { ticks: { color: theme.ink2, font: { size: 12, weight: 500 } }, grid: { display: false } },
-            y: { min: 0, max: 10, title: { display: true, text: "Nota final (0 a 10)", color: theme.muted, font: { size: 12, weight: 500 } }, ticks: { color: theme.muted, font: { size: 11 } }, grid: { color: theme.line } },
+            y: { min: 0, max: 10, title: { display: true, text: "Nota final (0 a 10)", color: theme.ink2, font: { size: 12, weight: 500 } }, ticks: { color: theme.ink2, font: { size: 11 } }, grid: { color: theme.line } },
           },
           plugins: {
             legend: { display: false },
@@ -278,8 +278,8 @@ export function Histogram({ grupos, cutoff = 5, bins = 10 }: { grupos: Grupo[]; 
           maintainAspectRatio: false,
           interaction: { mode: "index", intersect: false },
           scales: {
-            x: { title: { display: true, text: "Faixa de nota final (0 a 10)", color: theme.muted, font: { size: 12, weight: 500 } }, ticks: { color: theme.muted, font: { size: 11 } }, grid: { display: false } },
-            y: { title: { display: true, text: "Frequência relativa (%)", color: theme.muted, font: { size: 12, weight: 500 } }, beginAtZero: true, ticks: { color: theme.muted, font: { size: 11 }, callback: (v: any) => v + "%" }, grid: { color: theme.line } },
+            x: { title: { display: true, text: "Faixa de nota final (0 a 10)", color: theme.ink2, font: { size: 12, weight: 500 } }, ticks: { color: theme.ink2, font: { size: 11 } }, grid: { display: false } },
+            y: { title: { display: true, text: "Frequência relativa (%)", color: theme.ink2, font: { size: 12, weight: 500 } }, beginAtZero: true, ticks: { color: theme.ink2, font: { size: 11 }, callback: (v: any) => v + "%" }, grid: { color: theme.line } },
           },
           plugins: {
             legend: { position: "top", align: "end", labels: { boxWidth: 12, boxHeight: 12, color: theme.ink2, font: { size: 11 } } },
@@ -370,7 +370,7 @@ export function ApprovalBars({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?:
           layout: { padding: { top: 30 } },
           scales: {
             x: { ticks: { color: theme.ink2, font: { size: 12, weight: 500 } }, grid: { display: false } },
-            y: { min: 0, max: 50, title: { display: true, text: "Aprovação (%)", color: theme.muted, font: { size: 12, weight: 500 } }, ticks: { color: theme.muted, font: { size: 11 }, callback: (v: any) => v + "%" }, grid: { color: theme.line } },
+            y: { min: 0, max: 50, title: { display: true, text: "Aprovação (%)", color: theme.ink2, font: { size: 12, weight: 500 } }, ticks: { color: theme.ink2, font: { size: 11 }, callback: (v: any) => v + "%" }, grid: { color: theme.line } },
           },
           plugins: {
             legend: { display: false },

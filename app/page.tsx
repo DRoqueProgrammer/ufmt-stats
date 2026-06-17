@@ -267,10 +267,22 @@ export default async function HomePage() {
             <div className="flex items-center justify-between flex-wrap gap-3 mb-5">
               <h3 className="text-lg font-semibold m-0">Figura 1 · Boxplot (min, Q1, mediana, Q3, máximo)</h3>
               <div className="flex flex-wrap gap-3 text-xs text-muted-2">
-                <span className="flex items-center gap-1.5 before:content-[''] before:w-3 before:h-3 before:rounded-sm before:bg-x" style={{ position: "relative" }}><span className="w-3 h-3 inline-block rounded-sm" style={{background:"var(--x)"}}/>Turma X</span>
-                <span className="flex items-center gap-1.5"><span className="w-3 h-3 inline-block rounded-sm" style={{background:"var(--y)"}}/>Turma Y</span>
-                <span className="flex items-center gap-1.5"><span className="w-3 h-3 inline-block rounded-sm" style={{background:"var(--calc)"}}/>Cálculo I</span>
-                <span className="flex items-center gap-1.5"><span className="w-3 h-3 inline-block rounded-sm" style={{background:"var(--vga)"}}/>VGA</span>
+                <span className="flex items-center gap-1.5">
+                  <span className="w-3 h-3 inline-block rounded-sm" style={{background:"var(--x)"}} aria-hidden="true" />
+                  Turma X <small className="text-muted-2">(caixa)</small>
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <span className="w-3 h-3 inline-block rounded-sm" style={{background:"var(--y)"}} aria-hidden="true" />
+                  Turma Y <small className="text-muted-2">(caixa)</small>
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2 h-2 inline-block rotate-45" style={{background:"var(--calc)"}} aria-hidden="true" />
+                  Cálculo I <small className="text-muted-2">(◇ média)</small>
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <span className="w-2 h-2 inline-block rotate-45" style={{background:"var(--vga)"}} aria-hidden="true" />
+                  VGA <small className="text-muted-2">(◇ média)</small>
+                </span>
               </div>
             </div>
             <Boxplot grupos={grupos} cutoff={5} />
