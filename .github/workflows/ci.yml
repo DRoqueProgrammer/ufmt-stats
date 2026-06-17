@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Cancela runs anteriores se fizer novo push na mesma PR
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build & Type Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 📦 Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: 🔍 Type check
+        run: npx tsc --noEmit
+
+      - name: 🏗️ Build
+        run: npm run build
+        env:
+          # O build funciona sem Supabase (cai em modo demo automaticamente)
+          NEXT_PUBLIC_SUPABASE_URL: ''
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ''
+
+  audit:
+    name: Security audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    # Só roda em PRs (não em main, pra não ficar reclamando de moderate todo dia)
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 📦 Install
+        run: npm ci --no-audit --no-fund
+
+      - name: 🔒 Audit (fails on critical only)
+        # `--audit-level=critical` ignora moderate/low
+        # Pra falhar em qualquer vulnerabilidade, tira esse flag
+        run: npm audit --audit-level=critical || (echo "::warning::Vulnerabilidades críticas encontradas. Veja https://github.com/${{ github.repository }}/security/dependabot" && exit 1)

@@ -1,43 +1,52 @@
-
 version: 2
-
 updates:
-
+  # Pacotes npm (package.json + package-lock.json)
   - package-ecosystem: "npm"
-
     directory: "/"
-
     schedule:
-
       interval: "weekly"
-
       day: "monday"
-
       time: "09:00"
-
       timezone: "America/Sao_Paulo"
-
+    # Limita PRs abertas ao mesmo tempo (evita spam)
     open-pull-requests-limit: 5
-
+    # Agrupa updates em grupos lógicos
     groups:
-
-      next-and-react:
-
+      # Next.js + React (são interdependentes, sempre juntos)
+      framework:
         patterns:
-
           - "next"
-
           - "react"
-
           - "react-dom"
-
-      patch-updates:
-
-        update-types: ["minor", "patch"]
-
+          - "@types/react*"
+      # Tudo que é patch/minor agrupado
+      minor-and-patch:
+        applies-to: version-updates
+        update-types:
+          - "minor"
+          - "patch"
+      # Dependências de dev (eslint, typescript, tailwind, etc.)
+      dev-dependencies:
+        dependency-type: "development"
+    # Labels automáticos (ajuda a filtrar no GitHub)
     labels:
-
       - "dependencies"
-
       - "automated"
+    # Auto-assign pra você mesmo (se quiser)
+    # assignees:
+    #   - "DRoqueProgrammer"
+    # Auto-merge de patches (só funciona se você ativar auto-merge no repo)
+    # Para ativar: Settings → General → Allow auto-merge
+    # commit-message:
+    #   prefix: "chore(deps)"
+    #   include: "scope"
 
+  # GitHub Actions (se começar a usar mais)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 3
+    labels:
+      - "ci"
+      - "automated"
