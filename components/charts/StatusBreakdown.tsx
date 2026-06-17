@@ -44,7 +44,7 @@ export function StatusBreakdown({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutof
               >
                 {aprovPct.toFixed(0)}%
               </span>
-              <span className="text-xs text-muted">aprovados</span>
+              <span className="text-xs text-muted-2">aprovados</span>
             </div>
 
             <div className="flex gap-1.5 flex-wrap mb-3">

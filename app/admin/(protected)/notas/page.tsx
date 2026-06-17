@@ -12,14 +12,14 @@ export default async function NotasPage({ searchParams }: { searchParams: Promis
   const selected = grupos.find((g) => g.id === discId) ?? grupos[0];
 
   if (!selected) {
-    return <div className="container mx-auto px-6 max-w-[1200px] py-10 text-muted">Nenhuma turma cadastrada.</div>;
+    return <div className="container mx-auto px-6 max-w-[1200px] py-10 text-muted-2">Nenhuma turma cadastrada.</div>;
   }
 
   return (
     <div className="container mx-auto px-6 max-w-[1200px] py-10">
       <div className="mb-7">
         <h1 className="font-serif text-3xl font-semibold mb-1.5">Gerenciar notas</h1>
-        <p className="text-muted m-0">Visualize, edite ou remova as notas de cada aluno. As alterações refletem em tempo real na página pública.</p>
+        <p className="text-muted-2 m-0">Visualize, edite ou remova as notas de cada aluno. As alterações refletem em tempo real na página pública.</p>
       </div>
 
       <div className="flex flex-wrap gap-2 mb-5">

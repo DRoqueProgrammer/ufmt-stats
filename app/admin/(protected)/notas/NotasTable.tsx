@@ -88,14 +88,14 @@ export function NotasTable({ disciplinaId, disciplinaLabel, notas: initialNotas,
         ].map((k) => (
           <div key={k.label} className="bg-bg-alt border border-line rounded-[14px] p-4 shadow-sm">
             <div className="font-serif text-2xl font-semibold text-ink-2 tabular-nums">{k.value}</div>
-            <div className="text-xs text-muted mt-1">{k.label}</div>
+            <div className="text-xs text-muted-2 mt-1">{k.label}</div>
           </div>
         ))}
       </div>
 
       <form onSubmit={onAdd} className="bg-bg-alt border border-line rounded-[14px] p-4 shadow-sm mb-4 grid md:grid-cols-[1fr_1fr_auto] gap-3 items-end">
         <div>
-          <label className="block text-xs font-semibold tracking-wide uppercase text-muted mb-1.5">Aluno (anônimo)</label>
+          <label className="block text-xs font-semibold tracking-wide uppercase text-muted-2 mb-1.5">Aluno (anônimo)</label>
           <input
             value={newAluno}
             onChange={(e) => setNewAluno(e.target.value)}
@@ -104,7 +104,7 @@ export function NotasTable({ disciplinaId, disciplinaLabel, notas: initialNotas,
           />
         </div>
         <div>
-          <label className="block text-xs font-semibold tracking-wide uppercase text-muted mb-1.5">Nota (0 a 10)</label>
+          <label className="block text-xs font-semibold tracking-wide uppercase text-muted-2 mb-1.5">Nota (0 a 10)</label>
           <input
             type="text"
             inputMode="decimal"
@@ -118,7 +118,7 @@ export function NotasTable({ disciplinaId, disciplinaLabel, notas: initialNotas,
         <button
           type="submit"
           disabled={pending}
-          className="bg-accent text-white px-5 py-2 rounded-md text-sm font-semibold hover:bg-accent-2 transition-colors disabled:opacity-50"
+          className="bg-accent text-bg px-5 py-2 rounded-md text-sm font-semibold hover:bg-accent-2 transition-colors disabled:opacity-50"
         >
           {pending ? "..." : "Adicionar"}
         </button>
@@ -151,10 +151,10 @@ export function NotasTable({ disciplinaId, disciplinaLabel, notas: initialNotas,
           <table className="w-full border-collapse text-sm">
             <thead className="sticky top-0 bg-bg-alt">
               <tr className="border-b border-line">
-                <th className="text-left px-4 py-2.5 text-[11px] tracking-wider uppercase text-muted font-semibold">Aluno</th>
-                <th className="text-center px-4 py-2.5 text-[11px] tracking-wider uppercase text-muted font-semibold w-32">Nota</th>
-                <th className="text-center px-4 py-2.5 text-[11px] tracking-wider uppercase text-muted font-semibold w-28">Status</th>
-                <th className="text-right px-4 py-2.5 text-[11px] tracking-wider uppercase text-muted font-semibold w-32">Ações</th>
+                <th className="text-left px-4 py-2.5 text-[11px] tracking-wider uppercase text-muted-2 font-semibold">Aluno</th>
+                <th className="text-center px-4 py-2.5 text-[11px] tracking-wider uppercase text-muted-2 font-semibold w-32">Nota</th>
+                <th className="text-center px-4 py-2.5 text-[11px] tracking-wider uppercase text-muted-2 font-semibold w-28">Status</th>
+                <th className="text-right px-4 py-2.5 text-[11px] tracking-wider uppercase text-muted-2 font-semibold w-32">Ações</th>
               </tr>
             </thead>
             <tbody>
@@ -188,7 +188,7 @@ export function NotasTable({ disciplinaId, disciplinaLabel, notas: initialNotas,
                     <td className="px-4 py-2.5 text-right">
                       {editingId === n.id ? (
                         <div className="flex gap-1.5 justify-end">
-                          <button onClick={() => onSave(n.id)} className="text-xs px-2.5 py-1 rounded bg-success text-white hover:bg-success/90">Salvar</button>
+                          <button onClick={() => onSave(n.id)} className="text-xs px-2.5 py-1 rounded bg-success text-bg hover:bg-success/90">Salvar</button>
                           <button onClick={() => setEditingId(null)} className="text-xs px-2.5 py-1 rounded bg-bg-alt border border-line-2 hover:border-ink-2">Cancelar</button>
                         </div>
                       ) : (
@@ -203,7 +203,7 @@ export function NotasTable({ disciplinaId, disciplinaLabel, notas: initialNotas,
               })}
               {visible.length === 0 && (
                 <tr>
-                  <td colSpan={4} className="text-center text-muted py-8 text-sm">Nenhum resultado para os filtros atuais.</td>
+                  <td colSpan={4} className="text-center text-muted-2 py-8 text-sm">Nenhum resultado para os filtros atuais.</td>
                 </tr>
               )}
             </tbody>

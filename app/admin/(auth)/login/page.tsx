@@ -23,7 +23,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
         </div>
         <div className="bg-bg-alt border border-line rounded-[14px] p-8 shadow-md">
           <h1 className="font-serif text-2xl font-semibold text-ink-2 mb-1">Entrar</h1>
-          <p className="text-muted text-sm mb-6">
+          <p className="text-muted-2 text-sm mb-6">
             {isSupabaseEnabled
               ? "Use sua conta do Supabase para acessar o painel."
               : "Modo demo — use a senha definida em ADMIN_DEMO_PASSWORD (padrão: ufmt2024)."}

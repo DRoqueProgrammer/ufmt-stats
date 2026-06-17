@@ -72,23 +72,23 @@ export function ImportClient({ grupos }: { grupos: Grupo[] }) {
       <div className="bg-bg-alt border border-line rounded-[14px] p-5 shadow-sm">
         <div className="grid md:grid-cols-[1fr_1fr] gap-4 mb-4">
           <div>
-            <label className="block text-xs font-semibold tracking-wide uppercase text-muted mb-1.5">Disciplina de destino</label>
+            <label className="block text-xs font-semibold tracking-wide uppercase text-muted-2 mb-1.5">Disciplina de destino</label>
             <select value={targetDisc} onChange={(e) => setTargetDisc(e.target.value)} className="w-full px-3 py-2 border border-line-2 rounded-md text-sm focus:border-accent focus:outline-none bg-bg-alt">
               {grupos.map((g) => <option key={g.id} value={g.id}>{g.label}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-xs font-semibold tracking-wide uppercase text-muted mb-1.5">Arquivo (CSV / TSV / XLSX-em-texto)</label>
+            <label className="block text-xs font-semibold tracking-wide uppercase text-muted-2 mb-1.5">Arquivo (CSV / TSV / XLSX-em-texto)</label>
             <input
               type="file"
               accept=".csv,.tsv,.txt"
               onChange={(e) => e.target.files?.[0] && onFile(e.target.files[0])}
-              className="block w-full text-sm text-ink-2 file:mr-3 file:px-3.5 file:py-2 file:rounded-md file:border-0 file:bg-ink-2 file:text-white file:font-semibold file:cursor-pointer hover:file:bg-ink"
+              className="block w-full text-sm text-ink-2 file:mr-3 file:px-3.5 file:py-2 file:rounded-md file:border-0 file:bg-ink-2 file:text-bg file:font-semibold file:cursor-pointer hover:file:bg-ink"
             />
           </div>
         </div>
         <details className="text-sm">
-          <summary className="cursor-pointer text-muted hover:text-ink-2">Colar manualmente (CSV/TSV)</summary>
+          <summary className="cursor-pointer text-muted-2 hover:text-ink-2">Colar manualmente (CSV/TSV)</summary>
           <textarea
             value={csv}
             onChange={(e) => { setCsv(e.target.value); parseCSV(e.target.value); }}
@@ -106,12 +106,12 @@ export function ImportClient({ grupos }: { grupos: Grupo[] }) {
           <div className="p-4 border-b border-line flex items-center justify-between">
             <div>
               <strong className="font-semibold text-ink-2">Pré-visualização</strong>
-              <p className="text-muted text-xs m-0 mt-0.5">{parsed.length} registros prontos para importar</p>
+              <p className="text-muted-2 text-xs m-0 mt-0.5">{parsed.length} registros prontos para importar</p>
             </div>
             <button
               onClick={onImport}
               disabled={pending}
-              className="bg-accent text-white px-5 py-2 rounded-md text-sm font-semibold hover:bg-accent-2 transition-colors disabled:opacity-50"
+              className="bg-accent text-bg px-5 py-2 rounded-md text-sm font-semibold hover:bg-accent-2 transition-colors disabled:opacity-50"
             >
               {pending ? "Importando..." : `Importar ${parsed.length} notas`}
             </button>
@@ -120,9 +120,9 @@ export function ImportClient({ grupos }: { grupos: Grupo[] }) {
             <table className="w-full text-sm">
               <thead className="sticky top-0 bg-bg-alt border-b border-line">
                 <tr>
-                  <th className="text-left px-4 py-2 text-xs uppercase text-muted font-semibold">Aluno</th>
-                  <th className="text-center px-4 py-2 text-xs uppercase text-muted font-semibold">Nota</th>
-                  <th className="text-center px-4 py-2 text-xs uppercase text-muted font-semibold">Status</th>
+                  <th className="text-left px-4 py-2 text-xs uppercase text-muted-2 font-semibold">Aluno</th>
+                  <th className="text-center px-4 py-2 text-xs uppercase text-muted-2 font-semibold">Nota</th>
+                  <th className="text-center px-4 py-2 text-xs uppercase text-muted-2 font-semibold">Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -140,7 +140,7 @@ export function ImportClient({ grupos }: { grupos: Grupo[] }) {
                   </tr>
                 ))}
                 {parsed.length > 100 && (
-                  <tr><td colSpan={3} className="text-center text-muted text-xs py-3">+ {parsed.length - 100} registros omitidos na pré-visualização</td></tr>
+                  <tr><td colSpan={3} className="text-center text-muted-2 text-xs py-3">+ {parsed.length - 100} registros omitidos na pré-visualização</td></tr>
                 )}
               </tbody>
             </table>

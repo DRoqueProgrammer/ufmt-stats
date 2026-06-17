@@ -7,7 +7,7 @@ export function LoginForm() {
     <form action={loginAction} className="space-y-4">
       {isSupabaseEnabled && (
         <div>
-          <label className="block text-xs font-semibold tracking-wide uppercase text-muted mb-1.5">E-mail</label>
+          <label className="block text-xs font-semibold tracking-wide uppercase text-muted-2 mb-1.5">E-mail</label>
           <input
             name="email"
             type="email"
@@ -18,7 +18,7 @@ export function LoginForm() {
         </div>
       )}
       <div>
-        <label className="block text-xs font-semibold tracking-wide uppercase text-muted mb-1.5">Senha</label>
+        <label className="block text-xs font-semibold tracking-wide uppercase text-muted-2 mb-1.5">Senha</label>
         <input
           name="password"
           type="password"
@@ -34,7 +34,7 @@ export function LoginForm() {
         Entrar
       </button>
       {!isSupabaseEnabled && (
-        <p className="text-xs text-muted text-center pt-2 border-t border-line">
+        <p className="text-xs text-muted-2 text-center pt-2 border-t border-line">
           <span aria-hidden="true" className="text-accent">*</span>{" "}
           Dica demo: <code className="font-mono text-ink-2 bg-bg px-1.5 py-0.5 rounded">ufmt2024</code>
         </p>

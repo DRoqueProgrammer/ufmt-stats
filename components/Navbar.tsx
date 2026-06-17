@@ -44,7 +44,7 @@ export default function Navbar() {
             <strong className="font-sans font-bold text-base tracking-wider text-ink">
               UFMT
             </strong>
-            <small className="text-[11px] text-muted tracking-wide">Cálculo I &amp; VGA</small>
+            <small className="text-[11px] text-muted-2 tracking-wide">Cálculo I &amp; VGA</small>
           </span>
         </a>
 

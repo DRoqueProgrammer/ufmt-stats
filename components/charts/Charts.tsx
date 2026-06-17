@@ -61,7 +61,7 @@ function ChartError({ message }: { message: string }) {
           </svg>
         </div>
         <p className="text-sm text-ink-2 font-semibold m-0">Gráfico indisponível</p>
-        <p className="text-xs text-muted m-0 mt-1">{message}</p>
+        <p className="text-xs text-muted-2 m-0 mt-1">{message}</p>
       </div>
     </div>
   );

@@ -29,18 +29,18 @@ export function NovaTurmaForm() {
   return (
     <form onSubmit={onSubmit} className="space-y-3">
       <div>
-        <label className="block text-xs font-semibold tracking-wide uppercase text-muted mb-1.5">Nome da turma</label>
+        <label className="block text-xs font-semibold tracking-wide uppercase text-muted-2 mb-1.5">Nome da turma</label>
         <input value={nome} onChange={(e) => setNome(e.target.value)} required className="w-full px-3 py-2 border border-line-2 rounded-md text-sm focus:border-accent focus:outline-none" placeholder="ex.: Turma Z" />
       </div>
       <div>
-        <label className="block text-xs font-semibold tracking-wide uppercase text-muted mb-1.5">Ano (opcional)</label>
+        <label className="block text-xs font-semibold tracking-wide uppercase text-muted-2 mb-1.5">Ano (opcional)</label>
         <input type="number" value={ano} onChange={(e) => setAno(e.target.value)} className="w-full px-3 py-2 border border-line-2 rounded-md text-sm focus:border-accent focus:outline-none" placeholder="ex.: 2024" />
       </div>
       <div>
-        <label className="block text-xs font-semibold tracking-wide uppercase text-muted mb-1.5">Descrição</label>
+        <label className="block text-xs font-semibold tracking-wide uppercase text-muted-2 mb-1.5">Descrição</label>
         <textarea value={desc} onChange={(e) => setDesc(e.target.value)} rows={2} className="w-full px-3 py-2 border border-line-2 rounded-md text-sm focus:border-accent focus:outline-none" placeholder="ex.: Turma do semestre 2024/1" />
       </div>
-      {msg && <p className="text-sm text-muted bg-bg rounded-md px-3 py-2">{msg}</p>}
+      {msg && <p className="text-sm text-muted-2 bg-bg rounded-md px-3 py-2">{msg}</p>}
       <button type="submit" disabled={pending} className="w-full bg-primary text-bg py-2.5 rounded-md text-sm font-semibold hover:bg-primary-2 transition-colors disabled:opacity-50">
         {pending ? "Criando..." : "Criar turma"}
       </button>
@@ -80,26 +80,26 @@ export function NovaDisciplinaForm({ turmas }: { turmas: { id: string; nome: str
   return (
     <form onSubmit={onSubmit} className="space-y-3">
       <div>
-        <label className="block text-xs font-semibold tracking-wide uppercase text-muted mb-1.5">Turma</label>
+        <label className="block text-xs font-semibold tracking-wide uppercase text-muted-2 mb-1.5">Turma</label>
         <select value={turmaId} onChange={(e) => setTurmaId(e.target.value)} className="w-full px-3 py-2 border border-line-2 rounded-md text-sm focus:border-accent focus:outline-none bg-bg-alt">
           {turmas.map((t) => <option key={t.id} value={t.id}>{t.nome}</option>)}
         </select>
       </div>
       <div>
-        <label className="block text-xs font-semibold tracking-wide uppercase text-muted mb-1.5">Nome</label>
+        <label className="block text-xs font-semibold tracking-wide uppercase text-muted-2 mb-1.5">Nome</label>
         <input value={nome} onChange={(e) => setNome(e.target.value)} required className="w-full px-3 py-2 border border-line-2 rounded-md text-sm focus:border-accent focus:outline-none" placeholder="ex.: Cálculo I" />
       </div>
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="block text-xs font-semibold tracking-wide uppercase text-muted mb-1.5">Código</label>
+          <label className="block text-xs font-semibold tracking-wide uppercase text-muted-2 mb-1.5">Código</label>
           <input value={codigo} onChange={(e) => setCodigo(e.target.value)} required className="w-full px-3 py-2 border border-line-2 rounded-md text-sm focus:border-accent focus:outline-none" />
         </div>
         <div>
-          <label className="block text-xs font-semibold tracking-wide uppercase text-muted mb-1.5">Cor</label>
+          <label className="block text-xs font-semibold tracking-wide uppercase text-muted-2 mb-1.5">Cor</label>
           <input type="color" value={cor} onChange={(e) => setCor(e.target.value)} className="w-full h-[42px] border border-line-2 rounded-md cursor-pointer" />
         </div>
       </div>
-      {msg && <p className="text-sm text-muted bg-bg rounded-md px-3 py-2">{msg}</p>}
+      {msg && <p className="text-sm text-muted-2 bg-bg rounded-md px-3 py-2">{msg}</p>}
       <button type="submit" disabled={pending} className="w-full bg-primary text-bg py-2.5 rounded-md text-sm font-semibold hover:bg-primary-2 transition-colors disabled:opacity-50">
         {pending ? "Criando..." : "Criar disciplina"}
       </button>

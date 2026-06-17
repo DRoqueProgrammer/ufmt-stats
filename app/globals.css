@@ -62,12 +62,12 @@
  */
 .dark {
   --bg: oklch(15% 0.015 250);
-  --bg-alt: oklch(18.5% 0.018 250);
-  --bg-subtle: oklch(22% 0.022 250);
+  --bg-alt: oklch(21% 0.02 250);
+  --bg-subtle: oklch(25% 0.022 250);
   --ink: oklch(92% 0.015 250);
   --ink-2: oklch(96% 0.018 250);
-  --muted: oklch(68% 0.018 250);
-  --muted-2: oklch(60% 0.02 250);
+  --muted: oklch(74% 0.02 250);
+  --muted-2: oklch(66% 0.02 250);
   --line: oklch(28% 0.015 250);
   --line-2: oklch(35% 0.02 250);
   --primary: oklch(72% 0.12 250);

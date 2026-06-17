@@ -44,7 +44,7 @@ export default async function HomePage() {
               <span className="text-accent">Cálculo I</span> e{" "}
               <span className="text-accent">VGA</span>
             </h1>
-            <p className="text-lg text-muted max-w-2xl">
+            <p className="text-lg text-muted-2 max-w-2xl">
               Um panorama quantitativo do aproveitamento de duas turmas (X e Y) nas disciplinas
               de Cálculo I e Vetores e Geometria Analítica, identificando padrões, diferenças e
               sinais de alerta no processo de ensino-aprendizagem.
@@ -66,7 +66,7 @@ export default async function HomePage() {
 
           <aside className="bg-bg-alt border border-line rounded-[22px] p-8 shadow-md relative">
             <div className="absolute top-0 left-6 right-6 h-1 bg-gradient-to-r from-accent to-accent-2 rounded-b" />
-            <span className="text-[11px] font-semibold tracking-widest uppercase text-muted">
+            <span className="text-[11px] font-semibold tracking-widest uppercase text-muted-2">
               Taxa média de aprovação
             </span>
             <div className="flex items-baseline gap-1.5 mt-1.5 mb-2">
@@ -75,7 +75,7 @@ export default async function HomePage() {
               </span>
               <span className="text-2xl text-accent font-semibold">%</span>
             </div>
-            <p className="text-muted text-sm mb-5">
+            <p className="text-muted-2 text-sm mb-5">
               Em 4 combinações de turma &amp; disciplina, nenhuma ultrapassa 33%.
             </p>
             <div className="grid grid-cols-2 gap-3 border-t border-line pt-5">
@@ -84,7 +84,7 @@ export default async function HomePage() {
                   <span className="font-serif font-semibold text-2xl text-ink-2 block">
                     {g.approval.toFixed(2).replace(".", ",")}%
                   </span>
-                  <span className="text-xs text-muted">{g.short}</span>
+                  <span className="text-xs text-muted-2">{g.short}</span>
                 </div>
               ))}
             </div>
@@ -93,7 +93,7 @@ export default async function HomePage() {
       </section>
 
       {/* ============== STRIP ============== */}
-      <section className="bg-gradient-to-br from-primary to-primary-2 text-white py-7">
+      <section className="bg-gradient-to-br from-primary to-primary-2 text-bg py-7">
         <div className="container mx-auto px-6 max-w-[1200px] grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           <div>
             <div className="font-serif font-semibold text-3xl md:text-4xl leading-none">
@@ -139,7 +139,7 @@ export default async function HomePage() {
             panorama quantitativo que subsidie discussões e ações pedagógicas futuras.
           </p>
           <div className="bg-accent-soft border border-accent-soft-border p-5 rounded-[14px] mt-6 flex gap-4">
-            <span aria-hidden="true" className="flex-shrink-0 w-8 h-8 grid place-items-center rounded-full bg-accent text-white font-serif font-semibold">i</span>
+            <span aria-hidden="true" className="flex-shrink-0 w-8 h-8 grid place-items-center rounded-full bg-accent text-bg font-serif font-semibold">i</span>
             <p className="m-0 text-ink-2">
               <strong className="text-accent">Objetivo:</strong> identificar padrões, diferenças e
               similaridades no aproveitamento dos alunos em ambas as disciplinas e turmas, oferecendo
@@ -169,7 +169,7 @@ export default async function HomePage() {
                 <span className="w-10 h-10 rounded-[10px] grid place-items-center bg-primary-soft text-primary font-serif font-semibold text-lg">{num}</span>
                 <div>
                   <h3 className="text-lg font-semibold mb-1.5">{title}</h3>
-                  <p className="text-muted m-0">{desc}</p>
+                  <p className="text-muted-2 m-0">{desc}</p>
                 </div>
               </li>
             ))}
@@ -182,7 +182,7 @@ export default async function HomePage() {
         <div className="container mx-auto px-6 max-w-[1200px]">
           <span className="eyebrow">Resultados</span>
           <h2 className="text-3xl md:text-4xl font-semibold mb-4">Estatísticas descritivas das notas</h2>
-          <p className="text-muted text-lg mb-9">
+          <p className="text-muted-2 text-lg mb-9">
             A análise quantitativa revela um desempenho médio abaixo do esperado em ambas as
             disciplinas, com medianas que evidenciam a dificuldade geral dos estudantes.
           </p>
@@ -229,7 +229,7 @@ export default async function HomePage() {
           <div className="grid md:grid-cols-[1fr_2fr] gap-4 mt-9">
             <aside className="bg-primary-soft border border-line rounded-[14px] p-6 shadow-sm">
               <div className="text-xs font-semibold tracking-wider uppercase text-primary mb-2">Achado central</div>
-              <div className="font-serif font-semibold text-5xl text-ink-2 leading-none mb-3">3<span className="text-2xl text-muted">/4</span></div>
+              <div className="font-serif font-semibold text-5xl text-ink-2 leading-none mb-3">3<span className="text-2xl text-muted-2">/4</span></div>
               <p className="text-ink-2 m-0 text-sm">
                 grupos têm <strong>mediana abaixo de 1,0</strong> — metade dos alunos não atinge esse limiar.
               </p>
@@ -244,7 +244,7 @@ export default async function HomePage() {
                   <span aria-hidden="true" className="flex-shrink-0 mt-1 w-2 h-2 rounded-full bg-accent" />
                   <div>
                     <strong className="block text-ink-2 font-semibold mb-1">{o.label}</strong>
-                    <p className="text-muted m-0 text-sm">{o.body}</p>
+                    <p className="text-muted-2 m-0 text-sm">{o.body}</p>
                   </div>
                 </li>
               ))}
@@ -258,7 +258,7 @@ export default async function HomePage() {
         <div className="container mx-auto px-6 max-w-[1200px]">
           <span className="eyebrow">Visualizações</span>
           <h2 className="text-3xl md:text-4xl font-semibold mb-4">Distribuição das notas</h2>
-          <p className="text-muted text-lg mb-9">
+          <p className="text-muted-2 text-lg mb-9">
             A análise visual revela alta concentração de notas próximas de zero, com a mediana
             colada ao quartil inferior e alguns valores atípicos superiores.
           </p>
@@ -266,7 +266,7 @@ export default async function HomePage() {
           <div className="bg-bg-alt border border-line rounded-[14px] p-6 shadow-sm mb-5">
             <div className="flex items-center justify-between flex-wrap gap-3 mb-5">
               <h3 className="text-lg font-semibold m-0">Figura 1 · Boxplot (min, Q1, mediana, Q3, máximo)</h3>
-              <div className="flex flex-wrap gap-3 text-xs text-muted">
+              <div className="flex flex-wrap gap-3 text-xs text-muted-2">
                 <span className="flex items-center gap-1.5 before:content-[''] before:w-3 before:h-3 before:rounded-sm before:bg-x" style={{ position: "relative" }}><span className="w-3 h-3 inline-block rounded-sm" style={{background:"var(--x)"}}/>Turma X</span>
                 <span className="flex items-center gap-1.5"><span className="w-3 h-3 inline-block rounded-sm" style={{background:"var(--y)"}}/>Turma Y</span>
                 <span className="flex items-center gap-1.5"><span className="w-3 h-3 inline-block rounded-sm" style={{background:"var(--calc)"}}/>Cálculo I</span>
@@ -274,13 +274,13 @@ export default async function HomePage() {
               </div>
             </div>
             <Boxplot grupos={grupos} cutoff={5} />
-            <div className="flex flex-wrap gap-x-6 gap-y-2 pt-3 mt-3 border-t border-dashed border-line text-xs text-muted">
+            <div className="flex flex-wrap gap-x-6 gap-y-2 pt-3 mt-3 border-t border-dashed border-line text-xs text-muted-2">
               <span className="flex items-center gap-2"><i className="inline-block w-3.5 h-2.5 border-2" style={{ background: "color-mix(in oklch, var(--x) 20%, transparent)", borderColor: "var(--x)" }}></i> Q1–Q3 (50% central)</span>
               <span className="flex items-center gap-2"><i className="inline-block w-[18px] h-[3px] bg-ink" style={{ position: "relative", top: "-1px" }}></i> Mediana</span>
               <span className="flex items-center gap-2"><i className="inline-block w-2.5 h-2.5 bg-accent rotate-45" style={{ position: "relative", top: "1px" }}></i> Média</span>
               <span className="flex items-center gap-2"><i className="inline-block w-0.5 h-3.5 bg-muted"></i> Whiskers (mín–máx)</span>
             </div>
-            <p className="text-xs text-muted mt-3 mb-0">
+            <p className="text-xs text-muted-2 mt-3 mb-0">
               Linha tracejada vermelha marca a nota mínima de aprovação (5,0). Passe o mouse sobre as caixas para detalhes.
             </p>
           </div>
@@ -288,10 +288,10 @@ export default async function HomePage() {
           <div className="bg-bg-alt border border-line rounded-[14px] p-6 shadow-sm">
             <div className="flex items-center justify-between flex-wrap gap-3 mb-5">
               <h3 className="text-lg font-semibold m-0">Figura 2 · Histograma — frequência de notas</h3>
-              <span className="text-muted text-xs">Calculado a partir das notas brutas</span>
+              <span className="text-muted-2 text-xs">Calculado a partir das notas brutas</span>
             </div>
             <Histogram grupos={grupos} cutoff={5} bins={10} />
-            <p className="text-xs text-muted mt-3 mb-0">
+            <p className="text-xs text-muted-2 mt-3 mb-0">
               Frequência relativa (%) por faixa. A linha vermelha em 5,0 indica o corte de aprovação.
             </p>
           </div>
@@ -303,7 +303,7 @@ export default async function HomePage() {
         <div className="container mx-auto px-6 max-w-[1200px]">
           <span className="eyebrow">Indicador crítico</span>
           <h2 className="text-3xl md:text-4xl font-semibold mb-4">Taxas de aprovação</h2>
-          <p className="text-muted text-lg mb-9">
+          <p className="text-muted-2 text-lg mb-9">
             Considerando o critério de aprovação da UFMT (nota final ≥ 5,0), os resultados são
             preocupantes em todas as combinações — nenhum dos grupos ultrapassa um terço dos
             alunos aprovados.
@@ -322,7 +322,7 @@ export default async function HomePage() {
                     <strong className="font-serif text-2xl text-ink-2 font-semibold leading-none block">
                       {g.approval.toFixed(2).replace(".", ",")}%
                     </strong>
-                    <small className="block text-muted text-xs mt-1">{g.label}</small>
+                    <small className="block text-muted-2 text-xs mt-1">{g.label}</small>
                   </div>
                 </li>
               ))}
@@ -330,7 +330,7 @@ export default async function HomePage() {
           </div>
 
           <div className="mt-5 flex items-center gap-4 bg-accent-soft border border-accent-soft-border rounded-[14px] p-4">
-            <span className="font-serif text-xl font-semibold bg-accent text-white w-10 h-10 grid place-items-center rounded-full flex-shrink-0">5,0</span>
+            <span className="font-serif text-xl font-semibold bg-accent text-bg w-10 h-10 grid place-items-center rounded-full flex-shrink-0">5,0</span>
             <p className="text-ink-2 m-0 text-sm">Critério de aprovação usado pela UFMT — e a nota média nunca chega perto disso.</p>
           </div>
         </div>
@@ -341,7 +341,7 @@ export default async function HomePage() {
         <div className="container mx-auto px-6 max-w-[1200px]">
           <span className="eyebrow">Análise de status</span>
           <h2 className="text-3xl md:text-4xl font-semibold mb-4">Aprovados, reprovados e zeros</h2>
-          <p className="text-muted text-lg mb-9 max-w-3xl">
+          <p className="text-muted-2 text-lg mb-9 max-w-3xl">
             Para cada turma, separamos os alunos em três grupos: <strong>aprovados</strong> (≥ 5,0),
             <strong> reprovados com nota</strong> (0 &lt; nota &lt; 5,0) e <strong>zeros</strong> (não compareceram ou zeraram a prova final).
             A "cauda esquerda" (notas baixíssimas) pesa mais do que a taxa agregada sugere.
@@ -383,7 +383,7 @@ export default async function HomePage() {
         <div className="container mx-auto px-6 max-w-[1200px]">
           <span className="eyebrow">Conclusão</span>
           <h2 className="text-3xl md:text-4xl font-semibold mb-4">Um quadro que pede ação</h2>
-          <p className="text-muted text-lg mb-9">
+          <p className="text-muted-2 text-lg mb-9">
             A análise revela um desafio significativo no desempenho dos alunos nas disciplinas
             de Cálculo I e VGA na UFMT. As baixas médias e taxas de aprovação indicam que a
             maioria não atinge o nível de proficiência esperado — um sinal de alerta para a
@@ -394,7 +394,7 @@ export default async function HomePage() {
             <article className="bg-bg-alt border border-line rounded-[14px] p-6 shadow-sm relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-1 bg-primary" />
               <header className="flex items-center gap-2 mb-3"><span aria-hidden="true" className="text-xl">🔍</span><h3 className="text-lg font-semibold m-0">Diagnóstico</h3></header>
-              <p className="text-muted m-0">
+              <p className="text-muted-2 m-0">
                 Necessidade de investigar as causas subjacentes: metodologias de ensino,
                 pré-requisitos dos ingressantes e adequação da carga horária.
               </p>
@@ -402,7 +402,7 @@ export default async function HomePage() {
             <article className="bg-bg-alt border border-line rounded-[14px] p-6 shadow-sm relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-1 bg-accent" />
               <header className="flex items-center gap-2 mb-3"><span aria-hidden="true" className="text-xl">🎯</span><h3 className="text-lg font-semibold m-0">Ação</h3></header>
-              <p className="text-muted m-0">
+              <p className="text-muted-2 m-0">
                 Implementação de estratégias eficazes e recursos de apoio ao estudante
                 (monitoria, nivelamento, material multimídia) para melhorar o aproveitamento.
               </p>
@@ -416,7 +416,7 @@ export default async function HomePage() {
         <div className="container mx-auto px-6 max-w-[1200px]">
           <span className="eyebrow">Créditos</span>
           <h2 className="text-3xl md:text-4xl font-semibold mb-4">Autores &amp; agradecimentos</h2>
-          <p className="text-muted text-lg mb-9">
+          <p className="text-muted-2 text-lg mb-9">
             Expressamos nossa gratidão ao Prof. Dr. Laudino Roces Rodrigues pela orientação,
             pela disponibilização dos dados e pelo apoio fundamental no desenvolvimento desta
             análise acadêmica.
@@ -426,13 +426,13 @@ export default async function HomePage() {
             {autores.map((a) => (
               <article key={a.nome} className="bg-bg-alt border border-line rounded-[14px] p-6 text-center shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
                 <div
-                  className="w-16 h-16 rounded-full mx-auto mb-4 grid place-items-center text-white font-serif font-semibold text-xl"
+                  className="w-16 h-16 rounded-full mx-auto mb-4 grid place-items-center text-bg font-serif font-semibold text-xl"
                   style={{ background: a.orientador ? "linear-gradient(135deg, var(--accent), var(--accent-2))" : "linear-gradient(135deg, var(--primary), var(--primary-2))" }}
                 >
                   {a.iniciais}
                 </div>
                 <h3 className="text-lg font-semibold mb-1.5">{a.nome}</h3>
-                <p className="text-muted m-0 text-sm">{a.papel} · UFMT</p>
+                <p className="text-muted-2 m-0 text-sm">{a.papel} · UFMT</p>
               </article>
             ))}
           </div>
@@ -443,7 +443,7 @@ export default async function HomePage() {
       <footer className="bg-ink-2 text-on-dark py-9 text-sm">
         <div className="container mx-auto px-6 max-w-[1200px] flex items-start justify-between flex-wrap gap-8">
           <div>
-            <strong className="text-white block">{meta.universidade}</strong>
+            <strong className="text-bg block">{meta.universidade}</strong>
             <small className="text-on-dark-muted">Análise de Desempenho Acadêmico em Cálculo I e VGA</small>
           </div>
           <div className="max-w-[540px]">

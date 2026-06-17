@@ -14,8 +14,8 @@ export default async function AdminOverview() {
     <div className="container mx-auto px-6 max-w-[1200px] py-10">
       <div className="flex items-center justify-between mb-8 flex-wrap gap-3">
         <div>
-          <h1 className="font-serif text-3xl font-semibold mb-1.5">Visão geral</h1>
-          <p className="text-muted m-0">
+          <h1 className="font-serif text-3xl font-semibold mb-1.5 text-ink-2">Visão geral</h1>
+          <p className="text-muted-2 m-0">
             {isDemoMode()
               ? "Você está no modo demo — dados lidos de data/seed.json."
               : "Conectado ao Supabase."}
@@ -70,7 +70,9 @@ export default async function AdminOverview() {
               <div className="font-serif text-2xl font-semibold text-ink-2 leading-none tabular-nums">
                 {kpi.value}
               </div>
-              <div className="text-xs text-muted mt-1.5">{kpi.label}</div>
+              <div className="text-xs text-muted-2 mt-1.5 font-medium uppercase tracking-wide">
+                {kpi.label}
+              </div>
             </div>
           ))}
         </div>
@@ -86,7 +88,7 @@ export default async function AdminOverview() {
             <div className="flex items-start justify-between mb-3">
               <div>
                 <strong className="block text-base font-semibold text-ink-2">{g.label}</strong>
-                <small className="text-muted text-xs">
+                <small className="text-muted-2 text-xs">
                   <span className="tabular-nums">{g.notas.length}</span> alunos · ID: {g.id}
                 </small>
               </div>
@@ -102,25 +104,25 @@ export default async function AdminOverview() {
                 <div className="font-semibold text-ink-2 tabular-nums">
                   {g.stats.mean.toFixed(1)}
                 </div>
-                <div className="text-muted">média</div>
+                <div className="text-muted-2">média</div>
               </div>
               <div className="bg-bg rounded p-2">
                 <div className="font-semibold text-ink-2 tabular-nums">
                   {g.stats.median.toFixed(1)}
                 </div>
-                <div className="text-muted">mediana</div>
+                <div className="text-muted-2">mediana</div>
               </div>
               <div className="bg-bg rounded p-2">
                 <div className="font-semibold text-ink-2 tabular-nums">
                   {g.stats.min.toFixed(1)}
                 </div>
-                <div className="text-muted">mín</div>
+                <div className="text-muted-2">mín</div>
               </div>
               <div className="bg-bg rounded p-2">
                 <div className="font-semibold text-ink-2 tabular-nums">
                   {g.stats.max.toFixed(1)}
                 </div>
-                <div className="text-muted">máx</div>
+                <div className="text-muted-2">máx</div>
               </div>
             </div>
           </Link>
@@ -132,15 +134,15 @@ export default async function AdminOverview() {
       <div className="mt-8 grid md:grid-cols-[1.5fr_1fr] gap-4">
         <Link
           href="/admin/notas"
-          className="group relative bg-ink-2 text-bg border border-ink-2 rounded-[14px] p-6 shadow-sm hover:shadow-md transition-all no-underline overflow-hidden"
+          className="group relative bg-primary text-bg border border-primary rounded-[14px] p-6 shadow-sm hover:shadow-md transition-all no-underline overflow-hidden"
         >
-          <div aria-hidden="true" className="absolute top-0 right-0 w-32 h-32 rounded-full bg-accent opacity-10 -mr-12 -mt-12" />
+          <div aria-hidden="true" className="absolute top-0 right-0 w-32 h-32 rounded-full bg-accent opacity-15 -mr-12 -mt-12" />
           <div className="flex items-start justify-between gap-4 relative">
             <div>
               <div className="text-xs font-semibold tracking-wider uppercase text-on-dark-muted mb-2">
                 Ação mais comum
               </div>
-              <h3 className="font-serif text-2xl font-semibold m-0 text-white">
+              <h3 className="font-serif text-2xl font-semibold m-0 text-bg">
                 Gerenciar notas
               </h3>
               <p className="text-on-dark-muted text-sm mt-2 m-0">
@@ -176,7 +178,7 @@ export default async function AdminOverview() {
             </span>
             <div>
               <h3 className="text-sm font-semibold text-ink-2 m-0">Turmas &amp; disciplinas</h3>
-              <p className="text-muted text-xs m-0 mt-1">Cadastrar novas turmas.</p>
+              <p className="text-muted-2 text-xs m-0 mt-1">Cadastrar novas turmas.</p>
             </div>
           </Link>
           <Link
@@ -192,7 +194,7 @@ export default async function AdminOverview() {
             </span>
             <div>
               <h3 className="text-sm font-semibold text-ink-2 m-0">Importar CSV</h3>
-              <p className="text-muted text-xs m-0 mt-1">Subir planilha em massa.</p>
+              <p className="text-muted-2 text-xs m-0 mt-1">Subir planilha em massa.</p>
             </div>
           </Link>
         </div>
