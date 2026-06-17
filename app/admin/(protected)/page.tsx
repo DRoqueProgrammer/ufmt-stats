@@ -73,15 +73,15 @@ export default async function AdminOverview() {
 
       <div className="mt-8 grid md:grid-cols-3 gap-4">
         <Link href="/admin/notas" className="bg-white border border-line rounded-[14px] p-5 shadow-sm hover:shadow-md transition-all no-underline">
-          <h3 className="text-base font-semibold text-ink-2 mb-1">📝 Gerenciar notas</h3>
+          <h3 className="text-base font-semibold text-ink-2 mb-1"><span aria-hidden="true">📝</span> Gerenciar notas</h3>
           <p className="text-muted text-sm m-0">Adicionar, editar ou remover notas dos alunos.</p>
         </Link>
         <Link href="/admin/turmas" className="bg-white border border-line rounded-[14px] p-5 shadow-sm hover:shadow-md transition-all no-underline">
-          <h3 className="text-base font-semibold text-ink-2 mb-1">🏫 Turmas &amp; disciplinas</h3>
+          <h3 className="text-base font-semibold text-ink-2 mb-1"><span aria-hidden="true">🏫</span> Turmas &amp; disciplinas</h3>
           <p className="text-muted text-sm m-0">Cadastrar novas turmas ou disciplinas para ampliar a base.</p>
         </Link>
         <Link href="/admin/importar" className="bg-white border border-line rounded-[14px] p-5 shadow-sm hover:shadow-md transition-all no-underline">
-          <h3 className="text-base font-semibold text-ink-2 mb-1">📥 Importar CSV</h3>
+          <h3 className="text-base font-semibold text-ink-2 mb-1"><span aria-hidden="true">📥</span> Importar CSV</h3>
           <p className="text-muted text-sm m-0">Suba o arquivo Excel/CSV com as notas em massa.</p>
         </Link>
       </div>

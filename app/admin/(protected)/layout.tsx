@@ -10,7 +10,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <span className="w-9 h-9 rounded-[10px] grid place-items-center font-serif text-base font-semibold" style={{ background: "linear-gradient(135deg, #ff6b3d, #ff8c66)" }}>Σ</span>
             <span>
               <strong className="block text-sm font-semibold">Painel Admin</strong>
-              <small className="block text-[11px] text-[#8c9bb6]">UFMT · Cálculo I &amp; VGA</small>
+              <small className="block text-[11px] text-on-dark-muted">UFMT · Cálculo I &amp; VGA</small>
             </span>
           </Link>
           <nav className="hidden md:flex items-center gap-1">
@@ -20,7 +20,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <Link href="/admin/importar" className="px-3 py-1.5 text-sm text-white hover:text-accent-2 rounded transition-colors">Importar CSV</Link>
             <a href="/" target="_blank" className="px-3 py-1.5 text-sm text-white hover:text-accent-2 rounded transition-colors">Ver site ↗</a>
             <form action={logoutAction}>
-              <button type="submit" className="ml-2 px-3 py-1.5 text-sm border border-[#3a4b6b] hover:border-accent text-[#c8d3e6] hover:text-accent-2 rounded transition-colors">Sair</button>
+              <button type="submit" className="ml-2 px-3 py-1.5 text-sm border border-primary-2 hover:border-accent text-on-dark hover:text-accent-2 rounded transition-colors">Sair</button>
             </form>
           </nav>
         </div>

@@ -10,6 +10,33 @@ declare global {
   }
 }
 
+/** Reads the OKLCH tokens from :root at chart init time. Charts now
+ *  follow the design system automatically — change tokens in globals.css
+ *  or tailwind.config.ts and the colors update here too. */
+function readTheme() {
+  if (typeof window === "undefined") {
+    // SSR fallback — matches the OKLCH tokens; never used because all
+    // chart components are client-only and bail out before this path.
+    return {
+      ink: "oklch(20% 0.04 250)", ink2: "oklch(26% 0.05 250)",
+      muted: "oklch(48% 0.022 250)", line: "oklch(91% 0.012 250)",
+      primary: "oklch(35% 0.08 250)", accent: "oklch(70% 0.18 35)",
+      onDark: "oklch(82% 0.02 250)", white: "oklch(100% 0 0)",
+    };
+  }
+  const css = (n: string) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  return {
+    ink: css("--ink"),
+    ink2: css("--ink-2"),
+    muted: css("--muted"),
+    line: css("--line"),
+    primary: css("--primary"),
+    accent: css("--accent"),
+    onDark: css("--on-dark"),
+    white: "oklch(100% 0 0)",
+  };
+}
+
 let _chartJsPromise: Promise<any> | null = null;
 async function loadChartJs() {
   if (typeof window === "undefined") return null;
@@ -36,6 +63,7 @@ export function Boxplot({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?: numb
     (async () => {
       const Chart = await loadChartJs();
       if (!Chart || !canvasRef.current || disposed) return;
+      const theme = readTheme();
 
       const boxplotPlugin = {
         id: "customBoxplot",
@@ -57,14 +85,16 @@ export function Boxplot({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?: numb
             ctx.moveTo(x - boxW/2, yMin); ctx.lineTo(x + boxW/2, yMin);
             ctx.moveTo(x - boxW/2, yMax); ctx.lineTo(x + boxW/2, yMax);
             ctx.stroke();
-            ctx.fillStyle = d.color + "24";
+            // color-mix adds alpha in any color space (oklch/lab/hex); the
+            // old `+ "24"` hex-alpha hack broke when we moved to OKLCH tokens.
+            ctx.fillStyle = `color-mix(in oklch, ${d.color} 15%, transparent)`;
             ctx.fillRect(x - boxW/2, yQ3, boxW, yQ1 - yQ3);
             ctx.lineWidth = 2; ctx.strokeStyle = d.color;
             ctx.strokeRect(x - boxW/2, yQ3, boxW, yQ1 - yQ3);
             // Median (dark line)
-            ctx.lineWidth = 4; ctx.strokeStyle = "#0f1f3a";
+            ctx.lineWidth = 4; ctx.strokeStyle = theme.ink;
             ctx.beginPath(); ctx.moveTo(x - boxW/2 + 2, yMed); ctx.lineTo(x + boxW/2 - 2, yMed); ctx.stroke();
-            ctx.lineWidth = 1.5; ctx.strokeStyle = "#ffffff";
+            ctx.lineWidth = 1.5; ctx.strokeStyle = theme.white;
             ctx.beginPath(); ctx.moveTo(x - boxW/2 + 2, yMed); ctx.lineTo(x + boxW/2 - 2, yMed); ctx.stroke();
             // Mean diamond
             const yMean = scales.y.getPixelForValue(d.mean);
@@ -72,7 +102,7 @@ export function Boxplot({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?: numb
             ctx.beginPath();
             ctx.moveTo(x, yMean - 6); ctx.lineTo(x + 6, yMean); ctx.lineTo(x, yMean + 6); ctx.lineTo(x - 6, yMean);
             ctx.closePath(); ctx.fill();
-            ctx.strokeStyle = "#0f1f3a"; ctx.lineWidth = 1.4; ctx.stroke();
+            ctx.strokeStyle = theme.ink; ctx.lineWidth = 1.4; ctx.stroke();
           });
         }
       };
@@ -85,9 +115,9 @@ export function Boxplot({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?: numb
           const y = scales.y.getPixelForValue(v);
           if (y < chartArea.top || y > chartArea.bottom) return;
           ctx.save();
-          ctx.strokeStyle = "#ff6b3d"; ctx.setLineDash([6, 5]); ctx.lineWidth = 1.5;
+          ctx.strokeStyle = theme.accent; ctx.setLineDash([6, 5]); ctx.lineWidth = 1.5;
           ctx.beginPath(); ctx.moveTo(chartArea.left, y); ctx.lineTo(chartArea.right, y); ctx.stroke();
-          ctx.setLineDash([]); ctx.fillStyle = "#ff6b3d";
+          ctx.setLineDash([]); ctx.fillStyle = theme.accent;
           ctx.font = "600 11px Inter, sans-serif"; ctx.textAlign = "right"; ctx.textBaseline = "bottom";
           ctx.fillText(`Aprovação ≥ ${cutoff.toFixed(1)}`, chartArea.right - 6, y - 4);
           ctx.restore();
@@ -105,14 +135,14 @@ export function Boxplot({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?: numb
           maintainAspectRatio: false,
           layout: { padding: { top: 18 } },
           scales: {
-            x: { ticks: { color: "#1a2a4a", font: { size: 12, weight: 500 } }, grid: { display: false } },
-            y: { min: 0, max: 10, title: { display: true, text: "Nota final (0 a 10)", color: "#5b6b87", font: { size: 12, weight: 500 } }, ticks: { color: "#5b6b87", font: { size: 11 } }, grid: { color: "#e6e9f1" } },
+            x: { ticks: { color: theme.ink2, font: { size: 12, weight: 500 } }, grid: { display: false } },
+            y: { min: 0, max: 10, title: { display: true, text: "Nota final (0 a 10)", color: theme.muted, font: { size: 12, weight: 500 } }, ticks: { color: theme.muted, font: { size: 11 } }, grid: { color: theme.line } },
           },
           plugins: {
             legend: { display: false },
             tooltip: {
               enabled: true,
-              backgroundColor: "#0f1f3a", titleColor: "#fff", bodyColor: "#c8d3e6", padding: 10,
+              backgroundColor: theme.ink, titleColor: theme.white, bodyColor: theme.onDark, padding: 10,
               external: (ctx: any) => {
                 const tooltip = ctx.tooltip;
                 const chart = ctx.chart;
@@ -120,8 +150,8 @@ export function Boxplot({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?: numb
                 if (!el) {
                   el = document.createElement("div");
                   Object.assign(el.style, {
-                    position: "absolute", pointerEvents: "none", background: "#0f1f3a",
-                    color: "#fff", borderRadius: "8px", padding: "10px 12px",
+                    position: "absolute", pointerEvents: "none", background: theme.ink,
+                    color: theme.white, borderRadius: "8px", padding: "10px 12px",
                     fontFamily: "Inter, sans-serif", fontSize: "12px",
                     boxShadow: "0 8px 24px rgba(0,0,0,0.18)",
                     transform: "translate(-50%, -100%)", transition: "opacity .15s",
@@ -175,6 +205,7 @@ export function Histogram({ grupos, cutoff = 5, bins = 10 }: { grupos: Grupo[]; 
     (async () => {
       const Chart = await loadChartJs();
       if (!Chart || !canvasRef.current || disposed) return;
+      const theme = readTheme();
       const referencePlugin = {
         id: "referenceLine",
         afterDraw(chart: any) {
@@ -184,9 +215,9 @@ export function Histogram({ grupos, cutoff = 5, bins = 10 }: { grupos: Grupo[]; 
           const y = scales.y.getPixelForValue(v);
           if (y < chartArea.top || y > chartArea.bottom) return;
           ctx.save();
-          ctx.strokeStyle = "#ff6b3d"; ctx.setLineDash([6, 5]); ctx.lineWidth = 1.5;
+          ctx.strokeStyle = theme.accent; ctx.setLineDash([6, 5]); ctx.lineWidth = 1.5;
           ctx.beginPath(); ctx.moveTo(chartArea.left, y); ctx.lineTo(chartArea.right, y); ctx.stroke();
-          ctx.setLineDash([]); ctx.fillStyle = "#ff6b3d";
+          ctx.setLineDash([]); ctx.fillStyle = theme.accent;
           ctx.font = "600 11px Inter, sans-serif"; ctx.textAlign = "right"; ctx.textBaseline = "bottom";
           ctx.fillText(`Aprovação ≥ ${cutoff.toFixed(1)}`, chartArea.right - 6, y - 4);
           ctx.restore();
@@ -202,7 +233,7 @@ export function Histogram({ grupos, cutoff = 5, bins = 10 }: { grupos: Grupo[]; 
         return {
           label: g.short,
           data: counts.map((c) => (c / total) * 100),
-          backgroundColor: g.turmaColor + "BB",
+          backgroundColor: `color-mix(in oklch, ${g.turmaColor} 73%, transparent)`,
           borderColor: g.turmaColor,
           borderWidth: 1.5,
           borderRadius: 3,
@@ -218,12 +249,12 @@ export function Histogram({ grupos, cutoff = 5, bins = 10 }: { grupos: Grupo[]; 
           maintainAspectRatio: false,
           interaction: { mode: "index", intersect: false },
           scales: {
-            x: { title: { display: true, text: "Faixa de nota final (0 a 10)", color: "#5b6b87", font: { size: 12, weight: 500 } }, ticks: { color: "#5b6b87", font: { size: 11 } }, grid: { display: false } },
-            y: { title: { display: true, text: "Frequência relativa (%)", color: "#5b6b87", font: { size: 12, weight: 500 } }, beginAtZero: true, ticks: { color: "#5b6b87", font: { size: 11 }, callback: (v: any) => v + "%" }, grid: { color: "#e6e9f1" } },
+            x: { title: { display: true, text: "Faixa de nota final (0 a 10)", color: theme.muted, font: { size: 12, weight: 500 } }, ticks: { color: theme.muted, font: { size: 11 } }, grid: { display: false } },
+            y: { title: { display: true, text: "Frequência relativa (%)", color: theme.muted, font: { size: 12, weight: 500 } }, beginAtZero: true, ticks: { color: theme.muted, font: { size: 11 }, callback: (v: any) => v + "%" }, grid: { color: theme.line } },
           },
           plugins: {
-            legend: { position: "top", align: "end", labels: { boxWidth: 12, boxHeight: 12, color: "#1a2a4a", font: { size: 11 } } },
-            tooltip: { backgroundColor: "#0f1f3a", titleColor: "#fff", bodyColor: "#c8d3e6", padding: 10,
+            legend: { position: "top", align: "end", labels: { boxWidth: 12, boxHeight: 12, color: theme.ink2, font: { size: 11 } } },
+            tooltip: { backgroundColor: theme.ink, titleColor: theme.white, bodyColor: theme.onDark, padding: 10,
               callbacks: { title: (items: any) => `Faixa ${items[0].label}`, label: (c: any) => ` ${c.dataset.label}: ${c.parsed.y.toFixed(1)}%` }
             },
             referenceLine: { value: cutoff },
@@ -248,6 +279,7 @@ export function ApprovalBars({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?:
     (async () => {
       const Chart = await loadChartJs();
       if (!Chart || !canvasRef.current || disposed) return;
+      const theme = readTheme();
       const referencePlugin = {
         id: "referenceLine",
         afterDraw(chart: any) {
@@ -257,9 +289,9 @@ export function ApprovalBars({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?:
           const y = scales.y.getPixelForValue(v);
           if (y < chartArea.top || y > chartArea.bottom) return;
           ctx.save();
-          ctx.strokeStyle = "#ff6b3d"; ctx.setLineDash([6, 5]); ctx.lineWidth = 1.5;
+          ctx.strokeStyle = theme.accent; ctx.setLineDash([6, 5]); ctx.lineWidth = 1.5;
           ctx.beginPath(); ctx.moveTo(chartArea.left, y); ctx.lineTo(chartArea.right, y); ctx.stroke();
-          ctx.setLineDash([]); ctx.fillStyle = "#ff6b3d";
+          ctx.setLineDash([]); ctx.fillStyle = theme.accent;
           ctx.font = "600 11px Inter, sans-serif"; ctx.textAlign = "right"; ctx.textBaseline = "bottom";
           ctx.fillText("Linha de 50%", chartArea.right - 6, y - 4);
           ctx.restore();
@@ -272,7 +304,7 @@ export function ApprovalBars({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?:
           const meta = chart.getDatasetMeta(0);
           const data = chart.data.datasets[0].data;
           ctx.save();
-          ctx.fillStyle = "#0f1f3a";
+          ctx.fillStyle = theme.ink;
           ctx.font = "700 15px Lora, serif";
           ctx.textAlign = "center";
           ctx.textBaseline = "bottom";
@@ -289,7 +321,7 @@ export function ApprovalBars({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?:
           datasets: [{
             label: "Aprovação (%)",
             data: grupos.map((g) => g.approval),
-            backgroundColor: grupos.map((g) => g.disciplinaColor + "CC"),
+            backgroundColor: grupos.map((g) => `color-mix(in oklch, ${g.disciplinaColor} 80%, transparent)`),
             borderColor: grupos.map((g) => g.disciplinaColor),
             borderWidth: 2,
             borderRadius: 8,
@@ -301,12 +333,12 @@ export function ApprovalBars({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?:
           maintainAspectRatio: false,
           layout: { padding: { top: 30 } },
           scales: {
-            x: { ticks: { color: "#1a2a4a", font: { size: 12, weight: 500 } }, grid: { display: false } },
-            y: { min: 0, max: 50, title: { display: true, text: "Aprovação (%)", color: "#5b6b87", font: { size: 12, weight: 500 } }, ticks: { color: "#5b6b87", font: { size: 11 }, callback: (v: any) => v + "%" }, grid: { color: "#e6e9f1" } },
+            x: { ticks: { color: theme.ink2, font: { size: 12, weight: 500 } }, grid: { display: false } },
+            y: { min: 0, max: 50, title: { display: true, text: "Aprovação (%)", color: theme.muted, font: { size: 12, weight: 500 } }, ticks: { color: theme.muted, font: { size: 11 }, callback: (v: any) => v + "%" }, grid: { color: theme.line } },
           },
           plugins: {
             legend: { display: false },
-            tooltip: { backgroundColor: "#0f1f3a", titleColor: "#fff", bodyColor: "#c8d3e6", padding: 10,
+            tooltip: { backgroundColor: theme.ink, titleColor: theme.white, bodyColor: theme.onDark, padding: 10,
               callbacks: { title: (items: any) => items[0].label, label: (c: any) => {
                 const g = grupos[c.dataIndex];
                 return ` ${g.approval.toFixed(2)}% de aprovação`;
