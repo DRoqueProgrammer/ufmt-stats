@@ -29,7 +29,7 @@ export function LoginForm() {
       </div>
       <button
         type="submit"
-        className="w-full bg-ink-2 text-white py-2.5 rounded-md text-sm font-semibold hover:bg-ink transition-colors"
+        className="w-full bg-ink-2 text-bg py-2.5 rounded-md text-sm font-semibold hover:bg-ink transition-colors"
       >
         Entrar
       </button>

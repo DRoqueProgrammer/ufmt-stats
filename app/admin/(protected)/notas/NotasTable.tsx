@@ -132,7 +132,7 @@ export function NotasTable({ disciplinaId, disciplinaLabel, notas: initialNotas,
                 key={f}
                 onClick={() => setFilter(f)}
                 className={`px-3 py-1.5 rounded-full font-semibold transition-colors ${
-                  filter === f ? "bg-ink-2 text-white" : "bg-bg-alt border border-line-2 text-ink-2 hover:border-accent"
+                  filter === f ? "bg-ink-2 text-bg" : "bg-bg-alt border border-line-2 text-ink-2 hover:border-accent"
                 }`}
               >
                 {f === "all" ? "Todos" : f === "aprovado" ? "Aprovados" : "Reprovados"}

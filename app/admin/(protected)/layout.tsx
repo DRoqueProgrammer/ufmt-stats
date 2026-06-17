@@ -4,7 +4,7 @@ import { logoutAction } from "../(auth)/login/actions";
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="bg-ink-2 text-white sticky top-0 z-10 shadow-md">
+      <header className="bg-ink-2 text-bg sticky top-0 z-10 shadow-md">
         <div className="container mx-auto px-6 max-w-[1200px] flex items-center justify-between py-4">
           <Link href="/admin" className="flex items-center gap-3 no-underline text-white">
             <span className="w-9 h-9 rounded-[10px] grid place-items-center font-serif text-base font-semibold" style={{ background: "linear-gradient(135deg, #ff6b3d, #ff8c66)" }}>Σ</span>

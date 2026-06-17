@@ -132,7 +132,7 @@ export default async function AdminOverview() {
       <div className="mt-8 grid md:grid-cols-[1.5fr_1fr] gap-4">
         <Link
           href="/admin/notas"
-          className="group relative bg-ink-2 text-white border border-ink-2 rounded-[14px] p-6 shadow-sm hover:shadow-md transition-all no-underline overflow-hidden"
+          className="group relative bg-ink-2 text-bg border border-ink-2 rounded-[14px] p-6 shadow-sm hover:shadow-md transition-all no-underline overflow-hidden"
         >
           <div aria-hidden="true" className="absolute top-0 right-0 w-32 h-32 rounded-full bg-accent opacity-10 -mr-12 -mt-12" />
           <div className="flex items-start justify-between gap-4 relative">

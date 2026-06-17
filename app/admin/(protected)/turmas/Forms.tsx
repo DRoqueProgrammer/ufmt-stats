@@ -41,7 +41,7 @@ export function NovaTurmaForm() {
         <textarea value={desc} onChange={(e) => setDesc(e.target.value)} rows={2} className="w-full px-3 py-2 border border-line-2 rounded-md text-sm focus:border-accent focus:outline-none" placeholder="ex.: Turma do semestre 2024/1" />
       </div>
       {msg && <p className="text-sm text-muted bg-bg rounded-md px-3 py-2">{msg}</p>}
-      <button type="submit" disabled={pending} className="w-full bg-primary text-white py-2.5 rounded-md text-sm font-semibold hover:bg-primary-2 transition-colors disabled:opacity-50">
+      <button type="submit" disabled={pending} className="w-full bg-primary text-bg py-2.5 rounded-md text-sm font-semibold hover:bg-primary-2 transition-colors disabled:opacity-50">
         {pending ? "Criando..." : "Criar turma"}
       </button>
     </form>
@@ -97,7 +97,7 @@ export function NovaDisciplinaForm({ turmas }: { turmas: { id: string; nome: str
         </div>
       </div>
       {msg && <p className="text-sm text-muted bg-bg rounded-md px-3 py-2">{msg}</p>}
-      <button type="submit" disabled={pending} className="w-full bg-primary text-white py-2.5 rounded-md text-sm font-semibold hover:bg-primary-2 transition-colors disabled:opacity-50">
+      <button type="submit" disabled={pending} className="w-full bg-primary text-bg py-2.5 rounded-md text-sm font-semibold hover:bg-primary-2 transition-colors disabled:opacity-50">
         {pending ? "Criando..." : "Criar disciplina"}
       </button>
     </form>

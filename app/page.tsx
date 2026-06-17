@@ -50,7 +50,7 @@ export default async function HomePage() {
               sinais de alerta no processo de ensino-aprendizagem.
             </p>
             <div className="flex gap-3 flex-wrap mt-7 mb-9">
-              <a href="#estatisticas" className="inline-flex items-center px-5 py-3 font-semibold text-sm rounded-full bg-primary text-white shadow-md hover:bg-primary-2 transition-colors">
+              <a href="#estatisticas" className="inline-flex items-center px-5 py-3 font-semibold text-sm rounded-full bg-primary text-bg shadow-md hover:bg-primary-2 transition-colors">
                 Ver os dados →
               </a>
               <a href="#conclusao" className="inline-flex items-center px-5 py-3 font-semibold text-sm rounded-full border border-line-2 text-ink-2 hover:text-accent hover:border-accent transition-colors">
