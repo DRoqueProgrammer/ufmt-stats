@@ -14,18 +14,19 @@ updates:
           - "next"
           - "react"
           - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
       minor-and-patch:
         update-types: ["minor", "patch"]
       dev-dependencies:
         dependency-type: "development"
-        update-types: ["minor", "patch"]   # ← adiciona isso
+        update-types: ["minor", "patch"]
     labels:
       - "dependencies"
       - "automated"
-    # Ignora major versions de pacotes com breaking changes conhecidos
     ignore:
-      - dependency-name: "tailwindcss"     # v4 é breaking
-      - dependency-name: "postcss"          # mudou API
+      - dependency-name: "tailwindcss"
+      - dependency-name: "postcss"
 
   - package-ecosystem: "github-actions"
     directory: "/"
