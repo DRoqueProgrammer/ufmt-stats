@@ -275,7 +275,7 @@ export default async function HomePage() {
             </div>
             <Boxplot grupos={grupos} cutoff={5} />
             <div className="flex flex-wrap gap-x-6 gap-y-2 pt-3 mt-3 border-t border-dashed border-line text-xs text-muted">
-              <span className="flex items-center gap-2"><i className="inline-block w-3.5 h-2.5 border-2 border-x" style={{ background: "#1a3a5c33" }}></i> Q1–Q3 (50% central)</span>
+              <span className="flex items-center gap-2"><i className="inline-block w-3.5 h-2.5 border-2" style={{ background: "color-mix(in oklch, var(--x) 20%, transparent)", borderColor: "var(--x)" }}></i> Q1–Q3 (50% central)</span>
               <span className="flex items-center gap-2"><i className="inline-block w-[18px] h-[3px] bg-ink" style={{ position: "relative", top: "-1px" }}></i> Mediana</span>
               <span className="flex items-center gap-2"><i className="inline-block w-2.5 h-2.5 bg-accent rotate-45" style={{ position: "relative", top: "1px" }}></i> Média</span>
               <span className="flex items-center gap-2"><i className="inline-block w-0.5 h-3.5 bg-muted"></i> Whiskers (mín–máx)</span>
@@ -310,7 +310,7 @@ export default async function HomePage() {
           </p>
 
           <div className="grid md:grid-cols-[1.7fr_1fr] gap-5">
-            <div className="bg-bg-alt border border-line rounded-[14px] p-6 shadow-sm" style={{ background: "linear-gradient(180deg, #fff 0%, #fafbfd 100%)" }}>
+            <div className="bg-bg-alt border border-line rounded-[14px] p-6 shadow-sm">
               <h3 className="text-lg font-semibold mb-4">Figura 3 · Taxa de aprovação por turma e disciplina</h3>
               <ApprovalBars grupos={grupos} cutoff={5} />
             </div>
