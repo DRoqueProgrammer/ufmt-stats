@@ -4,7 +4,7 @@ import { NextResponse, type NextRequest } from "next/server";
  *  O guard final é feito em cada page.tsx via requireAdmin().
  *  Aqui só evitamos exposição de cookies desnecessários em rotas públicas.
  */
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   return NextResponse.next();
 }
 
