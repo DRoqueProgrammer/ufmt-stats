@@ -5,19 +5,26 @@
 @tailwind utilities;
 
 /* ===== Brand color tokens (OKLCH) =====
- * Neutrals lean toward navy (hue 250) for academic/cool feel.
- * Accent (orange, hue 35) is reserved for emphasis.
+ * Light mode is the default. Dark mode is toggled via `.dark` on <html>.
+ * Both themes share the same hue family (navy 250° + accent 35°); only
+ * lightness + chroma change. Per skill guidance: dark mode is NOT light
+ * inverted — surface lightness carries depth, and brand color is desaturated
+ * ~5% to feel less neon.
  */
 :root {
+  /* Surfaces — light tints (cool navy) */
   --bg: oklch(98.2% 0.006 250);
   --bg-alt: oklch(100% 0 0);
   --bg-subtle: oklch(96.8% 0.008 250);
+  /* Text */
   --ink: oklch(20% 0.04 250);
   --ink-2: oklch(26% 0.05 250);
   --muted: oklch(48% 0.022 250);
   --muted-2: oklch(58% 0.02 250);
+  /* Borders */
   --line: oklch(91% 0.012 250);
   --line-2: oklch(85% 0.015 250);
+  /* Brand */
   --primary: oklch(35% 0.08 250);
   --primary-2: oklch(42% 0.085 250);
   --primary-soft: oklch(94% 0.025 250);
@@ -25,12 +32,66 @@
   --accent-2: oklch(76% 0.15 35);
   --accent-soft: oklch(96% 0.04 35);
   --accent-soft-border: oklch(89% 0.06 35);
+  /* Chart palette */
   --x: oklch(35% 0.08 250);
   --y: oklch(48% 0.16 295);
   --calc: oklch(70% 0.18 35);
   --vga: oklch(64% 0.13 185);
+  /* Semantic */
+  --success: oklch(58% 0.14 155);
+  --success-soft: oklch(95% 0.04 155);
+  --danger: oklch(58% 0.18 25);
+  --danger-soft: oklch(95% 0.05 25);
+  --warn: oklch(75% 0.15 75);
+  --warn-soft: oklch(96% 0.05 75);
+  --info: oklch(60% 0.13 230);
+  --info-soft: oklch(95% 0.03 230);
+  /* Footer / dark surface */
   --on-dark: oklch(82% 0.02 250);
   --on-dark-muted: oklch(65% 0.025 250);
+  /* Color scheme hint for native UI */
+  color-scheme: light;
+}
+
+/* ===== Dark mode =====
+ * Three-step surface scale: bg < bg-alt < bg-subtle (subtle is the lightest).
+ * Brand hues stay (navy 250°, accent 35°) but lightness rises so colors
+ * remain readable on dark surfaces. Body text weight is reduced (350-style
+ * via IBM Plex Sans Light is overkill, so we just lean on the humanist
+ * font's natural weight).
+ */
+.dark {
+  --bg: oklch(15% 0.015 250);
+  --bg-alt: oklch(18.5% 0.018 250);
+  --bg-subtle: oklch(22% 0.022 250);
+  --ink: oklch(92% 0.015 250);
+  --ink-2: oklch(96% 0.018 250);
+  --muted: oklch(68% 0.018 250);
+  --muted-2: oklch(60% 0.02 250);
+  --line: oklch(28% 0.015 250);
+  --line-2: oklch(35% 0.02 250);
+  --primary: oklch(72% 0.12 250);
+  --primary-2: oklch(80% 0.12 250);
+  --primary-soft: oklch(28% 0.05 250);
+  --accent: oklch(76% 0.17 35);
+  --accent-2: oklch(82% 0.14 35);
+  --accent-soft: oklch(25% 0.06 35);
+  --accent-soft-border: oklch(38% 0.07 35);
+  --x: oklch(72% 0.12 250);
+  --y: oklch(72% 0.14 295);
+  --calc: oklch(76% 0.17 35);
+  --vga: oklch(72% 0.13 185);
+  --success: oklch(72% 0.14 155);
+  --success-soft: oklch(28% 0.05 155);
+  --danger: oklch(72% 0.18 25);
+  --danger-soft: oklch(28% 0.06 25);
+  --warn: oklch(82% 0.15 75);
+  --warn-soft: oklch(30% 0.05 75);
+  --info: oklch(72% 0.13 230);
+  --info-soft: oklch(28% 0.04 230);
+  --on-dark: oklch(94% 0.012 250);
+  --on-dark-muted: oklch(72% 0.02 250);
+  color-scheme: dark;
 }
 
 html { scroll-behavior: smooth; }
@@ -38,27 +99,32 @@ body {
   font-family: 'IBM Plex Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--ink);
   background: var(--bg);
-  line-height: 1.65;  /* slightly looser for IBM Plex Sans (humanist, breathes) */
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.dark body {
+  /* Per skill: dark text reads heavier — bump line-height slightly and
+     add a touch of letter-spacing on body. */
+  line-height: 1.7;
+  letter-spacing: 0.01em;
 }
 
 h1, h2, h3, h4 {
   font-family: 'Lora', Georgia, serif;
   color: var(--ink-2);
   line-height: 1.2;
-  text-wrap: balance;  /* even line lengths for headings */
-  letter-spacing: -0.01em;  /* tighten serif display, prevents letters touching */
+  text-wrap: balance;
+  letter-spacing: -0.01em;
 }
 
-/* ===== Eyebrow / kicker =====
- * Used in 8 sections of page.tsx — was previously undefined, rendering
- * as default body text. Defines the small uppercase tracked label.
- */
+/* ===== Eyebrow / kicker ===== */
 .eyebrow {
   display: inline-block;
-  font-size: 0.6875rem;       /* 11px */
+  font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -79,10 +145,20 @@ h1, h2, h3, h4 {
   border-radius: 4px;
 }
 
-/* ===== Reveal animation — defined but currently unused; safe to keep
- * for future motion. Respects reduced motion. ===== */
+/* ===== Reveal animation (currently unused; reserved) ===== */
 .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
 .reveal.in  { opacity: 1; transform: translateY(0); }
+
+/* ===== Theme transition =====
+ * Adds a brief fade on color/background changes for both manual toggle
+ * and system-preference changes. Disabled by reduced-motion. */
+*,
+*::before,
+*::after {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 150ms;
+  transition-timing-function: ease-out;
+}
 
 /* ===== Reduced motion ===== */
 @media (prefers-reduced-motion: reduce) {
