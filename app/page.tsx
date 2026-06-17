@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import { Boxplot, Histogram, ApprovalBars } from "@/components/charts/Charts";
+import { StatusBreakdown } from "@/components/charts/StatusBreakdown";
 import { getAutores, getGrupos, getMetadata } from "@/lib/data";
 import type { Grupo } from "@/lib/types";
 
@@ -319,10 +320,52 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* ============== STATUS / ANÁLISE APROFUNDADA ============== */}
+      <section id="status" className="py-20 bg-white border-y border-line">
+        <div className="container mx-auto px-6 max-w-[1200px]">
+          <span className="eyebrow">06 · Análise de status</span>
+          <h2 className="text-3xl md:text-4xl font-semibold mb-4">Aprovados, reprovados e zeros</h2>
+          <p className="text-muted text-lg mb-9 max-w-3xl">
+            Para cada turma, separamos os alunos em três grupos: <strong>aprovados</strong> (≥ 5,0),
+            <strong> reprovados com nota</strong> (0 &lt; nota &lt; 5,0) e <strong>zeros</strong> (não compareceram ou zeraram a prova final).
+            A "cauda esquerda" (notas baixíssimas) pesa mais do que a taxa agregada sugere.
+          </p>
+
+          <StatusBreakdown grupos={grupos} cutoff={5} />
+
+          <div className="mt-8 grid md:grid-cols-3 gap-4">
+            <div className="bg-accent-soft border border-[#ffd9c8] rounded-[14px] p-5">
+              <div className="text-xs font-semibold tracking-wide uppercase text-accent mb-1">Achado central</div>
+              <p className="text-ink-2 m-0 text-sm">
+                Em <strong>3 dos 4 grupos</strong>, mais de <strong>40%</strong> dos alunos tiraram
+                <strong> zero</strong> ou não compareceram à prova final. Combinado com a reprovação por nota,
+                isso indica que boa parte dos "reprovados" nem chegou a ser avaliada de fato.
+              </p>
+            </div>
+            <div className="bg-emerald-50 border border-emerald-200 rounded-[14px] p-5">
+              <div className="text-xs font-semibold tracking-wide uppercase text-emerald-700 mb-1">Leitura por disciplina</div>
+              <p className="text-ink-2 m-0 text-sm">
+                <strong>VGA</strong> consistentemente apresenta mais aprovados que <strong>Cálculo I</strong>
+                em ambas as turmas. A diferença é pequena em números absolutos, mas sugere perfis de
+                dificuldade distintos entre as duas disciplinas.
+              </p>
+            </div>
+            <div className="bg-primary-soft border border-primary/20 rounded-[14px] p-5">
+              <div className="text-xs font-semibold tracking-wide uppercase text-primary mb-1">Recomendação</div>
+              <p className="text-ink-2 m-0 text-sm">
+                Investigar políticas de <strong>frequência e engajamento</strong> antes de propor
+                mudanças no conteúdo programático. A taxa de zeros sugere que o problema começa
+                <em> antes</em> da prova.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ============== CONCLUSÃO ============== */}
       <section id="conclusao" className="py-20 bg-white border-y border-line">
         <div className="container mx-auto px-6 max-w-[1200px]">
-          <span className="eyebrow">06 · Conclusão</span>
+          <span className="eyebrow">07 · Conclusão</span>
           <h2 className="text-3xl md:text-4xl font-semibold mb-4">Um quadro que pede ação</h2>
           <p className="text-muted text-lg mb-9">
             A análise revela um desafio significativo no desempenho dos alunos nas disciplinas
@@ -355,7 +398,7 @@ export default async function HomePage() {
       {/* ============== AUTORES ============== */}
       <section id="autores" className="py-20">
         <div className="container mx-auto px-6 max-w-[1200px]">
-          <span className="eyebrow">07 · Créditos</span>
+          <span className="eyebrow">08 · Créditos</span>
           <h2 className="text-3xl md:text-4xl font-semibold mb-4">Autores &amp; agradecimentos</h2>
           <p className="text-muted text-lg mb-9">
             Expressamos nossa gratidão ao Prof. Dr. Laudino Roces Rodrigues pela orientação,

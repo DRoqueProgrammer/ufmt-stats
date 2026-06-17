@@ -18,6 +18,7 @@ export default function Navbar() {
     ["#estatisticas", "Estatísticas"],
     ["#distribuicao", "Distribuição"],
     ["#aprovacao", "Aprovação"],
+    ["#status", "Status"],
     ["#conclusao", "Conclusão"],
     ["#autores", "Autores"],
   ];
