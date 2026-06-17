@@ -1,28 +1,36 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;1,400&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ===== Brand color tokens (OKLCH) =====
+ * Neutrals lean toward navy (hue 250) for academic/cool feel.
+ * Accent (orange, hue 35) is reserved for emphasis.
+ */
 :root {
-  --bg: #f6f7fb;
-  --bg-alt: #ffffff;
-  --ink: #0f1f3a;
-  --ink-2: #1a2a4a;
-  --muted: #5b6b87;
-  --muted-2: #8390a8;
-  --line: #e6e9f1;
-  --line-2: #d8dde8;
-  --primary: #1a3a5c;
-  --primary-2: #244a73;
-  --primary-soft: #e6edf6;
-  --accent: #ff6b3d;
-  --accent-2: #ff8c66;
-  --accent-soft: #fff1ec;
-  --x: #1a3a5c;
-  --y: #6b46c1;
-  --calc: #ff6b3d;
-  --vga: #14b8a6;
+  --bg: oklch(98.2% 0.006 250);
+  --bg-alt: oklch(100% 0 0);
+  --bg-subtle: oklch(96.8% 0.008 250);
+  --ink: oklch(20% 0.04 250);
+  --ink-2: oklch(26% 0.05 250);
+  --muted: oklch(48% 0.022 250);
+  --muted-2: oklch(58% 0.02 250);
+  --line: oklch(91% 0.012 250);
+  --line-2: oklch(85% 0.015 250);
+  --primary: oklch(35% 0.08 250);
+  --primary-2: oklch(42% 0.085 250);
+  --primary-soft: oklch(94% 0.025 250);
+  --accent: oklch(70% 0.18 35);
+  --accent-2: oklch(76% 0.15 35);
+  --accent-soft: oklch(96% 0.04 35);
+  --accent-soft-border: oklch(89% 0.06 35);
+  --x: oklch(35% 0.08 250);
+  --y: oklch(48% 0.16 295);
+  --calc: oklch(70% 0.18 35);
+  --vga: oklch(64% 0.13 185);
+  --on-dark: oklch(82% 0.02 250);
+  --on-dark-muted: oklch(65% 0.025 250);
 }
 
 html { scroll-behavior: smooth; }
@@ -32,16 +40,55 @@ body {
   background: var(--bg);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-h1, h2, h3, h4 { font-family: 'Lora', Georgia, serif; color: var(--ink-2); line-height: 1.2; }
+h1, h2, h3, h4 {
+  font-family: 'Lora', Georgia, serif;
+  color: var(--ink-2);
+  line-height: 1.2;
+  text-wrap: balance;  /* even line lengths for headings */
+}
 
-/* Smooth reveal on scroll */
+/* ===== Eyebrow / kicker =====
+ * Used in 8 sections of page.tsx — was previously undefined, rendering
+ * as default body text. Defines the small uppercase tracked label.
+ */
+.eyebrow {
+  display: inline-block;
+  font-size: 0.6875rem;       /* 11px */
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+.eyebrow--primary { color: var(--primary); }
+.eyebrow--muted   { color: var(--muted); }
+
+/* ===== Number formatting ===== */
+.tabular { font-variant-numeric: tabular-nums; }
+
+/* ===== Focus styles ===== */
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ===== Reveal animation — defined but currently unused; safe to keep
+ * for future motion. Respects reduced motion. ===== */
 .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
 .reveal.in  { opacity: 1; transform: translateY(0); }
 
-/* Number formatting */
-.tabular { font-variant-numeric: tabular-nums; }
-
-/* Focus styles */
-*:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+/* ===== Reduced motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}

@@ -4,14 +4,16 @@ import { approvalRate, describe } from "./stats";
 
 const isDemo = !process.env.NEXT_PUBLIC_SUPABASE_URL;
 
+// Brand chart palette — matches the OKLCH tokens in globals.css
+// Cálculo I → accent (orange) · VGA → teal · X → primary navy · Y → purple
 const DISCIPLINA_COLORS: Record<string, string> = {
-  "Cálculo I": "#ff6b3d",
-  VGA: "#14b8a6",
+  "Cálculo I": "oklch(70% 0.18 35)",
+  VGA: "oklch(64% 0.13 185)",
 };
 
 const TURMA_COLORS: Record<string, string> = {
-  x: "#1a3a5c",
-  y: "#6b46c1",
+  x: "oklch(35% 0.08 250)",
+  y: "oklch(48% 0.16 295)",
 };
 
 const typedSeed = seed as SeedData;
@@ -45,8 +47,8 @@ export function getGrupos(cutoff = 5.0): Grupo[] {
         id: `${turma.id}__${disc.id}`,
         short: `${turma.nome.replace("Turma ", "")} · ${disc.codigo === "VGA" ? "VGA" : "Cálc. I"}`,
         label: `${turma.nome} · ${disc.nome}`,
-        turmaColor: TURMA_COLORS[turma.id] ?? "#1a3a5c",
-        disciplinaColor: DISCIPLINA_COLORS[disc.codigo] ?? "#ff6b3d",
+        turmaColor: TURMA_COLORS[turma.id] ?? "oklch(35% 0.08 250)",
+        disciplinaColor: DISCIPLINA_COLORS[disc.codigo] ?? "oklch(70% 0.18 35)",
         notas: disc.notas,
         stats,
         approval: approvalRate(disc.notas, cutoff),
