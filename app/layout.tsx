@@ -1,20 +1,8 @@
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { isDemoMode } from "@/lib/data";
-import { Analytics } from "@vercel/analytics/next";
-
-<body>
-
-  {isDemoMode() && <DemoBanner />}
-
-  {children}
-
-  <Analytics />
-
-  <SpeedInsights />
-
-</body>
 
 export const metadata: Metadata = {
   title: "Análise de Desempenho Acadêmico em Cálculo I e VGA — UFMT",
@@ -34,6 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {isDemoMode() && <DemoBanner />}
         {children}
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
