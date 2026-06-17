@@ -25,7 +25,8 @@ function readTheme() {
       ink: "oklch(20% 0.04 250)", ink2: "oklch(26% 0.05 250)",
       muted: "oklch(48% 0.022 250)", line: "oklch(91% 0.012 250)",
       primary: "oklch(35% 0.08 250)", accent: "oklch(70% 0.18 35)",
-      onDark: "oklch(82% 0.02 250)", white: "oklch(100% 0 0)",
+      accent2: "oklch(76% 0.15 35)", onDark: "oklch(82% 0.02 250)",
+      bg: "oklch(98.2% 0.006 250)", white: "oklch(100% 0 0)",
     };
   }
   const css = (n: string) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
@@ -36,7 +37,9 @@ function readTheme() {
     line: css("--line"),
     primary: css("--primary"),
     accent: css("--accent"),
+    accent2: css("--accent-2"),
     onDark: css("--on-dark"),
+    bg: "oklch(98.2% 0.006 250)",  // SSR fallback; client uses live --bg
     white: "oklch(100% 0 0)",
   };
 }
@@ -113,7 +116,7 @@ export function Boxplot({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?: numb
             // Median (dark line)
             ctx.lineWidth = 4; ctx.strokeStyle = theme.ink;
             ctx.beginPath(); ctx.moveTo(x - boxW/2 + 2, yMed); ctx.lineTo(x + boxW/2 - 2, yMed); ctx.stroke();
-            ctx.lineWidth = 1.5; ctx.strokeStyle = theme.white;
+            ctx.lineWidth = 1.5; ctx.strokeStyle = theme.bg;
             ctx.beginPath(); ctx.moveTo(x - boxW/2 + 2, yMed); ctx.lineTo(x + boxW/2 - 2, yMed); ctx.stroke();
             // Mean diamond
             const yMean = scales.y.getPixelForValue(d.mean);
@@ -170,7 +173,7 @@ export function Boxplot({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?: numb
                   el = document.createElement("div");
                   Object.assign(el.style, {
                     position: "absolute", pointerEvents: "none", background: theme.ink,
-                    color: theme.white, borderRadius: "8px", padding: "10px 12px",
+                    color: theme.bg, borderRadius: "8px", padding: "10px 12px",
                     fontFamily: "Inter, sans-serif", fontSize: "12px",
                     boxShadow: "0 8px 24px rgba(0,0,0,0.18)",
                     transform: "translate(-50%, -100%)", transition: "opacity .15s",
@@ -186,10 +189,10 @@ export function Boxplot({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?: numb
                   <div style="font-weight:600;margin-bottom:4px">${g.label}</div>
                   <div>Máx: <strong>${g.stats.max.toFixed(2)}</strong></div>
                   <div>Q3: <strong>${g.stats.q3.toFixed(2)}</strong></div>
-                  <div style="color:#ff8c66">Med: <strong>${g.stats.median.toFixed(2)}</strong></div>
+                  <div style="color:${theme.accent2}">Med: <strong>${g.stats.median.toFixed(2)}</strong></div>
                   <div>Q1: <strong>${g.stats.q1.toFixed(2)}</strong></div>
                   <div>Mín: <strong>${g.stats.min.toFixed(2)}</strong></div>
-                  <div style="margin-top:4px;border-top:1px solid #1a3a5c;padding-top:4px">
+                  <div style="margin-top:4px;border-top:1px solid ${theme.line};padding-top:4px">
                     Média (◇): <strong style="color:${g.disciplinaColor}">${g.stats.mean.toFixed(2)}</strong> · DP: ${g.stats.sd.toFixed(2)}
                   </div>`;
                 el.style.opacity = "1";

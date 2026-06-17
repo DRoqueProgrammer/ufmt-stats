@@ -52,7 +52,10 @@ export function NovaDisciplinaForm({ turmas }: { turmas: { id: string; nome: str
   const [turmaId, setTurmaId] = useState(turmas[0]?.id ?? "");
   const [nome, setNome] = useState("");
   const [codigo, setCodigo] = useState("Cálculo I");
-  const [cor, setCor] = useState("#ff6b3d");
+  // Default color picker value. <input type="color"> only accepts sRGB hex,
+  // so we keep this as hex (it's user data, not a UI theme color). Approximates
+  // the brand accent close enough for a sensible default.
+  const [cor, setCor] = useState("#e87a35");
   const [msg, setMsg] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
 

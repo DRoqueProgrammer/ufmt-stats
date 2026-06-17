@@ -427,7 +427,7 @@ export default async function HomePage() {
               <article key={a.nome} className="bg-bg-alt border border-line rounded-[14px] p-6 text-center shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
                 <div
                   className="w-16 h-16 rounded-full mx-auto mb-4 grid place-items-center text-white font-serif font-semibold text-xl"
-                  style={{ background: a.orientador ? "linear-gradient(135deg, #ff6b3d, #ff8c66)" : "linear-gradient(135deg, #1a3a5c, #244a73)" }}
+                  style={{ background: a.orientador ? "linear-gradient(135deg, var(--accent), var(--accent-2))" : "linear-gradient(135deg, var(--primary), var(--primary-2))" }}
                 >
                   {a.iniciais}
                 </div>
