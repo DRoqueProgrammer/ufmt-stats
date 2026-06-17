@@ -34,8 +34,9 @@ export function LoginForm() {
         Entrar
       </button>
       {!isSupabaseEnabled && (
-        <p className="text-xs text-muted-2 text-center pt-2 border-t border-line">
-          💡 Dica demo: <code className="font-mono">ufmt2024</code>
+        <p className="text-xs text-muted text-center pt-2 border-t border-line">
+          <span aria-hidden="true" className="text-accent">*</span>{" "}
+          Dica demo: <code className="font-mono text-ink-2 bg-bg px-1.5 py-0.5 rounded">ufmt2024</code>
         </p>
       )}
     </form>

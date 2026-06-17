@@ -29,7 +29,10 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
               : "Modo demo — use a senha definida em ADMIN_DEMO_PASSWORD (padrão: ufmt2024)."}
           </p>
           {errorMsg && (
-            <p className="text-sm text-red-700 bg-red-50 border border-red-200 rounded-md px-3 py-2 mb-4">
+            <p
+              role="alert"
+              className="text-sm text-danger bg-danger-soft border border-danger/20 rounded-md px-3 py-2 mb-4"
+            >
               {errorMsg}
             </p>
           )}
