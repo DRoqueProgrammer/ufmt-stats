@@ -213,7 +213,8 @@ h1, h2, h3, h4 {
     line-height: 1.4;
   }
   /* Hide UI chrome */
-  nav, header, .no-print, [data-no-print],
+  body > nav, body > header, header[role="banner"],
+  .no-print, [data-no-print],
   .demo-banner, .skip-to-content {
     display: none !important;
   }
