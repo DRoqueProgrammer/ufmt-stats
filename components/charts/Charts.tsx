@@ -54,7 +54,7 @@ function readTheme() {
     accent2: css("--accent-2"),
     onDark: css("--on-dark"),
     bg: css("--bg"),
-    white: css("--bg"),  // tooltip text uses bg as inverse
+    white: css("--bg"),
   };
   probe.remove();
   return out;
