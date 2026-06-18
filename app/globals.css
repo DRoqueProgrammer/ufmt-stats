@@ -177,31 +177,40 @@ h1, h2, h3, h4 {
    - Avoid page breaks inside cards/figures
    - Show URL after every link
    - Drop shadows / rounded corners that don't print well
-   @page { margin: 18mm; }
+   @page { margin: 20mm 18mm 22mm 18mm; }
 */
+@page {
+  size: A4;
+  margin: 20mm 18mm 22mm 18mm;
+}
 @media print {
   :root, html.dark {
     --bg: #ffffff;
     --bg-alt: #ffffff;
     --bg-subtle: #fafafa;
     --ink: #000000;
-    --ink-2: #000000;
+    --ink-2: #1a1a1a;
     --muted: #444444;
     --muted-2: #555555;
-    --line: #cccccc;
-    --line-2: #bbbbbb;
+    --line: #999999;
+    --line-2: #888888;
     --primary: #1a2540;
     --primary-2: #2a3450;
     --accent: #c25a1f;
     --accent-2: #d97a47;
     --on-dark: #1a1a1a;
     --on-dark-muted: #444444;
+    --x: #1a2540;
+    --y: #5a3a8a;
+    --calc: #c25a1f;
+    --vga: #1a8a8a;
     color-scheme: light;
   }
-  body {
+  html, body {
     background: #fff !important;
     color: #000 !important;
-    font-size: 11pt;
+    font-size: 10.5pt;
+    line-height: 1.4;
   }
   /* Hide UI chrome */
   nav, header, .no-print, [data-no-print],
@@ -210,23 +219,43 @@ h1, h2, h3, h4 {
   }
   /* Show the print-only header */
   .print-only { display: block !important; }
-  /* Cards & figures: avoid breaks */
-  section, article, .card, [class*="rounded-["], [class*="border"] {
+  /* Page setup: A4 portrait, generous margins, hide native header/footer via @page */
+  @page {
+    size: A4;
+    margin: 18mm 16mm 20mm 16mm;
+  }
+  /* Section spacing: avoid orphan sections */
+  section {
     break-inside: avoid;
-    page-break-inside: avoid;
+    margin-bottom: 6mm;
   }
-  /* Charts: keep them together and limit height */
+  /* Cards & figures: avoid breaks */
+  .card, [class*="rounded-["], [class*="border"] {
+    break-inside: avoid;
+  }
+  /* Charts: limit height, keep together, prevent text clipping */
   canvas {
-    max-height: 200mm !important;
+    max-height: 130mm !important;
+    max-width: 100% !important;
     page-break-inside: avoid;
+    display: block !important;
   }
-  /* Links: show URL after the text */
-  a[href^="http"]:after,
-  a[href^="/"]:after {
+  /* Charts container: add internal padding so labels don't clip */
+  [class*="h-[360px]"], [class*="h-[420px]"], [class*="h-[400px]"] {
+    height: 130mm !important;
+    padding: 0 4mm !important;
+  }
+  /* Links: show URL after the text (academic citation style) */
+  a[href^="http"]:after {
     content: " (" attr(href) ")";
-    font-size: 9pt;
+    font-size: 8.5pt;
     color: #666;
     word-break: break-all;
+  }
+  a[href^="/"]:after {
+    content: " (ufmt-stats.vercel.app" attr(href) ")";
+    font-size: 8.5pt;
+    color: #666;
   }
   a[href^="#"]:after,
   a[href^="javascript:"]:after,
@@ -237,10 +266,29 @@ h1, h2, h3, h4 {
   .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl {
     box-shadow: none !important;
   }
-  /* Headings: keep with next content */
-  h1, h2, h3, h4 { break-after: avoid; }
+  /* Headings: keep with next content, reduce size */
+  h1 { font-size: 18pt; break-after: avoid; }
+  h2 { font-size: 14pt; break-after: avoid; }
+  h3 { font-size: 12pt; break-after: avoid; }
+  h4 { break-after: avoid; }
+  /* Tables: keep header on every page, no row breaks */
   thead { display: table-header-group; }
   tr { break-inside: avoid; }
+  /* The KPI strip with bg-primary text-bg: keep colored bg, white text */
+  [class*="bg-primary"][class*="text-bg"] {
+    background: #1a2540 !important;
+    color: #ffffff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  /* Force color printing for OKLCH values that may compute oddly */
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  /* Smaller images & icons in print */
+  svg { max-width: 14pt; max-height: 14pt; }
+  .no-print-svg { display: none !important; }
 }
 
 /* Default: hide print-only content */

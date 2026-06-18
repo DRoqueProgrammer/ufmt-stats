@@ -44,6 +44,19 @@ function readTheme() {
       bg: "#f6f7f8", white: "#ffffff",
     };
   }
+  // PRINT: return hard-coded dark hex that always renders correctly on
+  // white paper. The CSS @media print rule also sets these but the
+  // canvas reads values via getComputedStyle which can return `lab()`
+  // instead of hex in some browsers.
+  if (typeof window.matchMedia === "function" && window.matchMedia("print").matches) {
+    return {
+      ink: "rgb(0,0,0)", ink2: "rgb(26,26,26)",
+      muted: "rgb(68,68,68)", line: "rgb(153,153,153)",
+      primary: "rgb(26,37,64)", accent: "rgb(194,90,31)",
+      accent2: "rgb(217,122,71)", onDark: "rgb(26,26,26)",
+      bg: "rgb(255,255,255)", white: "rgb(255,255,255)",
+    };
+  }
   // Read CSS variable and normalize to rgb(). Browsers return computed
   // values in `oklch()` / `lab()` which Chart.js's color parser doesn't
   // understand (it falls back to a light gray). Trick: set color on a
