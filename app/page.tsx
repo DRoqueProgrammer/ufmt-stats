@@ -261,54 +261,56 @@ export default async function HomePage() {
         <div className="container mx-auto px-6 max-w-[1200px]">
           <span className="eyebrow">Visualizações</span>
           <h2 className="text-3xl md:text-4xl font-semibold mb-4">Distribuição das notas</h2>
-          <p className="text-muted-2 text-lg mb-9">
+          <p className="text-muted-2 text-lg mb-9 no-print-p">
             A análise visual revela alta concentração de notas próximas de zero, com a mediana
             colada ao quartil inferior e alguns valores atípicos superiores.
           </p>
 
-          <div className="bg-bg-alt border border-line rounded-[14px] p-6 shadow-sm mb-5">
-            <div className="flex items-center justify-between flex-wrap gap-3 mb-5">
-              <h3 className="text-lg font-semibold m-0">Figura 1 · Boxplot (min, Q1, mediana, Q3, máximo)</h3>
-              <div className="flex flex-wrap gap-3 text-xs text-muted-2">
-                <span className="flex items-center gap-1.5">
-                  <span className="w-3 h-3 inline-block rounded-sm" style={{background:"var(--x)"}} aria-hidden="true" />
-                  Turma X <small className="text-muted-2">(caixa)</small>
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <span className="w-3 h-3 inline-block rounded-sm" style={{background:"var(--y)"}} aria-hidden="true" />
-                  Turma Y <small className="text-muted-2">(caixa)</small>
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <span className="w-2 h-2 inline-block rotate-45" style={{background:"var(--calc)"}} aria-hidden="true" />
-                  Cálculo I <small className="text-muted-2">(◇ média)</small>
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <span className="w-2 h-2 inline-block rotate-45" style={{background:"var(--vga)"}} aria-hidden="true" />
-                  VGA <small className="text-muted-2">(◇ média)</small>
-                </span>
+          <div className="print-row">
+            <div className="bg-bg-alt border border-line rounded-[14px] p-6 shadow-sm mb-5 print-tight">
+              <div className="flex items-center justify-between flex-wrap gap-3 mb-5">
+                <h3 className="text-lg font-semibold m-0">Figura 1 · Boxplot (min, Q1, mediana, Q3, máximo)</h3>
+                <div className="flex flex-wrap gap-3 text-xs text-muted-2">
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-3 h-3 inline-block rounded-sm" style={{background:"var(--x)"}} aria-hidden="true" />
+                    Turma X <small className="text-muted-2">(caixa)</small>
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-3 h-3 inline-block rounded-sm" style={{background:"var(--y)"}} aria-hidden="true" />
+                    Turma Y <small className="text-muted-2">(caixa)</small>
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-2 h-2 inline-block rotate-45" style={{background:"var(--calc)"}} aria-hidden="true" />
+                    Cálculo I <small className="text-muted-2">(◇ média)</small>
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-2 h-2 inline-block rotate-45" style={{background:"var(--vga)"}} aria-hidden="true" />
+                    VGA <small className="text-muted-2">(◇ média)</small>
+                  </span>
+                </div>
               </div>
+              <Boxplot grupos={grupos} cutoff={5} />
+              <div className="flex flex-wrap gap-x-6 gap-y-2 pt-3 mt-3 border-t border-dashed border-line text-xs text-muted-2">
+                <span className="flex items-center gap-2"><i className="inline-block w-3.5 h-2.5 border-2" style={{ background: "var(--x)", borderColor: "var(--x)", opacity: 0.85 }}></i> Q1–Q3 (50% central)</span>
+                <span className="flex items-center gap-2"><i className="inline-block w-[18px] h-[3px] bg-ink" style={{ position: "relative", top: "-1px" }}></i> Mediana</span>
+                <span className="flex items-center gap-2"><i className="inline-block w-2.5 h-2.5 bg-accent rotate-45" style={{ position: "relative", top: "1px" }}></i> Média</span>
+                <span className="flex items-center gap-2"><i className="inline-block w-0.5 h-3.5 bg-muted"></i> Whiskers (mín–máx)</span>
+              </div>
+              <p className="text-xs text-muted-2 mt-3 mb-0">
+                Linha tracejada vermelha marca a nota mínima de aprovação (5,0). Passe o mouse sobre as caixas para detalhes.
+              </p>
             </div>
-            <Boxplot grupos={grupos} cutoff={5} />
-            <div className="flex flex-wrap gap-x-6 gap-y-2 pt-3 mt-3 border-t border-dashed border-line text-xs text-muted-2">
-              <span className="flex items-center gap-2"><i className="inline-block w-3.5 h-2.5 border-2" style={{ background: "var(--x)", borderColor: "var(--x)", opacity: 0.85 }}></i> Q1–Q3 (50% central)</span>
-              <span className="flex items-center gap-2"><i className="inline-block w-[18px] h-[3px] bg-ink" style={{ position: "relative", top: "-1px" }}></i> Mediana</span>
-              <span className="flex items-center gap-2"><i className="inline-block w-2.5 h-2.5 bg-accent rotate-45" style={{ position: "relative", top: "1px" }}></i> Média</span>
-              <span className="flex items-center gap-2"><i className="inline-block w-0.5 h-3.5 bg-muted"></i> Whiskers (mín–máx)</span>
-            </div>
-            <p className="text-xs text-muted-2 mt-3 mb-0">
-              Linha tracejada vermelha marca a nota mínima de aprovação (5,0). Passe o mouse sobre as caixas para detalhes.
-            </p>
-          </div>
 
-          <div className="bg-bg-alt border border-line rounded-[14px] p-6 shadow-sm">
-            <div className="flex items-center justify-between flex-wrap gap-3 mb-5">
-              <h3 className="text-lg font-semibold m-0">Figura 2 · Histograma — frequência de notas</h3>
-              <span className="text-muted-2 text-xs">Calculado a partir das notas brutas</span>
+            <div className="bg-bg-alt border border-line rounded-[14px] p-6 shadow-sm print-tight">
+              <div className="flex items-center justify-between flex-wrap gap-3 mb-5">
+                <h3 className="text-lg font-semibold m-0">Figura 2 · Histograma — frequência de notas</h3>
+                <span className="text-muted-2 text-xs">Calculado a partir das notas brutas</span>
+              </div>
+              <Histogram grupos={grupos} cutoff={5} bins={10} />
+              <p className="text-xs text-muted-2 mt-3 mb-0">
+                Frequência relativa (%) por faixa. A linha vermelha em 5,0 indica o corte de aprovação.
+              </p>
             </div>
-            <Histogram grupos={grupos} cutoff={5} bins={10} />
-            <p className="text-xs text-muted-2 mt-3 mb-0">
-              Frequência relativa (%) por faixa. A linha vermelha em 5,0 indica o corte de aprovação.
-            </p>
           </div>
         </div>
       </section>
@@ -406,16 +408,14 @@ export default async function HomePage() {
           </p>
 
           <div className="grid md:grid-cols-2 gap-5">
-            <article className="bg-bg-alt border border-line rounded-[14px] p-6 shadow-sm relative overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-primary" />
+            <article className="bg-bg-alt border border-line rounded-[14px] p-6 pl-5 shadow-sm border-l-4 border-primary">
               <header className="flex items-center gap-2 mb-3"><span aria-hidden="true" className="text-xl">🔍</span><h3 className="text-lg font-semibold m-0">Diagnóstico</h3></header>
               <p className="text-muted-2 m-0">
                 Necessidade de investigar as causas subjacentes: metodologias de ensino,
                 pré-requisitos dos ingressantes e adequação da carga horária.
               </p>
             </article>
-            <article className="bg-bg-alt border border-line rounded-[14px] p-6 shadow-sm relative overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-accent" />
+            <article className="bg-bg-alt border border-line rounded-[14px] p-6 pl-5 shadow-sm border-l-4 border-accent">
               <header className="flex items-center gap-2 mb-3"><span aria-hidden="true" className="text-xl">🎯</span><h3 className="text-lg font-semibold m-0">Ação</h3></header>
               <p className="text-muted-2 m-0">
                 Implementação de estratégias eficazes e recursos de apoio ao estudante

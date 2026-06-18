@@ -172,17 +172,12 @@ h1, h2, h3, h4 {
 }
 
 /* ===== Print-friendly view =====
-   - Force white background, black text (regardless of dark mode)
-   - Hide non-essential chrome (nav, theme toggle, demo banner, footer)
-   - Avoid page breaks inside cards/figures
-   - Show URL after every link
-   - Drop shadows / rounded corners that don't print well
-   @page { margin: 20mm 18mm 22mm 18mm; }
+   Target: fit the whole study in ~5 A4 pages, legible, no clipped labels.
+   Strategy: small fonts, compact spacing, charts side-by-side, dark hex.
+   @page A4 portrait, 14mm margins.
 */
-@page {
-  size: A4;
-  margin: 20mm 18mm 22mm 18mm;
-}
+@page { size: A4; margin: 14mm 14mm 14mm 14mm; }
+
 @media print {
   :root, html.dark {
     --bg: #ffffff;
@@ -209,87 +204,167 @@ h1, h2, h3, h4 {
   html, body {
     background: #fff !important;
     color: #000 !important;
-    font-size: 10.5pt;
-    line-height: 1.4;
+    font-size: 9pt;
+    line-height: 1.32;
   }
-  /* Hide UI chrome */
+  /* Hide UI chrome — only the top-level nav/header, not headers inside
+     sections (which are semantic for cards/groups). */
   body > nav, body > header, header[role="banner"],
   .no-print, [data-no-print],
-  .demo-banner, .skip-to-content {
+  .demo-banner, .skip-to-content, footer, .no-print-footer {
     display: none !important;
   }
   /* Show the print-only header */
   .print-only { display: block !important; }
-  /* Page setup: A4 portrait, generous margins, hide native header/footer via @page */
-  @page {
-    size: A4;
-    margin: 18mm 16mm 20mm 16mm;
+
+  /* ===== 5-PAGE LAYOUT =====
+     1. Hero + KPI + Stats table
+     2. Status cards + Methodology
+     3. Boxplot (small) + Histogram (small) side by side
+     4. Bars (small) + Conclusion
+     5. Authors + Footer */
+
+  /* Section spacing: tight, never break across pages unless forced */
+  section { margin-bottom: 3mm; break-inside: avoid; }
+  /* Author section: can be placed wherever there's room */
+  section#autores { break-inside: auto !important; }
+  /* Hide Metodologia section in print: it duplicates info already in page intro */
+  #metodologia { display: none; }
+  /* Force page break BEFORE these key sections so we land at 5 pages */
+  #distribuicao { break-before: page; }
+  #aprovacao { break-after: avoid; }
+  /* Conclusao flows naturally after Aprovacao on the same page */
+  #conclusao { break-before: avoid; page-break-before: avoid; }
+  /* Hide Autores section in print: the author names (DR · JB · Prof. Laudino)
+     are already shown in the printHeader at the top of every page, so a
+     separate Autores section would add a 6th mostly-empty page. */
+  #autores { display: none !important; }
+
+  /* Headings: small but distinct */
+  h1 { font-size: 14pt; margin: 0 0 1.5mm; break-after: avoid; line-height: 1.1; }
+  h2 { font-size: 10pt; margin: 0 0 1mm; break-after: avoid; }
+  h3 { font-size: 9pt; margin: 0 0 0.5mm; break-after: avoid; }
+  p, li { margin: 0 0 1mm; font-size: 8.5pt; line-height: 1.3; }
+
+  /* Eyebrows (small uppercase labels) */
+  .eyebrow { font-size: 7.5pt !important; letter-spacing: 0.05em !important; }
+
+  /* Hero: compact */
+  #hero { padding: 0 !important; margin-bottom: 2mm !important; }
+  #hero h1 { font-size: 12pt !important; line-height: 1.05; }
+  #hero p { font-size: 8pt !important; line-height: 1.3; }
+
+  /* KPI strip + tax card: keep on page 1 with hero */
+  .container { padding-left: 0 !important; padding-right: 0 !important; }
+  .gap-12 { gap: 6mm !important; }
+  .gap-4 { gap: 2mm !important; }
+  .p-6, .p-8 { padding: 3mm !important; }
+  .p-4 { padding: 2mm !important; }
+
+  /* Card radius: keep small */
+  [class*="rounded-["] {
+    border-radius: 2mm !important;
   }
-  /* Section spacing: avoid orphan sections */
-  section {
-    break-inside: avoid;
-    margin-bottom: 6mm;
-  }
-  /* Cards & figures: avoid breaks */
-  .card, [class*="rounded-["], [class*="border"] {
-    break-inside: avoid;
-  }
-  /* Charts: limit height, keep together, prevent text clipping */
+
+  /* Tables: compact */
+  table { font-size: 8.5pt; }
+  th, td { padding: 1.5mm 2mm !important; }
+
+  /* ===== CHARTS: small, side-by-side ===== */
   canvas {
-    max-height: 130mm !important;
+    max-height: 65mm !important;
     max-width: 100% !important;
     page-break-inside: avoid;
     display: block !important;
   }
-  /* Charts container: add internal padding so labels don't clip */
+  /* Force chart containers to be 65mm tall in print */
   [class*="h-[360px]"], [class*="h-[420px]"], [class*="h-[400px]"] {
-    height: 130mm !important;
-    padding: 0 4mm !important;
+    height: 65mm !important;
+    padding: 0 !important;
   }
-  /* Links: show URL after the text (academic citation style) */
-  a[href^="http"]:after {
-    content: " (" attr(href) ")";
-    font-size: 8.5pt;
-    color: #666;
-    word-break: break-all;
+
+  /* Two-column layout: pair boxplot + histogram side by side */
+  .print-row {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 3mm !important;
+    page-break-inside: avoid;
   }
-  a[href^="/"]:after {
-    content: " (ufmt-stats.vercel.app" attr(href) ")";
-    font-size: 8.5pt;
-    color: #666;
+  .print-row > section { margin-bottom: 0; }
+
+  /* The chart cards: tighten padding */
+  .print-tight {
+    padding: 2mm !important;
+    margin-bottom: 2mm !important;
   }
-  a[href^="#"]:after,
-  a[href^="javascript:"]:after,
-  button:after {
-    content: "";
-  }
-  /* Simplify decorative elements */
+  .print-tight canvas { max-height: 55mm !important; }
+
+  /* ===== Decorative elements: simplify ===== */
   .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl {
     box-shadow: none !important;
   }
-  /* Headings: keep with next content, reduce size */
-  h1 { font-size: 18pt; break-after: avoid; }
-  h2 { font-size: 14pt; break-after: avoid; }
-  h3 { font-size: 12pt; break-after: avoid; }
-  h4 { break-after: avoid; }
-  /* Tables: keep header on every page, no row breaks */
-  thead { display: table-header-group; }
-  tr { break-inside: avoid; }
-  /* The KPI strip with bg-primary text-bg: keep colored bg, white text */
+  /* KPI strip bg-primary text-bg: keep dark bg + white text */
   [class*="bg-primary"][class*="text-bg"] {
     background: #1a2540 !important;
     color: #ffffff !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
-  /* Force color printing for OKLCH values that may compute oddly */
+  /* accent-soft callouts: keep light orange bg */
+  .bg-accent-soft {
+    background: #fef2e9 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  /* primary-soft (blue callout) */
+  .bg-primary-soft {
+    background: #e8eef5 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  /* Status cards: very compact to fit 4 cards on page 5 + leave room for Conclusão */
+  #status .gap-3 { gap: 1.5mm !important; }
+  #status .gap-4 { gap: 2mm !important; }
+  #status [class*="p-"] { padding: 1.5mm !important; }
+  #status p, #status li { font-size: 7.5pt !important; line-height: 1.25; }
+  #status h3, #status [class*="text-lg"] { font-size: 8.5pt !important; }
+  #status [class*="text-2xl"] { font-size: 1.1rem !important; }
+  #status [class*="text-xs"], #status [class*="text-sm"] { font-size: 7pt !important; }
+  #status [class*="rounded-["] { border-radius: 1.5mm !important; }
+  /* Hide the 3 finding cards (Achado/Leitura/Recomendação) in print —
+     they duplicate insights that are already in the on-page intro and
+     Conclusão. Saves ~50mm of vertical space so Conclusão fits on page 5. */
+  #status .mt-8.grid { display: none; }
+  /* Conclusão: compact but with enough top padding for the header */
+  #conclusao [class*="p-"] { padding: 4mm 3mm 3mm 5mm !important; }
+  #conclusao .gap-5 { gap: 2mm !important; }
+  #conclusao header { margin-bottom: 2mm !important; display: flex !important; visibility: visible !important; }
+  /* Force color printing everywhere */
   * {
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
-  /* Smaller images & icons in print */
-  svg { max-width: 14pt; max-height: 14pt; }
-  .no-print-svg { display: none !important; }
+
+  /* Tables: keep header on every page */
+  thead { display: table-header-group; }
+  tr { break-inside: avoid; }
+
+  /* Smaller images & icons */
+  svg { max-width: 10pt; max-height: 10pt; }
+
+  /* Links: show URL after the text (academic citation) */
+  a[href^="http"]:after {
+    content: " (" attr(href) ")";
+    font-size: 7pt;
+    color: #666;
+    word-break: break-all;
+  }
+  a[href^="#"]:after,
+  a[href^="javascript:"]:after,
+  button:after { content: ""; }
+
+  /* Figure caption (subtitle on right of "Figura N") */
+  .text-xs, .text-sm { font-size: 8pt !important; }
 }
 
 /* Default: hide print-only content */
