@@ -342,7 +342,7 @@ export default async function HomePage() {
           </div>
 
           <div className="mt-5 flex items-center gap-4 bg-accent-soft border border-accent-soft-border rounded-[14px] p-4">
-            <span className="font-serif text-xl font-semibold bg-accent text-bg w-10 h-10 grid place-items-center rounded-full flex-shrink-0">5,0</span>
+            <span className="font-serif text-[15px] leading-none font-semibold bg-accent text-bg w-10 h-10 grid place-items-center rounded-full flex-shrink-0 tracking-tight tabular-nums">5,0</span>
             <p className="text-ink-2 m-0 text-sm">Critério de aprovação usado pela UFMT — e a nota média nunca chega perto disso.</p>
           </div>
         </div>
