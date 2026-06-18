@@ -139,13 +139,13 @@ export default async function AdminOverview() {
           <div aria-hidden="true" className="absolute top-0 right-0 w-32 h-32 rounded-full bg-accent opacity-15 -mr-12 -mt-12" />
           <div className="flex items-start justify-between gap-4 relative">
             <div>
-              <div className="text-xs font-semibold tracking-wider uppercase text-on-dark-muted mb-2">
+              <div className="text-xs font-semibold tracking-wider uppercase text-bg opacity-70 mb-2">
                 Ação mais comum
               </div>
               <h3 className="font-serif text-2xl font-semibold m-0 text-bg">
                 Gerenciar notas
               </h3>
-              <p className="text-on-dark-muted text-sm mt-2 m-0">
+              <p className="text-bg opacity-75 text-sm mt-2 m-0">
                 Adicionar, editar ou remover notas. Filtros por aprovado/reprovado.
               </p>
             </div>

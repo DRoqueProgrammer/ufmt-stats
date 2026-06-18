@@ -22,15 +22,29 @@ function readTheme() {
     // SSR fallback — matches the OKLCH tokens; never used because all
     // chart components are client-only and bail out before this path.
     return {
-      ink: "oklch(20% 0.04 250)", ink2: "oklch(26% 0.05 250)",
-      muted: "oklch(48% 0.022 250)", line: "oklch(91% 0.012 250)",
-      primary: "oklch(35% 0.08 250)", accent: "oklch(70% 0.18 35)",
-      accent2: "oklch(76% 0.15 35)", onDark: "oklch(82% 0.02 250)",
-      bg: "oklch(98.2% 0.006 250)", white: "oklch(100% 0 0)",
+      ink: "#1d2538", ink2: "#2a3450",
+      muted: "#5a6478", line: "#d9dde3",
+      primary: "#384b7a", accent: "#e87a35",
+      accent2: "#f0a878", onDark: "#d3d8e0",
+      bg: "#f6f7f8", white: "#ffffff",
     };
   }
-  const css = (n: string) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-  return {
+  // Read CSS variable and normalize to rgb(). Browsers return computed
+  // values in `oklch()` / `lab()` which Chart.js's color parser doesn't
+  // understand (it falls back to a light gray). Trick: set color on a
+  // detached element and read getComputedStyle().color — this is always
+  // an `rgb(...)` string the browser has already resolved.
+  const probe = document.createElement("span");
+  probe.style.display = "none";
+  document.body.appendChild(probe);
+  const css = (n: string) => {
+    const raw = getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+    if (!raw) return "rgb(0,0,0)";
+    probe.style.color = "";
+    probe.style.color = raw;
+    return getComputedStyle(probe).color || raw;
+  };
+  const out = {
     ink: css("--ink"),
     ink2: css("--ink-2"),
     muted: css("--muted"),
@@ -39,9 +53,11 @@ function readTheme() {
     accent: css("--accent"),
     accent2: css("--accent-2"),
     onDark: css("--on-dark"),
-    bg: "oklch(98.2% 0.006 250)",  // SSR fallback; client uses live --bg
-    white: "oklch(100% 0 0)",
+    bg: css("--bg"),
+    white: css("--bg"),  // tooltip text uses bg as inverse
   };
+  probe.remove();
+  return out;
 }
 
 /** Fallback UI when Chart.js fails to load (offline, blocked CDN, etc). */
