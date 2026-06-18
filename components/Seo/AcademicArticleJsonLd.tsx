@@ -40,7 +40,6 @@ export function AcademicArticleJsonLd({
     ],
     educationalLevel: "Higher education",
     isAccessibleForFree: true,
-    inLanguage: "pt-BR",
   };
   return (
     <script
