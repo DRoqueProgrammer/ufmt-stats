@@ -4,6 +4,7 @@ import { StatusBreakdown } from "@/components/charts/StatusBreakdown";
 import { getAutores, getGrupos, getMetadata } from "@/lib/data";
 import type { Grupo } from "@/lib/types";
 import { AcademicArticleJsonLd } from "@/components/Seo/AcademicArticleJsonLd";
+import { PrintHeader } from "@/components/PrintHeader";
 
 export default async function HomePage() {
   const grupos = getGrupos(5.0);
@@ -27,6 +28,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <PrintHeader />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Navbar />
 

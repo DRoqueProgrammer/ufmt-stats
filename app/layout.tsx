@@ -120,7 +120,7 @@ function DemoBanner() {
   return (
     <div
       role="status"
-      className="bg-warn-soft border-b border-warn text-warn text-xs text-center py-1.5 px-4"
+      className="no-print bg-warn-soft border-b border-warn text-warn text-xs text-center py-1.5 px-4"
       style={{ paddingLeft: "max(1rem, env(safe-area-inset-left))", paddingRight: "max(1rem, env(safe-area-inset-right))" }}
     >
       <strong>Modo demo:</strong> lendo dados de <code className="font-mono text-ink-2">data/seed.json</code>.

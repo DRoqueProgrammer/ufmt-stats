@@ -64,11 +64,37 @@ export default function Navbar() {
           >
             Admin
           </a>
+          <button
+            type="button"
+            onClick={() => window.print()}
+            aria-label="Imprimir esta página"
+            title="Imprimir / salvar como PDF"
+            className="no-print ml-1 min-h-[36px] min-w-[36px] grid place-items-center rounded-md text-ink-2 hover:text-accent hover:bg-bg-subtle transition-colors"
+          >
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M6 9V2h12v7" />
+              <rect x="3" y="9" width="18" height="9" rx="1.5" />
+              <path d="M6 14h12v8H6z" />
+              <circle cx="18" cy="12" r="0.6" fill="currentColor" />
+            </svg>
+          </button>
           <ThemeToggle />
         </nav>
 
         <div className="md:hidden flex items-center gap-2">
           <ThemeToggle />
+          <button
+            type="button"
+            onClick={() => window.print()}
+            aria-label="Imprimir"
+            className="no-print min-h-[44px] min-w-[44px] grid place-items-center border border-line-2 rounded-md text-ink-2 hover:border-accent hover:text-accent transition-colors"
+          >
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M6 9V2h12v7" />
+              <rect x="3" y="9" width="18" height="9" rx="1.5" />
+              <path d="M6 14h12v8H6z" />
+            </svg>
+          </button>
           <button
             className="min-h-[44px] min-w-[44px] grid place-items-center border border-line-2 rounded-md text-ink-2 hover:border-accent hover:text-accent transition-colors"
             onClick={() => setOpen(!open)}

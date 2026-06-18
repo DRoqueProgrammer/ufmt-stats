@@ -170,3 +170,79 @@ h1, h2, h3, h4 {
   }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* ===== Print-friendly view =====
+   - Force white background, black text (regardless of dark mode)
+   - Hide non-essential chrome (nav, theme toggle, demo banner, footer)
+   - Avoid page breaks inside cards/figures
+   - Show URL after every link
+   - Drop shadows / rounded corners that don't print well
+   @page { margin: 18mm; }
+*/
+@media print {
+  :root, html.dark {
+    --bg: #ffffff;
+    --bg-alt: #ffffff;
+    --bg-subtle: #fafafa;
+    --ink: #000000;
+    --ink-2: #000000;
+    --muted: #444444;
+    --muted-2: #555555;
+    --line: #cccccc;
+    --line-2: #bbbbbb;
+    --primary: #1a2540;
+    --primary-2: #2a3450;
+    --accent: #c25a1f;
+    --accent-2: #d97a47;
+    --on-dark: #1a1a1a;
+    --on-dark-muted: #444444;
+    color-scheme: light;
+  }
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 11pt;
+  }
+  /* Hide UI chrome */
+  nav, header, .no-print, [data-no-print],
+  .demo-banner, .skip-to-content {
+    display: none !important;
+  }
+  /* Show the print-only header */
+  .print-only { display: block !important; }
+  /* Cards & figures: avoid breaks */
+  section, article, .card, [class*="rounded-["], [class*="border"] {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  /* Charts: keep them together and limit height */
+  canvas {
+    max-height: 200mm !important;
+    page-break-inside: avoid;
+  }
+  /* Links: show URL after the text */
+  a[href^="http"]:after,
+  a[href^="/"]:after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #666;
+    word-break: break-all;
+  }
+  a[href^="#"]:after,
+  a[href^="javascript:"]:after,
+  button:after {
+    content: "";
+  }
+  /* Simplify decorative elements */
+  .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl {
+    box-shadow: none !important;
+  }
+  /* Headings: keep with next content */
+  h1, h2, h3, h4 { break-after: avoid; }
+  thead { display: table-header-group; }
+  tr { break-inside: avoid; }
+}
+
+/* Default: hide print-only content */
+.print-only { display: none; }
+@media screen { .print-only { display: none; } }
