@@ -20,15 +20,9 @@ export function StatusBreakdown({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutof
         return (
           <article
             key={g.id}
-            className="relative bg-bg-alt border border-line rounded-[14px] p-4 shadow-sm"
+            className="relative bg-bg-alt border border-line rounded-[14px] p-4 pl-5 shadow-sm border-l-4"
+            style={{ borderLeftColor: g.disciplinaColor }}
           >
-            {/* Top accent rule — full hairline, not a side-stripe.
-                Color encodes the subject discipline (Cálculo I vs VGA). */}
-            <span
-              aria-hidden="true"
-              className="absolute inset-x-0 top-0 h-[3px] rounded-t-[14px]"
-              style={{ background: g.disciplinaColor }}
-            />
 
             <h3
               className="font-serif font-semibold mb-2 text-ink-2"
