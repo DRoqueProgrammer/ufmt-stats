@@ -4,14 +4,75 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { isDemoMode } from "@/lib/data";
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://ufmt-stats.vercel.app";
+const SITE_NAME = "Análise de Desempenho — UFMT";
+const DESCRIPTION =
+  "Estudo quantitativo do desempenho acadêmico de duas turmas da UFMT nas disciplinas de Cálculo I e Vetores e Geometria Analítica, com boxplots, histogramas e taxas de aprovação.";
+
 export const metadata: Metadata = {
-  title: "Análise de Desempenho Acadêmico em Cálculo I e VGA — UFMT",
-  description:
-    "Estudo comparativo do desempenho acadêmico de duas turmas da UFMT nas disciplinas de Cálculo I e Vetores e Geometria Analítica.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Análise de Desempenho Acadêmico em Cálculo I e VGA — UFMT",
+    template: "%s · UFMT Stats",
+  },
+  description: DESCRIPTION,
+  applicationName: SITE_NAME,
+  authors: [
+    { name: "Davi Roque Luiz" },
+    { name: "João Baptista Zanin" },
+    { name: "Prof. Dr. Laudino Roces Rodrigues", url: "https://www.ufmt.br" },
+  ],
+  creator: "Davi Roque Luiz · João Baptista Zanin",
+  publisher: "Universidade Federal de Mato Grosso",
+  keywords: [
+    "UFMT", "Cálculo I", "Vetores e Geometria Analítica", "VGA",
+    "desempenho acadêmico", "aprovação", "reprovação", "evasão",
+    "análise quantitativa", "boxplot", "histograma", "estatística",
+  ],
+  category: "education",
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
-    title: "Análise de Desempenho Acadêmico — UFMT",
-    description: "Estudo comparativo de Cálculo I e VGA na Universidade Federal de Mato Grosso.",
     type: "website",
+    locale: "pt_BR",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: "Análise de Desempenho Acadêmico — Cálculo I e VGA · UFMT",
+    description: DESCRIPTION,
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Análise de Desempenho Acadêmico em Cálculo I e VGA — UFMT",
+        type: "image/png",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Análise de Desempenho Acadêmico — Cálculo I e VGA · UFMT",
+    description: DESCRIPTION,
+    images: ["/og-image.png"],
+    creator: "@ufmt",
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/apple-touch-icon.png",
   },
 };
 

@@ -3,6 +3,7 @@ import { Boxplot, Histogram, ApprovalBars } from "@/components/charts/Charts";
 import { StatusBreakdown } from "@/components/charts/StatusBreakdown";
 import { getAutores, getGrupos, getMetadata } from "@/lib/data";
 import type { Grupo } from "@/lib/types";
+import { AcademicArticleJsonLd } from "@/components/Seo/AcademicArticleJsonLd";
 
 export default async function HomePage() {
   const grupos = getGrupos(5.0);
@@ -464,6 +465,12 @@ export default async function HomePage() {
           </div>
         </div>
       </footer>
+      <AcademicArticleJsonLd
+        title="Análise de Desempenho Acadêmico em Cálculo I e VGA"
+        description="Estudo quantitativo do desempenho acadêmico de duas turmas da UFMT nas disciplinas de Cálculo I e Vetores e Geometria Analítica."
+        url="https://ufmt-stats.vercel.app/"
+        authors={autores.map((a) => ({ name: a.nome, role: a.papel }))}
+      />
     </>
   );
 }
