@@ -1,5 +1,20 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+
+/** Returns a counter that increments every time the `<html>` element's
+ *  `class` attribute changes. Used as a dependency in chart effects so
+ *  the chart is rebuilt with fresh theme colors when the user toggles
+ *  light/dark. */
+function useThemeTick() {
+  const [tick, setTick] = useState(0);
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const obs = new MutationObserver(() => setTick((t) => t + 1));
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    return () => obs.disconnect();
+  }, []);
+  return tick;
+}
 import type { Grupo } from "@/lib/types";
 import { binNotes } from "@/lib/stats";
 
@@ -88,6 +103,7 @@ export function Boxplot({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?: numb
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const tooltipRef = useRef<HTMLDivElement | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const themeTick = useThemeTick();
 
   useEffect(() => {
     let chart: any = null;
@@ -228,13 +244,14 @@ export function Boxplot({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?: numb
       });
     })();
     return () => { disposed = true; chart?.destroy?.(); tooltipRef.current?.remove(); tooltipRef.current = null; };
-  }, [grupos, cutoff]);
+  }, [grupos, cutoff, themeTick]);
 
   return error ? <ChartError message={error} /> : <div className="relative h-[360px]"><canvas ref={canvasRef} /></div>;
 }
 
 /* ---------------- HISTOGRAM ---------------- */
 export function Histogram({ grupos, cutoff = 5, bins = 10 }: { grupos: Grupo[]; cutoff?: number; bins?: number }) {
+  const themeTick = useThemeTick();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -309,13 +326,14 @@ export function Histogram({ grupos, cutoff = 5, bins = 10 }: { grupos: Grupo[]; 
       });
     })();
     return () => { disposed = true; chart?.destroy?.(); };
-  }, [grupos, cutoff, bins]);
+  }, [grupos, cutoff, bins, themeTick]);
 
   return error ? <ChartError message={error} /> : <div className="relative h-[360px]"><canvas ref={canvasRef} /></div>;
 }
 
 /* ---------------- APPROVAL BARS ---------------- */
 export function ApprovalBars({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?: number }) {
+  const themeTick = useThemeTick();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -406,7 +424,7 @@ export function ApprovalBars({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?:
       });
     })();
     return () => { disposed = true; chart?.destroy?.(); };
-  }, [grupos, cutoff]);
+  }, [grupos, cutoff, themeTick]);
 
   return error ? <ChartError message={error} /> : <div className="relative h-[360px]"><canvas ref={canvasRef} /></div>;
 }
