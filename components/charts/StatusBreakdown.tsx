@@ -20,9 +20,13 @@ export function StatusBreakdown({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutof
         return (
           <article
             key={g.id}
-            className="relative bg-bg-alt border border-line rounded-[14px] p-4 pl-5 shadow-sm border-l-4"
-            style={{ borderLeftColor: g.disciplinaColor }}
+            className="relative bg-bg-alt border border-line rounded-[14px] p-4 shadow-sm overflow-hidden"
           >
+            <span
+              aria-hidden="true"
+              className="absolute top-0 left-0 right-0 h-[3px]"
+              style={{ background: g.disciplinaColor }}
+            />
             <h3
               className="font-serif font-semibold mb-2 text-ink-2"
               style={{ fontSize: "0.95rem", lineHeight: 1.25 }}

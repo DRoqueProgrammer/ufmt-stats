@@ -8,8 +8,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="container mx-auto px-6 max-w-[1200px] flex items-center justify-between py-4">
           <Link href="/admin" className="flex items-center gap-3 no-underline text-ink-2">
             <span
-              className="w-9 h-9 rounded-[10px] grid place-items-center font-serif text-base font-semibold"
-              style={{ background: "linear-gradient(135deg, var(--accent), var(--accent-2))", color: "var(--bg)" }}
+              className="w-9 h-9 rounded-[10px] grid place-items-center font-serif text-base font-semibold bg-accent text-bg border border-line-2"
             >Σ</span>
             <span>
               <strong className="block text-sm font-semibold text-ink-2">Painel Admin</strong>

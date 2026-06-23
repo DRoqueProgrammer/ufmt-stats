@@ -82,13 +82,15 @@ const config: Config = {
         display: ['3.052rem', { lineHeight: '1.05', letterSpacing: '-0.02em' }],
       },
       boxShadow: {
-        sm: "0 1px 2px oklch(20% 0.04 250 / 0.05)",
-        md: "0 4px 12px oklch(20% 0.04 250 / 0.06), 0 2px 4px oklch(20% 0.04 250 / 0.04)",
-        lg: "0 16px 40px oklch(20% 0.04 250 / 0.10), 0 4px 10px oklch(20% 0.04 250 / 0.05)",
+        // Academic feel: prefer single soft shadows over stacked heavy ones.
+        // Avoids the "elevated SaaS card" look.
+        sm: "0 1px 2px oklch(20% 0.04 250 / 0.04)",
+        md: "0 2px 8px oklch(20% 0.04 250 / 0.05)",
+        lg: "0 4px 16px oklch(20% 0.04 250 / 0.06)",
         // Brand-tinted focus ring for accessibility
         focus: "0 0 0 3px oklch(70% 0.18 35 / 0.35)",
       },
-      borderRadius: { sm: "8px", DEFAULT: "14px", lg: "22px" },
+      borderRadius: { sm: "8px", DEFAULT: "14px", lg: "18px" },
     },
   },
   plugins: [],

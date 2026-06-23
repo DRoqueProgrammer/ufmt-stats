@@ -142,7 +142,7 @@ export function NotasTable({ disciplinaId, disciplinaLabel, notas: initialNotas,
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="🔍 Buscar aluno ou nota..."
+            placeholder="Buscar aluno ou nota..."
             className="ml-auto px-3 py-1.5 border border-line-2 rounded-md text-sm focus:border-accent focus:outline-none"
           />
         </div>

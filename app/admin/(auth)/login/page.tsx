@@ -15,8 +15,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
         <div className="text-center mb-6">
           <a href="/" className="inline-flex items-center gap-3 no-underline">
             <span
-              className="w-10 h-10 rounded-[10px] grid place-items-center text-white font-serif text-lg font-semibold"
-              style={{ background: "linear-gradient(135deg, var(--primary), var(--primary-2))" }}
+              className="w-10 h-10 rounded-[10px] grid place-items-center text-bg font-serif text-lg font-semibold bg-primary border border-line-2"
             >Σ</span>
             <span className="font-sans font-bold text-base tracking-wider text-ink">Painel Admin · UFMT</span>
           </a>

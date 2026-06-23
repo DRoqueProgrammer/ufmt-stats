@@ -83,7 +83,7 @@ export default async function AdminOverview() {
           <Link
             key={g.id}
             href={`/admin/notas?disc=${encodeURIComponent(g.id)}`}
-            className="block bg-bg-alt border border-line rounded-[14px] p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all no-underline"
+            className="block bg-bg-alt border border-line rounded-[14px] p-5 shadow-sm hover:border-line-2 transition-colors no-underline"
           >
             <div className="flex items-start justify-between mb-3">
               <div>
@@ -134,9 +134,8 @@ export default async function AdminOverview() {
       <div className="mt-8 grid md:grid-cols-[1.5fr_1fr] gap-4">
         <Link
           href="/admin/notas"
-          className="group relative bg-primary text-bg border border-primary rounded-[14px] p-6 shadow-sm hover:shadow-md transition-all no-underline overflow-hidden"
+          className="group relative bg-primary text-bg border border-primary rounded-[14px] p-6 shadow-sm hover:bg-primary-2 transition-colors no-underline overflow-hidden"
         >
-          <div aria-hidden="true" className="absolute top-0 right-0 w-32 h-32 rounded-full bg-accent opacity-15 -mr-12 -mt-12" />
           <div className="flex items-start justify-between gap-4 relative">
             <div>
               <div className="text-xs font-semibold tracking-wider uppercase text-bg opacity-70 mb-2">
@@ -168,7 +167,7 @@ export default async function AdminOverview() {
         <div className="grid grid-rows-2 gap-3">
           <Link
             href="/admin/turmas"
-            className="bg-bg-alt border border-line rounded-[14px] p-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all no-underline flex items-start gap-3"
+            className="bg-bg-alt border border-line rounded-[14px] p-4 shadow-sm hover:border-line-2 transition-colors no-underline flex items-start gap-3"
           >
             <span aria-hidden="true" className="w-8 h-8 rounded-md bg-primary-soft text-primary grid place-items-center flex-shrink-0">
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -183,7 +182,7 @@ export default async function AdminOverview() {
           </Link>
           <Link
             href="/admin/importar"
-            className="bg-bg-alt border border-line rounded-[14px] p-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all no-underline flex items-start gap-3"
+            className="bg-bg-alt border border-line rounded-[14px] p-4 shadow-sm hover:border-line-2 transition-colors no-underline flex items-start gap-3"
           >
             <span aria-hidden="true" className="w-8 h-8 rounded-md bg-accent-soft text-accent grid place-items-center flex-shrink-0">
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

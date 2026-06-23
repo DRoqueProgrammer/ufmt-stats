@@ -185,7 +185,7 @@ export function Boxplot({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?: numb
           ctx.strokeStyle = theme.accent; ctx.setLineDash([6, 5]); ctx.lineWidth = 1.5;
           ctx.beginPath(); ctx.moveTo(chartArea.left, y); ctx.lineTo(chartArea.right, y); ctx.stroke();
           ctx.setLineDash([]); ctx.fillStyle = theme.accent;
-          ctx.font = "600 11px Inter, sans-serif"; ctx.textAlign = "right"; ctx.textBaseline = "bottom";
+          ctx.font = "600 11px 'IBM Plex Sans', system-ui, sans-serif"; ctx.textAlign = "right"; ctx.textBaseline = "bottom";
           ctx.fillText(`Aprovação ≥ ${cutoff.toFixed(1)}`, chartArea.right - 6, y - 4);
           ctx.restore();
         }
@@ -218,9 +218,9 @@ export function Boxplot({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?: numb
                   el = document.createElement("div");
                   Object.assign(el.style, {
                     position: "absolute", pointerEvents: "none", background: theme.ink,
-                    color: theme.bg, borderRadius: "8px", padding: "10px 12px",
-                    fontFamily: "Inter, sans-serif", fontSize: "12px",
-                    boxShadow: "0 8px 24px rgba(0,0,0,0.18)",
+                    color: theme.bg, borderRadius: "6px", padding: "10px 12px",
+                    fontFamily: "'IBM Plex Sans', system-ui, sans-serif", fontSize: "12px",
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.12)",
                     transform: "translate(-50%, -100%)", transition: "opacity .15s",
                     opacity: 0, zIndex: "5", whiteSpace: "nowrap",
                   });
@@ -293,7 +293,7 @@ export function Histogram({ grupos, cutoff = 5, bins = 10 }: { grupos: Grupo[]; 
           ctx.strokeStyle = theme.accent; ctx.setLineDash([6, 5]); ctx.lineWidth = 1.5;
           ctx.beginPath(); ctx.moveTo(chartArea.left, y); ctx.lineTo(chartArea.right, y); ctx.stroke();
           ctx.setLineDash([]); ctx.fillStyle = theme.accent;
-          ctx.font = "600 11px Inter, sans-serif"; ctx.textAlign = "right"; ctx.textBaseline = "bottom";
+          ctx.font = "600 11px 'IBM Plex Sans', system-ui, sans-serif"; ctx.textAlign = "right"; ctx.textBaseline = "bottom";
           ctx.fillText(`Aprovação ≥ ${cutoff.toFixed(1)}`, chartArea.right - 6, y - 4);
           ctx.restore();
         }
@@ -375,7 +375,7 @@ export function ApprovalBars({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?:
           ctx.strokeStyle = theme.accent; ctx.setLineDash([6, 5]); ctx.lineWidth = 1.5;
           ctx.beginPath(); ctx.moveTo(chartArea.left, y); ctx.lineTo(chartArea.right, y); ctx.stroke();
           ctx.setLineDash([]); ctx.fillStyle = theme.accent;
-          ctx.font = "600 11px Inter, sans-serif"; ctx.textAlign = "right"; ctx.textBaseline = "bottom";
+          ctx.font = "600 11px 'IBM Plex Sans', system-ui, sans-serif"; ctx.textAlign = "right"; ctx.textBaseline = "bottom";
           ctx.fillText("Linha de 50%", chartArea.right - 6, y - 4);
           ctx.restore();
         }

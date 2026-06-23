@@ -35,8 +35,7 @@ export default function Navbar() {
         <a href="#hero" className="flex items-center gap-3 no-underline">
           <span
             aria-hidden="true"
-            className="w-10 h-10 rounded-[10px] grid place-items-center text-white font-serif text-lg font-semibold shadow-sm"
-            style={{ background: "linear-gradient(135deg, var(--primary), var(--primary-2))" }}
+            className="w-10 h-10 rounded-[10px] grid place-items-center text-bg font-serif text-lg font-semibold bg-primary border border-line-2"
           >
             Σ
           </span>
@@ -101,7 +100,18 @@ export default function Navbar() {
             aria-label={open ? "Fechar menu" : "Abrir menu"}
             aria-expanded={open}
           >
-            <span aria-hidden="true" className="text-lg leading-none">{open ? "✕" : "☰"}</span>
+            {open ? (
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <line x1="6" y1="6" x2="18" y2="18" />
+                <line x1="18" y1="6" x2="6" y2="18" />
+              </svg>
+            ) : (
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <line x1="4" y1="7" x2="20" y2="7" />
+                <line x1="4" y1="12" x2="20" y2="12" />
+                <line x1="4" y1="17" x2="20" y2="17" />
+              </svg>
+            )}
           </button>
         </div>
       </div>

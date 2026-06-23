@@ -33,10 +33,7 @@ export default async function HomePage() {
       <Navbar />
 
       {/* ============== HERO ============== */}
-      <section id="hero" className="relative overflow-hidden pt-12 pb-20">
-        <div className="absolute inset-0 -z-10" style={{
-          background: "radial-gradient(800px 400px at 85% 0%, rgba(255,107,61,0.10), transparent 60%), radial-gradient(900px 500px at 0% 100%, rgba(26,58,92,0.10), transparent 60%)",
-        }} />
+      <section id="hero" className="pt-12 pb-20">
         <div className="container mx-auto px-6 max-w-[1200px] grid md:grid-cols-[1.4fr_1fr] gap-12 items-center">
           <div>
             <span className="eyebrow eyebrow--primary">
@@ -67,8 +64,8 @@ export default async function HomePage() {
             </ul>
           </div>
 
-          <aside className="bg-bg-alt border border-line rounded-[22px] p-8 shadow-md relative">
-            <div className="absolute top-0 left-6 right-6 h-1 bg-gradient-to-r from-accent to-accent-2 rounded-b" />
+          <aside className="bg-bg-alt border border-line rounded-[14px] p-8 shadow-sm relative">
+            <div aria-hidden="true" className="absolute top-0 left-6 right-6 h-1 bg-accent rounded-b" />
             <span className="text-[11px] font-semibold tracking-widest uppercase text-muted-2">
               Taxa média de aprovação
             </span>
@@ -96,7 +93,7 @@ export default async function HomePage() {
       </section>
 
       {/* ============== STRIP ============== */}
-      <section className="bg-gradient-to-br from-primary to-primary-2 text-bg py-7">
+      <section className="bg-primary text-bg py-7">
         <div className="container mx-auto px-6 max-w-[1200px] grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           <div>
             <div className="font-serif font-semibold text-3xl md:text-4xl leading-none">
@@ -168,7 +165,7 @@ export default async function HomePage() {
               ["2", "Taxas de aprovação", "Considerou-se aprovada a obtenção de nota ≥ 5,0, conforme as diretrizes da UFMT."],
               ["3", "Visualização dos dados", "Boxplots e histogramas para a distribuição de notas, e gráfico de barras para comparar as taxas de aprovação."],
             ].map(([num, title, desc]) => (
-              <li key={num} className="grid grid-cols-[auto_1fr] gap-4 bg-bg-alt border border-line rounded-[14px] p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
+              <li key={num} className="grid grid-cols-[auto_1fr] gap-4 bg-bg-alt border border-line rounded-[14px] p-5 shadow-sm hover:border-line-2 transition-colors">
                 <span className="w-10 h-10 rounded-[10px] grid place-items-center bg-primary-soft text-primary font-serif font-semibold text-lg">{num}</span>
                 <div>
                   <h3 className="text-lg font-semibold mb-1.5">{title}</h3>
@@ -366,31 +363,31 @@ export default async function HomePage() {
 
           <StatusBreakdown grupos={grupos} cutoff={5} />
 
-          <div className="mt-8 grid md:grid-cols-3 gap-4">
-            <div className="bg-accent-soft border border-accent-soft-border rounded-[14px] p-5">
-              <div className="text-xs font-semibold tracking-wide uppercase text-accent mb-1">Achado central</div>
-              <p className="text-ink-2 m-0 text-sm">
+          {/* Findings — varied layout to avoid the 3 identical cards pattern.
+              One leading stat-callout + one inline paragraph + one top-bordered note.
+              Each section earns a different visual weight. */}
+          <div className="mt-10 space-y-5">
+            <aside className="bg-accent-soft border border-accent-soft-border rounded-[14px] p-6 max-w-3xl">
+              <div className="text-xs font-semibold tracking-wide uppercase text-accent mb-2">Achado central</div>
+              <p className="text-ink-2 m-0 text-[15px] leading-relaxed">
                 Em <strong>3 dos 4 grupos</strong>, mais de <strong>40%</strong> dos alunos tiraram
                 <strong> zero</strong> ou não compareceram à prova final. Combinado com a reprovação por nota,
-                isso indica que boa parte dos "reprovados" nem chegou a ser avaliada de fato.
+                boa parte dos "reprovados" nem chegou a ser avaliada de fato.
               </p>
-            </div>
-            <div className="bg-success-soft border border-success/20 rounded-[14px] p-5">
-              <div className="text-xs font-semibold tracking-wide uppercase text-success mb-1">Leitura por disciplina</div>
-              <p className="text-ink-2 m-0 text-sm">
-                <strong>VGA</strong> consistentemente apresenta mais aprovados que <strong>Cálculo I</strong>
-                em ambas as turmas. A diferença é pequena em números absolutos, mas sugere perfis de
-                dificuldade distintos entre as duas disciplinas.
-              </p>
-            </div>
-            <div className="bg-primary-soft border border-primary/20 rounded-[14px] p-5">
-              <div className="text-xs font-semibold tracking-wide uppercase text-primary mb-1">Recomendação</div>
-              <p className="text-ink-2 m-0 text-sm">
-                Investigar políticas de <strong>frequência e engajamento</strong> antes de propor
-                mudanças no conteúdo programático. A taxa de zeros sugere que o problema começa
-                <em> antes</em> da prova.
-              </p>
-            </div>
+            </aside>
+
+            <p className="text-ink-2 m-0 max-w-3xl text-[15px] leading-relaxed">
+              <strong className="font-semibold">Leitura por disciplina:</strong> <strong>VGA</strong> consistentemente
+              apresenta mais aprovados que <strong>Cálculo I</strong> em ambas as turmas. A diferença é pequena
+              em números absolutos, mas sugere perfis de dificuldade distintos entre as duas disciplinas.
+            </p>
+
+            <p className="m-0 max-w-3xl text-[15px] leading-relaxed border-t border-line pt-5 text-muted-2">
+              <strong className="font-semibold text-ink-2">Recomendação —</strong> investigar políticas de
+              <strong className="text-ink-2"> frequência e engajamento</strong> antes de propor mudanças
+              no conteúdo programático. A taxa de zeros sugere que o problema começa
+              <em> antes</em> da prova.
+            </p>
           </div>
         </div>
       </section>
@@ -407,19 +404,32 @@ export default async function HomePage() {
             formação dos futuros profissionais e para a evasão universitária.
           </p>
 
-          <div className="grid md:grid-cols-2 gap-5">
-            <article className="bg-bg-alt border border-line rounded-[14px] p-6 pl-5 shadow-sm border-l-4 border-primary">
-              <header className="flex items-center gap-2 mb-3"><span aria-hidden="true" className="text-xl">🔍</span><h3 className="text-lg font-semibold m-0">Diagnóstico</h3></header>
-              <p className="text-muted-2 m-0">
-                Necessidade de investigar as causas subjacentes: metodologias de ensino,
-                pré-requisitos dos ingressantes e adequação da carga horária.
+          <div className="grid md:grid-cols-[1fr_2fr_1fr] gap-6 items-start">
+            <article className="md:pt-1">
+              <div className="text-xs font-semibold tracking-wide uppercase text-muted-2 mb-1.5">01</div>
+              <h3 className="text-lg font-semibold text-ink-2 mb-2">Diagnóstico</h3>
+              <p className="text-muted-2 m-0 text-sm leading-relaxed">
+                Investigar causas subjacentes: metodologias de ensino, pré-requisitos
+                dos ingressantes e adequação da carga horária.
               </p>
             </article>
-            <article className="bg-bg-alt border border-line rounded-[14px] p-6 pl-5 shadow-sm border-l-4 border-accent">
-              <header className="flex items-center gap-2 mb-3"><span aria-hidden="true" className="text-xl">🎯</span><h3 className="text-lg font-semibold m-0">Ação</h3></header>
-              <p className="text-muted-2 m-0">
-                Implementação de estratégias eficazes e recursos de apoio ao estudante
-                (monitoria, nivelamento, material multimídia) para melhorar o aproveitamento.
+
+            <article>
+              <div className="text-xs font-semibold tracking-wide uppercase text-muted-2 mb-1.5">02</div>
+              <h3 className="text-lg font-semibold text-ink-2 mb-2">Recomendação</h3>
+              <p className="text-muted-2 m-0 text-sm leading-relaxed">
+                Antes de mexer no conteúdo programático, atacar o gargalo de frequência e engajamento.
+                Monitoria, nivelamento e material multimídia entram como apoio direto ao estudante
+                que de fato compareceu às aulas — não como substituto da presença.
+              </p>
+            </article>
+
+            <article className="md:pt-1">
+              <div className="text-xs font-semibold tracking-wide uppercase text-muted-2 mb-1.5">03</div>
+              <h3 className="text-lg font-semibold text-ink-2 mb-2">Ação</h3>
+              <p className="text-muted-2 m-0 text-sm leading-relaxed">
+                Implementar estratégias eficazes e recursos de apoio ao estudante
+                para melhorar o aproveitamento.
               </p>
             </article>
           </div>
@@ -439,10 +449,10 @@ export default async function HomePage() {
 
           <div className="grid md:grid-cols-3 gap-4">
             {autores.map((a) => (
-              <article key={a.nome} className="bg-bg-alt border border-line rounded-[14px] p-6 text-center shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
+              <article key={a.nome} className="bg-bg-alt border border-line rounded-[14px] p-6 text-center">
                 <div
-                  className="w-16 h-16 rounded-full mx-auto mb-4 grid place-items-center text-bg font-serif font-semibold text-xl"
-                  style={{ background: a.orientador ? "linear-gradient(135deg, var(--accent), var(--accent-2))" : "linear-gradient(135deg, var(--primary), var(--primary-2))" }}
+                  className="w-16 h-16 rounded-full mx-auto mb-4 grid place-items-center text-bg font-serif font-semibold text-xl border-2 border-line-2"
+                  style={{ background: a.orientador ? "var(--accent)" : "var(--primary)" }}
                 >
                   {a.iniciais}
                 </div>

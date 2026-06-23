@@ -6,3 +6,11 @@ node_modules
 *.log
 .DS_Store
 .vercel
+
+# Local tooling
+.impeccable/
+.opencode/
+tsconfig.tsbuildinfo
+
+# Orphan duplicate (nested repo, see CHANGELOG-impeccable.md)
+/ufmt-stats/
