@@ -2,9 +2,9 @@
   "turmas": [
     {
       "id": "x",
-      "nome": "Turma X",
+      "nome": "Turma A",
       "ano": null,
-      "descricao": "Turma X (período letivo não informado, dados anônimos)",
+      "descricao": "Turma A (período letivo não informado, dados anônimos)",
       "disciplinas": [
         {
           "id": "x-calculo1",
@@ -40,9 +40,9 @@
     },
     {
       "id": "y",
-      "nome": "Turma Y",
+      "nome": "Turma B",
       "ano": null,
-      "descricao": "Turma Y (período letivo não informado, dados anônimos)",
+      "descricao": "Turma B (período letivo não informado, dados anônimos)",
       "disciplinas": [
         {
           "id": "y-calculo1",

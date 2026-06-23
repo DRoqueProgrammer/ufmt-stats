@@ -45,7 +45,7 @@ export default async function HomePage() {
               <span className="text-accent">VGA</span>
             </h1>
             <p className="text-lg text-muted-2 max-w-2xl">
-              Um panorama quantitativo do aproveitamento de duas turmas (X e Y) nas disciplinas
+              Um panorama quantitativo do aproveitamento de duas turmas (A e B) nas disciplinas
               de Cálculo I e Vetores e Geometria Analítica, identificando padrões, diferenças e
               sinais de alerta no processo de ensino-aprendizagem.
             </p>
@@ -155,8 +155,8 @@ export default async function HomePage() {
           <span className="eyebrow">Metodologia</span>
           <h2 className="text-3xl md:text-4xl font-semibold mb-5">Como os dados foram tratados</h2>
           <p>
-            Foram coletadas as notas finais de duas turmas, designadas como <em>Turma X</em> e{" "}
-            <em>Turma Y</em>, nas disciplinas de Cálculo I e VGA. Os dados foram organizados e
+            Foram coletadas as notas finais de duas turmas, designadas como <em>Turma A</em> e{" "}
+            <em>Turma B</em>, nas disciplinas de Cálculo I e VGA. Os dados foram organizados e
             processados com ferramentas de análise estatística, passando pelas seguintes etapas:
           </p>
           <ol className="space-y-3 mt-7">
@@ -270,11 +270,11 @@ export default async function HomePage() {
                 <div className="flex flex-wrap gap-3 text-xs text-muted-2">
                   <span className="flex items-center gap-1.5">
                     <span className="w-3 h-3 inline-block rounded-sm" style={{background:"var(--x)"}} aria-hidden="true" />
-                    Turma X <small className="text-muted-2">(caixa)</small>
+                    Turma A <small className="text-muted-2">(caixa)</small>
                   </span>
                   <span className="flex items-center gap-1.5">
                     <span className="w-3 h-3 inline-block rounded-sm" style={{background:"var(--y)"}} aria-hidden="true" />
-                    Turma Y <small className="text-muted-2">(caixa)</small>
+                    Turma B <small className="text-muted-2">(caixa)</small>
                   </span>
                   <span className="flex items-center gap-1.5">
                     <span className="w-2 h-2 inline-block rotate-45" style={{background:"var(--calc)"}} aria-hidden="true" />
@@ -442,9 +442,10 @@ export default async function HomePage() {
           <span className="eyebrow">Créditos</span>
           <h2 className="text-3xl md:text-4xl font-semibold mb-4">Autores &amp; agradecimentos</h2>
           <p className="text-muted-2 text-lg mb-9">
-            Expressamos nossa gratidão ao Prof. Dr. Laudino Roces Rodrigues pela orientação,
-            pela disponibilização dos dados e pelo apoio fundamental no desenvolvimento desta
-            análise acadêmica.
+            Agradecemos à Universidade Federal de Mato Grosso (UFMT) e à coordenação do curso
+            de Estatística pelo apoio institucional e pelo fornecimento dos dados que possibilitaram
+            a realização deste estudo, bem como ao Prof. Dr. Laudino Roces Rodrigues pela
+            orientação dedicada deste trabalho.
           </p>
 
           <div className="grid md:grid-cols-3 gap-4">

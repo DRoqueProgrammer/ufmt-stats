@@ -108,8 +108,8 @@ create policy "auth write notas"
 --  DADOS INICIAIS (seed) — opcional, rode só se quiser popular agora
 -- =====================================================================
 insert into public.turmas (id, nome, ano, descricao) values
-  ('x', 'Turma X', null, 'Turma X (período letivo não informado, dados anônimos)'),
-  ('y', 'Turma Y', null, 'Turma Y (período letivo não informado, dados anônimos)')
+  ('x', 'Turma A', null, 'Turma A (período letivo não informado, dados anônimos)'),
+  ('y', 'Turma B', null, 'Turma B (período letivo não informado, dados anônimos)')
 on conflict (id) do nothing;
 
 insert into public.disciplinas (id, turma_id, nome, codigo, cor) values

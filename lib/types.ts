@@ -18,9 +18,9 @@ export type Turma = {
 export type Grupo = {
   /** Identificador único: `${turmaId}__${disciplinaId}` */
   id: string;
-  /** Rótulo curto p/ gráficos: "X · Cálc. I" */
+  /** Rótulo curto p/ gráficos: "A · Cálc. I" */
   short: string;
-  /** Rótulo completo: "Turma X · Cálculo I" */
+  /** Rótulo completo: "Turma A · Cálculo I" */
   label: string;
   /** Cor da turma */
   turmaColor: string;

@@ -29,7 +29,7 @@ export function ImportClient({ grupos }: { grupos: Grupo[] }) {
       }
       // Tenta identificar a coluna de destino. Estratégia:
       // 1) Se o usuário escolheu uma disciplina, usa a coluna correspondente:
-      //    X·Cálc I = col 0, X·VGA = col 1, Y·Cálc I = col 2, Y·VGA = col 3
+      //    A·Cálc I = col 0, A·VGA = col 1, B·Cálc I = col 2, B·VGA = col 3
       // 2) Caso contrário, usa a primeira coluna com header "Cálculo I" ou "VGA"
       const header = lines[1].split(/\t|,|;/).map((c) => c.trim().toLowerCase());
       const targetIdx = resolveTargetIdx(targetDisc);
