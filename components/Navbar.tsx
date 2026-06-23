@@ -26,6 +26,7 @@ export default function Navbar() {
 
   return (
     <header
+      data-no-print
       className={`sticky z-50 backdrop-blur transition-colors ${
         scrolled ? "bg-bg-alt/85 border-b border-line" : "bg-transparent"
       }`}

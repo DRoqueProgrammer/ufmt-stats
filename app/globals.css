@@ -218,22 +218,24 @@ h1, h2, h3, h4 {
   .print-only { display: block !important; }
 
   /* ===== 5-PAGE LAYOUT =====
-     1. Hero + KPI + Stats table
-     2. Status cards + Methodology
-     3. Boxplot (small) + Histogram (small) side by side
-     4. Bars (small) + Conclusion
-     5. Authors + Footer */
+     1. PrintHeader + Hero + KPI strip + Introdução
+     2. Estatísticas (descriptive stats table + findings)
+     3. Distribuição (boxplot + histogram side by side)
+     4. Aprovação (bars + side list)
+     5. Status (breakdown cards + findings) + Conclusão */
 
   /* Section spacing: tight, never break across pages unless forced */
-  section { margin-bottom: 3mm; break-inside: avoid; }
+  section { margin-bottom: 0 !important; break-inside: avoid; padding-top: 0 !important; padding-bottom: 4mm !important; }
   /* Author section: can be placed wherever there's room */
   section#autores { break-inside: auto !important; }
   /* Hide Metodologia section in print: it duplicates info already in page intro */
   #metodologia { display: none; }
   /* Force page break BEFORE these key sections so we land at 5 pages */
+  #estatisticas { break-before: page; }
   #distribuicao { break-before: page; }
-  #aprovacao { break-after: avoid; }
-  /* Conclusao flows naturally after Aprovacao on the same page */
+  #aprovacao { break-before: page; break-after: avoid; }
+  #status { break-before: page; }
+  /* Conclusao flows naturally after Status on the same page */
   #conclusao { break-before: avoid; page-break-before: avoid; }
   /* Hide Autores section in print: the author names (DR · JB · Prof. Laudino)
      are already shown in the printHeader at the top of every page, so a
@@ -249,10 +251,28 @@ h1, h2, h3, h4 {
   /* Eyebrows (small uppercase labels) */
   .eyebrow { font-size: 7.5pt !important; letter-spacing: 0.05em !important; }
 
-  /* Hero: compact */
+  /* Hero: compact — the rate card "25,7%" (text-7xl) eats too much space in print */
   #hero { padding: 0 !important; margin-bottom: 2mm !important; }
   #hero h1 { font-size: 12pt !important; line-height: 1.05; }
   #hero p { font-size: 8pt !important; line-height: 1.3; }
+  /* Tailwind display classes used in Hero & other sections — keep print sizes sane */
+  #hero .text-7xl { font-size: 22pt !important; line-height: 1 !important; }
+  #hero .text-6xl { font-size: 18pt !important; line-height: 1.05 !important; }
+  #hero .text-4xl { font-size: 11pt !important; }
+  #hero .text-2xl { font-size: 10pt !important; }
+  /* Hero rate card aside: shrink internal padding */
+  #hero aside { padding: 3mm !important; }
+  #hero aside .text-3xl { font-size: 11pt !important; }
+  /* Strip (KPI strip): tighter */
+  section.bg-primary { padding-top: 3mm !important; padding-bottom: 3mm !important; }
+  section.bg-primary .text-3xl,
+  section.bg-primary .text-4xl { font-size: 16pt !important; line-height: 1 !important; }
+  /* Introdução: tighter eyebrow→title→body spacing */
+  #introducao h2 { font-size: 14pt !important; margin-bottom: 2mm !important; }
+  #introducao p { font-size: 9pt !important; margin-bottom: 1.5mm !important; line-height: 1.35; }
+  /* Print header: tighter */
+  header.print-only { padding-bottom: 6pt !important; margin-bottom: 4pt !important; }
+  header.print-only h1 { font-size: 14pt !important; margin: 1pt 0 2pt !important; }
 
   /* KPI strip + tax card: keep on page 1 with hero */
   .container { padding-left: 0 !important; padding-right: 0 !important; }
@@ -325,20 +345,38 @@ h1, h2, h3, h4 {
   /* Status cards: very compact to fit 4 cards on page 5 + leave room for Conclusão */
   #status .gap-3 { gap: 1.5mm !important; }
   #status .gap-4 { gap: 2mm !important; }
-  #status [class*="p-"] { padding: 1.5mm !important; }
-  #status p, #status li { font-size: 7.5pt !important; line-height: 1.25; }
-  #status h3, #status [class*="text-lg"] { font-size: 8.5pt !important; }
-  #status [class*="text-2xl"] { font-size: 1.1rem !important; }
+  #status [class*="p-"] { padding: 2mm 2mm 2mm 2mm !important; }
+  /* Cards need more top padding so the absolute-positioned 3px color bar
+     doesn't clip the h3 title's ascenders (Lora serif T can climb above
+     the cap-height box). */
+  #status article.relative { padding-top: 5mm !important; }
+  #status p, #status li { font-size: 7.5pt !important; line-height: 1.3; }
+  #status h3, #status [class*="text-lg"] { font-size: 8.5pt !important; line-height: 1.3 !important; }
+  #status [class*="text-2xl"] { font-size: 1.1rem !important; line-height: 1.15 !important; }
   #status [class*="text-xs"], #status [class*="text-sm"] { font-size: 7pt !important; }
   #status [class*="rounded-["] { border-radius: 1.5mm !important; }
   /* Hide the 3 finding cards (Achado/Leitura/Recomendação) in print —
      they duplicate insights that are already in the on-page intro and
      Conclusão. Saves ~50mm of vertical space so Conclusão fits on page 5. */
   #status .mt-8.grid { display: none; }
-  /* Conclusão: compact but with enough top padding for the header */
-  #conclusao [class*="p-"] { padding: 4mm 3mm 3mm 5mm !important; }
-  #conclusao .gap-5 { gap: 2mm !important; }
-  #conclusao header { margin-bottom: 2mm !important; display: flex !important; visibility: visible !important; }
+  /* Conclusão: very compact — fits in ~30mm so it doesn't push Status to a new page */
+  #conclusao { padding-top: 3mm !important; padding-bottom: 3mm !important; }
+  #conclusao [class*="p-"] { padding: 0 !important; }
+  #conclusao .gap-5 { gap: 0 !important; }
+  #conclusao .gap-6 { gap: 3mm !important; }
+  #conclusao .mb-9 { margin-bottom: 1.5mm !important; }
+  #conclusao .mb-4 { margin-bottom: 0.5mm !important; }
+  #conclusao .mb-2 { margin-bottom: 0.5mm !important; }
+  #conclusao .mb-1\.5 { margin-bottom: 0 !important; }
+  #conclusao .text-lg { font-size: 8.5pt !important; margin-bottom: 0 !important; line-height: 1.2; }
+  #conclusao h2 { font-size: 10pt !important; margin-bottom: 1mm !important; }
+  #conclusao > div > p { font-size: 7.5pt !important; line-height: 1.22 !important; margin-bottom: 1mm !important; }
+  #conclusao p { font-size: 7.5pt !important; line-height: 1.22 !important; margin-bottom: 0.8mm !important; }
+  #conclusao .text-xs { font-size: 6pt !important; }
+  #conclusao header { margin-bottom: 0.5mm !important; display: flex !important; visibility: visible !important; }
+  /* Compress the 3-article grid: tighter spacing, smaller headings */
+  #conclusao article { line-height: 1.2; padding-top: 0 !important; }
+  #conclusao article h3 { font-size: 8pt !important; margin-bottom: 0.3mm !important; }
   /* Force color printing everywhere */
   * {
     -webkit-print-color-adjust: exact !important;

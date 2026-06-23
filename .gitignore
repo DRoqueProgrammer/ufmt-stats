@@ -14,3 +14,12 @@ tsconfig.tsbuildinfo
 
 # Orphan duplicate (nested repo, see CHANGELOG-impeccable.md)
 /ufmt-stats/
+
+# Debug artifacts (Playwright MCP, PDF inspection, page rasters)
+.debug-*
+.mcp-*
+.preview-*
+.pdf-backups-*/
+.debug_charmap.py
+.debug_colors.py
+.inspect_pdfs.py
