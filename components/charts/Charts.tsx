@@ -259,7 +259,15 @@ export function Boxplot({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?: numb
     return () => { disposed = true; chart?.destroy?.(); tooltipRef.current?.remove(); tooltipRef.current = null; };
   }, [grupos, cutoff, themeTick]);
 
-  return error ? <ChartError message={error} /> : <div className="relative h-[360px]"><canvas ref={canvasRef} /></div>;
+  return error ? <ChartError message={error} /> : (
+    <div className="relative h-[360px]">
+      <canvas
+        ref={canvasRef}
+        role="img"
+        aria-label={`Boxplot comparativo de notas finais para ${grupos.length} combinações de turma e disciplina. Aprovação mínima: ${cutoff.toFixed(1)}.`}
+      />
+    </div>
+  );
 }
 
 /* ---------------- HISTOGRAM ---------------- */
@@ -341,7 +349,15 @@ export function Histogram({ grupos, cutoff = 5, bins = 10 }: { grupos: Grupo[]; 
     return () => { disposed = true; chart?.destroy?.(); };
   }, [grupos, cutoff, bins, themeTick]);
 
-  return error ? <ChartError message={error} /> : <div className="relative h-[360px]"><canvas ref={canvasRef} /></div>;
+  return error ? <ChartError message={error} /> : (
+    <div className="relative h-[360px]">
+      <canvas
+        ref={canvasRef}
+        role="img"
+        aria-label={`Histograma de distribuição de notas finais, ${bins} faixas de 0 a 10, comparado entre ${grupos.length} grupos. Linha vermelha em ${cutoff.toFixed(1)} marca o corte de aprovação.`}
+      />
+    </div>
+  );
 }
 
 /* ---------------- APPROVAL BARS ---------------- */
@@ -439,5 +455,13 @@ export function ApprovalBars({ grupos, cutoff = 5 }: { grupos: Grupo[]; cutoff?:
     return () => { disposed = true; chart?.destroy?.(); };
   }, [grupos, cutoff, themeTick]);
 
-  return error ? <ChartError message={error} /> : <div className="relative h-[360px]"><canvas ref={canvasRef} /></div>;
+  return error ? <ChartError message={error} /> : (
+    <div className="relative h-[360px]">
+      <canvas
+        ref={canvasRef}
+        role="img"
+        aria-label={`Taxa de aprovação por turma e disciplina, em percentual. ${grupos.length} grupos comparados. Linha de referência em 50%.`}
+      />
+    </div>
+  );
 }

@@ -37,7 +37,12 @@ create table if not exists public.notas (
 );
 create index if not exists idx_notas_disc on public.notas(disciplina_id);
 
--- View materializada (atualizada manualmente) com estatísticas por disciplina
+-- View (não materializada) com estatísticas agregadas por disciplina.
+-- Para uma materialized view, troque por:
+--   create materialized view public.v_stats_disciplina as ...
+--   create unique index v_stats_disc_pk on public.v_stats_disciplina(disciplina_id);
+-- e atualize manualmente via `refresh materialized view concurrently v_stats_disciplina;`
+-- (216 notas: recálculo on-the-fly é trivial; só migre pra materialized se passar de ~10k.)
 create or replace view public.v_stats_disciplina as
 select
   d.id              as disciplina_id,

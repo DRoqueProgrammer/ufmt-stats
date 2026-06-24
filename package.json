@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start -p 3001",
     "typecheck": "tsc --noEmit",
-    "lint:design": "node .opencode/skills/impeccable/scripts/detect.mjs app components"
+    "lint:design": "node .opencode/skills/impeccable/scripts/detect.mjs app components",
+    "hash-data": "node -e \"const c=require('crypto'),fs=require('fs');const f='data/seed.json';const h=c.createHash('sha256').update(fs.readFileSync(f)).digest('hex');fs.writeFileSync(f+'.sha256',h+'  '+f+'\\n');console.log('sha256:',h);\""
   },
   "dependencies": {
     "@supabase/ssr": "^0.5.2",

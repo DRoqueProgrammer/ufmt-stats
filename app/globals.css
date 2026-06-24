@@ -32,7 +32,9 @@
   --accent-2: oklch(76% 0.15 35);
   --accent-soft: oklch(96% 0.04 35);
   --accent-soft-border: oklch(89% 0.06 35);
-  /* Chart palette */
+  /* Chart palette.
+   * --calc herda visualmente do accent editorial por decisão de brand
+   * (mesmo valor hoje). Se um dia divergir, basta duplicar o valor. */
   --x: oklch(35% 0.08 250);
   --y: oklch(48% 0.16 295);
   --calc: oklch(70% 0.18 35);

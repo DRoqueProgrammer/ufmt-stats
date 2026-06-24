@@ -15,12 +15,19 @@ export async function createSupabaseServer() {
       set(name: string, value: string, options: CookieOptions) {
         try {
           cookieStore.set({ name, value, ...options });
-        } catch {}
+        } catch (e) {
+          // @supabase/ssr docs reconhecem que `cookies().set` lança em
+          // Server Components (read-only). Logamos pra não esconder bugs
+          // reais de cookie store em Route Handlers / Server Actions.
+          console.error("[supabase] cookie set failed:", (e as Error).message);
+        }
       },
       remove(name: string, options: CookieOptions) {
         try {
           cookieStore.set({ name, value: "", ...options });
-        } catch {}
+        } catch (e) {
+          console.error("[supabase] cookie remove failed:", (e as Error).message);
+        }
       },
     },
   });

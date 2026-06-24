@@ -16,20 +16,12 @@ export default async function HomePage() {
   const geralSD = grupos.reduce((a, g) => a + g.stats.sd, 0) / grupos.length;
   const approvalMean = grupos.reduce((a, g) => a + g.approval, 0) / grupos.length;
 
-  // JSON-LD para SEO
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Dataset",
-    name: meta.titulo,
-    description: "Notas finais de Cálculo I e VGA de duas turmas da UFMT",
-    creator: autores.map((a) => ({ "@type": "Person", name: a.nome })),
-    publisher: { "@type": "Organization", name: meta.universidade },
-  };
+  // ScholarlyArticle JSON-LD é emitido pelo <AcademicArticleJsonLd /> no fim
+  // do componente, abaixo. Mantemos uma única fonte de structured data.
 
   return (
     <>
       <PrintHeader />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Navbar />
 
       {/* ============== HERO ============== */}
@@ -44,17 +36,29 @@ export default async function HomePage() {
               <span className="text-accent">Cálculo I</span> e{" "}
               <span className="text-accent">VGA</span>
             </h1>
-            <p className="text-lg text-muted-2 max-w-2xl">
+            <p className="text-lg text-muted-2 max-w-2xl mb-3">
+              Das 4 combinações de turma &amp; disciplina analisadas, <strong className="text-ink">nenhuma atinge um terço de aprovados</strong> —
+              um sinal de alerta para a formação em ciências exatas na UFMT.
+            </p>
+            <p className="text-base text-muted-2 max-w-2xl">
               Um panorama quantitativo do aproveitamento de duas turmas (A e B) nas disciplinas
               de Cálculo I e Vetores e Geometria Analítica, identificando padrões, diferenças e
               sinais de alerta no processo de ensino-aprendizagem.
             </p>
             <div className="flex gap-3 flex-wrap mt-7 mb-9">
-              <a href="#estatisticas" className="inline-flex items-center px-5 py-3 font-semibold text-sm rounded-full bg-primary text-bg shadow-md hover:bg-primary-2 transition-colors">
-                Ver os dados →
+              <a href="#estatisticas" className="inline-flex items-center gap-2 px-5 py-3 font-semibold text-sm rounded-full bg-primary text-bg shadow-md hover:bg-primary-2 transition-colors">
+                Ver os dados
+                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
               </a>
-              <a href="#conclusao" className="inline-flex items-center px-5 py-3 font-semibold text-sm rounded-full border border-line-2 text-ink-2 hover:text-accent hover:border-accent transition-colors">
-                Ler conclusões →
+              <a href="#conclusao" className="inline-flex items-center gap-2 px-5 py-3 font-semibold text-sm rounded-full border border-line-2 text-ink-2 hover:text-accent hover:border-accent transition-colors">
+                Ler conclusões
+                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
               </a>
             </div>
             <ul className="grid grid-cols-3 gap-4 border-t border-line pt-5">
@@ -65,7 +69,7 @@ export default async function HomePage() {
           </div>
 
           <aside className="bg-bg-alt border border-line rounded-[14px] p-8 shadow-sm relative">
-            <div aria-hidden="true" className="absolute top-0 left-6 right-6 h-1 bg-accent rounded-b" />
+            <div aria-hidden="true" className="absolute top-0 left-6 right-6 h-1 bg-accent rounded-b-md" />
             <span className="text-[11px] font-semibold tracking-widest uppercase text-muted-2">
               Taxa média de aprovação
             </span>
@@ -159,20 +163,40 @@ export default async function HomePage() {
             <em>Turma B</em>, nas disciplinas de Cálculo I e VGA. Os dados foram organizados e
             processados com ferramentas de análise estatística, passando pelas seguintes etapas:
           </p>
-          <ol className="space-y-3 mt-7">
-            {[
-              ["1", "Estatísticas descritivas", "Cálculo de média, desvio padrão, mínimo, máximo e quartis (Q1, mediana e Q3) para cada grupo."],
-              ["2", "Taxas de aprovação", "Considerou-se aprovada a obtenção de nota ≥ 5,0, conforme as diretrizes da UFMT."],
-              ["3", "Visualização dos dados", "Boxplots e histogramas para a distribuição de notas, e gráfico de barras para comparar as taxas de aprovação."],
-            ].map(([num, title, desc]) => (
-              <li key={num} className="grid grid-cols-[auto_1fr] gap-4 bg-bg-alt border border-line rounded-[14px] p-5 shadow-sm hover:border-line-2 transition-colors">
-                <span className="w-10 h-10 rounded-[10px] grid place-items-center bg-primary-soft text-primary font-serif font-semibold text-lg">{num}</span>
-                <div>
-                  <h3 className="text-lg font-semibold mb-1.5">{title}</h3>
-                  <p className="text-muted-2 m-0">{desc}</p>
-                </div>
-              </li>
-            ))}
+          {/* Stat-callout principal: critério + tamanho da amostra (regra 6 do AGENTS.md:
+              "1 stat-callout maior + parágrafos inline" em vez de 3 cards idênticos). */}
+          <aside className="bg-primary-soft border border-line rounded-[14px] p-6 mt-7 shadow-sm">
+            <div className="grid sm:grid-cols-[auto_1fr] gap-5 items-center">
+              <div className="font-serif font-semibold text-5xl text-primary leading-none tabular-nums">
+                ≥ 5,0
+              </div>
+              <div>
+                <div className="text-xs font-semibold tracking-wider uppercase text-primary mb-1.5">Critério de aprovação (UFMT)</div>
+                <p className="text-ink-2 m-0 text-sm">
+                  Considera-se <strong>aprovado</strong> o aluno que obtém nota final
+                  <strong> ≥ 5,0</strong> na disciplina. <strong>Reprovado por nota</strong> quem fica
+                  entre 0 e 5,0 (exclusive). <strong>Zero</strong> quem zerou ou não compareceu à prova final.
+                </p>
+                <p className="text-muted-2 m-0 text-xs mt-2">
+                  N = 216 alunos no total · 4 combinações (turma × disciplina) · 2 turmas da UFMT.
+                </p>
+              </div>
+            </div>
+          </aside>
+          {/* Etapas em lista compacta (sem cards idênticos) */}
+          <ol className="mt-6 space-y-2.5 text-ink-2">
+            <li className="flex gap-3">
+              <span aria-hidden="true" className="flex-shrink-0 w-7 h-7 rounded-full bg-accent-soft text-accent grid place-items-center font-semibold text-sm tabular-nums">1</span>
+              <span><strong>Estatísticas descritivas</strong> — média, desvio padrão, mínimo, máximo e quartis (Q1, mediana, Q3) para cada grupo.</span>
+            </li>
+            <li className="flex gap-3">
+              <span aria-hidden="true" className="flex-shrink-0 w-7 h-7 rounded-full bg-accent-soft text-accent grid place-items-center font-semibold text-sm tabular-nums">2</span>
+              <span><strong>Taxas de aprovação</strong> — desagregadas em aprovado / reprovado por nota / zero, conforme o critério de 5,0.</span>
+            </li>
+            <li className="flex gap-3">
+              <span aria-hidden="true" className="flex-shrink-0 w-7 h-7 rounded-full bg-accent-soft text-accent grid place-items-center font-semibold text-sm tabular-nums">3</span>
+              <span><strong>Visualização</strong> — boxplot, histograma e barras de aprovação (Chart.js com tokens do design system).</span>
+            </li>
           </ol>
         </div>
       </section>

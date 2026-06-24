@@ -1,11 +1,16 @@
 import seed from "@/data/seed.json";
 import type { Grupo, NotaRow, SeedData, Turma, Disciplina } from "./types";
 import { approvalRate, describe } from "./stats";
+import { isSupabaseEnabled } from "./supabase";
 
-const isDemo = !process.env.NEXT_PUBLIC_SUPABASE_URL;
+const isDemo = !isSupabaseEnabled;
 
 // Brand chart palette — matches the OKLCH tokens in globals.css
-// Cálculo I → accent (orange) · VGA → teal · X → primary navy · Y → purple
+// VGA → teal · X → primary navy · Y → purple
+// Nota: Cálculo I usa a cor herdada do token editorial --accent (mesmo
+// valor hoje: oklch(70% 0.18 35)). Duplicamos aqui pra não importar globals.css;
+// se um dia o accent editorial divergir do accent da disciplina, basta
+// atualizar este map sem mexer no design system.
 const DISCIPLINA_COLORS: Record<string, string> = {
   "Cálculo I": "oklch(70% 0.18 35)",
   VGA: "oklch(64% 0.13 185)",

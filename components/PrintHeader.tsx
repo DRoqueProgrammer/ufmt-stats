@@ -1,6 +1,16 @@
+"use client";
+import { useEffect, useState } from "react";
+
 /** Print-only header shown on @media print. Contains site title, authors,
- *  and date — useful when the printed page is detached from the URL. */
+ *  and date — useful when the printed page is detached from the URL.
+ *  Rendered as a Client Component so the date reflects the actual print
+ *  time (not the build time). The header is `display: none` on screen
+ *  and only revealed by the `@media print` rule in globals.css. */
 export function PrintHeader() {
+  const [printedAt, setPrintedAt] = useState<string>("");
+  useEffect(() => {
+    setPrintedAt(new Date().toLocaleDateString("pt-BR"));
+  }, []);
   return (
     <header
       className="print-only"
@@ -20,7 +30,7 @@ export function PrintHeader() {
         Davi Roque Luiz · João Baptista Zanin · Prof. Dr. Laudino Roces Rodrigues
       </div>
       <div style={{ fontSize: "9pt", color: "#666", marginTop: "2pt" }}>
-        ufmt-stats.vercel.app · Impresso em {new Date().toLocaleDateString("pt-BR")}
+        ufmt-stats.vercel.app{printedAt ? ` · Impresso em ${printedAt}` : ""}
       </div>
     </header>
   );
