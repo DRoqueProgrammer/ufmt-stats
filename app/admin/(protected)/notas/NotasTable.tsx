@@ -1,19 +1,21 @@
 "use client";
 import { useState, useTransition, useMemo } from "react";
 import { addNotaAction, deleteNotaAction, updateNotaAction } from "./actions";
-import type { StatsResult } from "@/lib/types";
+import type { NotaRow, StatsResult } from "@/lib/types";
 
 type Props = {
   disciplinaId: string;
   disciplinaLabel: string;
-  notas: number[];
+  notasRaw: NotaRow[];
   stats: StatsResult;
   approval: number;
 };
 
-export function NotasTable({ disciplinaId, disciplinaLabel, notas: initialNotas, stats, approval }: Props) {
-  const [notas, setNotas] = useState<{ id: string; aluno_id: string; nota: number }[]>(() =>
-    initialNotas.map((n, i) => ({ id: `seed-${i}`, aluno_id: `aluno_${i + 1}`, nota: n }))
+type NotaLocal = NotaRow & { status: "saved" | "pending" | "error" };
+
+export function NotasTable({ disciplinaId, disciplinaLabel, notasRaw: initialNotasRaw, stats, approval }: Props) {
+  const [notas, setNotas] = useState<NotaLocal[]>(() =>
+    initialNotasRaw.map((r) => ({ ...r, status: "saved" as const }))
   );
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editValue, setEditValue] = useState<string>("");
@@ -22,9 +24,10 @@ export function NotasTable({ disciplinaId, disciplinaLabel, notas: initialNotas,
   const [pending, startTransition] = useTransition();
   const [filter, setFilter] = useState<"all" | "aprovado" | "reprovado">("all");
   const [search, setSearch] = useState("");
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const liveStats = useMemo(() => {
-    const arr = notas.map((n) => n.nota);
+    const arr = notas.map((n) => n.nota_final);
     const sorted = [...arr].sort((a, b) => a - b);
     const n = sorted.length;
     if (n === 0) return { mean: 0, median: 0, approval: 0 };
@@ -36,44 +39,64 @@ export function NotasTable({ disciplinaId, disciplinaLabel, notas: initialNotas,
 
   const visible = useMemo(() => {
     let list = notas;
-    if (filter === "aprovado") list = list.filter((n) => n.nota >= 5);
-    if (filter === "reprovado") list = list.filter((n) => n.nota < 5);
+    if (filter === "aprovado") list = list.filter((n) => n.nota_final >= 5);
+    if (filter === "reprovado") list = list.filter((n) => n.nota_final < 5);
     if (search.trim()) {
       const q = search.toLowerCase();
-      list = list.filter((n) => n.aluno_id.toLowerCase().includes(q) || String(n.nota).includes(q));
+      list = list.filter((n) => n.aluno_id.toLowerCase().includes(q) || String(n.nota_final).includes(q));
     }
     return list;
   }, [notas, filter, search]);
 
   const onAdd = (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMsg(null);
     const v = Number(newNota.replace(",", "."));
-    if (Number.isNaN(v) || v < 0 || v > 10) return;
+    if (Number.isNaN(v) || v < 0 || v > 10) {
+      setErrorMsg("Nota deve ser um número entre 0 e 10.");
+      return;
+    }
     const aluno = newAluno.trim() || `aluno_${Date.now()}`;
+    const localId = `local-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
     startTransition(async () => {
       const res = await addNotaAction(disciplinaId, aluno, v);
       if (res.ok) {
-        setNotas((prev) => [...prev, { id: `new-${Date.now()}`, aluno_id: aluno, nota: v }]);
+        setNotas((prev) => [...prev, { id: localId, aluno_id: aluno, nota_final: v, status: "saved" }]);
         setNewNota(""); setNewAluno("");
+      } else {
+        setErrorMsg(res.error ?? "Falha ao adicionar nota");
       }
     });
   };
 
   const onSave = (id: string) => {
+    setErrorMsg(null);
     const v = Number(editValue.replace(",", "."));
-    if (Number.isNaN(v) || v < 0 || v > 10) return;
+    if (Number.isNaN(v) || v < 0 || v > 10) {
+      setErrorMsg("Nota deve ser um número entre 0 e 10.");
+      return;
+    }
     startTransition(async () => {
-      await updateNotaAction(id, v);
-      setNotas((prev) => prev.map((n) => (n.id === id ? { ...n, nota: v } : n)));
-      setEditingId(null);
+      const res = await updateNotaAction(id, v);
+      if (res.ok) {
+        setNotas((prev) => prev.map((n) => (n.id === id ? { ...n, nota_final: v, status: "saved" } : n)));
+        setEditingId(null);
+      } else {
+        setErrorMsg(res.error ?? "Falha ao salvar");
+      }
     });
   };
 
   const onDelete = (id: string) => {
     if (!confirm("Excluir esta nota?")) return;
+    setErrorMsg(null);
     startTransition(async () => {
-      await deleteNotaAction(id);
-      setNotas((prev) => prev.filter((n) => n.id !== id));
+      const res = await deleteNotaAction(id);
+      if (res.ok) {
+        setNotas((prev) => prev.filter((n) => n.id !== id));
+      } else {
+        setErrorMsg(res.error ?? "Falha ao excluir");
+      }
     });
   };
 
@@ -92,6 +115,12 @@ export function NotasTable({ disciplinaId, disciplinaLabel, notas: initialNotas,
           </div>
         ))}
       </div>
+
+      {errorMsg && (
+        <div className="bg-danger-soft border border-danger/20 text-danger rounded-md px-4 py-3 text-sm mb-4">
+          {errorMsg}
+        </div>
+      )}
 
       <form onSubmit={onAdd} className="bg-bg-alt border border-line rounded-[14px] p-4 shadow-sm mb-4 grid md:grid-cols-[1fr_1fr_auto] gap-3 items-end">
         <div>
@@ -159,7 +188,7 @@ export function NotasTable({ disciplinaId, disciplinaLabel, notas: initialNotas,
             </thead>
             <tbody>
               {visible.map((n) => {
-                const aprovado = n.nota >= 5;
+                const aprovado = n.nota_final >= 5;
                 return (
                   <tr key={n.id} className="border-b border-line/50 hover:bg-bg/50 transition-colors">
                     <td className="px-4 py-2.5 font-mono text-xs text-ink-2">{n.aluno_id}</td>
@@ -174,7 +203,7 @@ export function NotasTable({ disciplinaId, disciplinaLabel, notas: initialNotas,
                         />
                       ) : (
                         <span className={`font-semibold tabular-nums ${aprovado ? "text-success" : "text-danger"}`}>
-                          {n.nota.toFixed(2).replace(".", ",")}
+                          {n.nota_final.toFixed(2).replace(".", ",")}
                         </span>
                       )}
                     </td>
@@ -188,13 +217,13 @@ export function NotasTable({ disciplinaId, disciplinaLabel, notas: initialNotas,
                     <td className="px-4 py-2.5 text-right">
                       {editingId === n.id ? (
                         <div className="flex gap-1.5 justify-end">
-                          <button onClick={() => onSave(n.id)} className="text-xs px-2.5 py-1 rounded bg-success text-bg hover:bg-success/90">Salvar</button>
+                          <button onClick={() => onSave(n.id)} disabled={pending} className="text-xs px-2.5 py-1 rounded bg-success text-bg hover:bg-success/90 disabled:opacity-50">Salvar</button>
                           <button onClick={() => setEditingId(null)} className="text-xs px-2.5 py-1 rounded bg-bg-alt border border-line-2 hover:border-ink-2">Cancelar</button>
                         </div>
                       ) : (
                         <div className="flex gap-1.5 justify-end">
-                          <button onClick={() => { setEditingId(n.id); setEditValue(String(n.nota)); }} className="text-xs px-2.5 py-1 rounded bg-bg-alt border border-line-2 hover:border-accent hover:text-accent">Editar</button>
-                          <button onClick={() => onDelete(n.id)} className="text-xs px-2.5 py-1 rounded bg-bg-alt border border-line-2 hover:border-danger hover:text-danger">Excluir</button>
+                          <button onClick={() => { setEditingId(n.id); setEditValue(String(n.nota_final)); }} className="text-xs px-2.5 py-1 rounded bg-bg-alt border border-line-2 hover:border-accent hover:text-accent">Editar</button>
+                          <button onClick={() => onDelete(n.id)} disabled={pending} className="text-xs px-2.5 py-1 rounded bg-bg-alt border border-line-2 hover:border-danger hover:text-danger disabled:opacity-50">Excluir</button>
                         </div>
                       )}
                     </td>

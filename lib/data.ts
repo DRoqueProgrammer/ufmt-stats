@@ -1,5 +1,5 @@
 import seed from "@/data/seed.json";
-import type { Grupo, SeedData, Turma, Disciplina } from "./types";
+import type { Grupo, NotaRow, SeedData, Turma, Disciplina } from "./types";
 import { approvalRate, describe } from "./stats";
 
 const isDemo = !process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -43,6 +43,14 @@ export function getGrupos(cutoff = 5.0): Grupo[] {
   typedSeed.turmas.forEach((turma) => {
     turma.disciplinas.forEach((disc) => {
       const stats = describe(disc.notas);
+      const notasRaw: NotaRow[] = disc.notas.map((n, i) => ({
+        // ID determinístico: estável entre reloads, suficiente para o admin
+        // operar no client. Em prod, este campo é sobrescrito pelo `id`
+        // real do Supabase quando `getGruposFromSupabase()` for implementado.
+        id: `seed-${turma.id}-${disc.id}-${i}`,
+        aluno_id: `aluno_${i + 1}`,
+        nota_final: n,
+      }));
       grupos.push({
         id: `${turma.id}__${disc.id}`,
         short: `${turma.nome.replace("Turma ", "")} · ${disc.codigo === "VGA" ? "VGA" : "Cálc. I"}`,
@@ -50,6 +58,7 @@ export function getGrupos(cutoff = 5.0): Grupo[] {
         turmaColor: TURMA_COLORS[turma.id] ?? "oklch(35% 0.08 250)",
         disciplinaColor: DISCIPLINA_COLORS[disc.codigo] ?? "oklch(70% 0.18 35)",
         notas: disc.notas,
+        notasRaw,
         stats,
         approval: approvalRate(disc.notas, cutoff),
       });
@@ -62,4 +71,4 @@ export function getGrupoById(id: string, cutoff = 5.0): Grupo | undefined {
   return getGrupos(cutoff).find((g) => g.id === id);
 }
 
-export type { Turma, Disciplina };
+export type { Turma, Disciplina, NotaRow };

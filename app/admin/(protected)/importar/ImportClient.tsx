@@ -1,5 +1,6 @@
 "use client";
 import { useState, useTransition } from "react";
+import { importNotasAction } from "@/app/admin/(protected)/notas/actions";
 
 type Grupo = { id: string; label: string };
 
@@ -10,6 +11,7 @@ export function ImportClient({ grupos }: { grupos: Grupo[] }) {
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
   const [imported, setImported] = useState<number | null>(null);
+  const [wasDemo, setWasDemo] = useState(false);
 
   const onFile = async (file: File) => {
     setError(null);
@@ -21,6 +23,7 @@ export function ImportClient({ grupos }: { grupos: Grupo[] }) {
   const parseCSV = (text: string) => {
     setParsed([]);
     setError(null);
+    setImported(null);
     try {
       const lines = text.split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
       if (lines.length < 3) {
@@ -59,11 +62,16 @@ export function ImportClient({ grupos }: { grupos: Grupo[] }) {
 
   const onImport = () => {
     if (parsed.length === 0) return;
+    setError(null);
+    setImported(null);
     startTransition(async () => {
-      // Em produção: enviar para uma server action que faz batch insert.
-      // Em demo: simula o sucesso e mostra contagem.
-      await new Promise((r) => setTimeout(r, 600));
-      setImported(parsed.length);
+      const res = await importNotasAction(targetDisc, parsed);
+      if (res.ok) {
+        setImported(res.imported ?? parsed.length);
+        setWasDemo(Boolean(res.demo));
+      } else {
+        setError(res.error ?? "Falha ao importar");
+      }
     });
   };
 
@@ -150,7 +158,7 @@ export function ImportClient({ grupos }: { grupos: Grupo[] }) {
 
       {imported != null && (
         <div className="bg-success-soft border border-success/20 text-success rounded-md px-4 py-3 text-sm">
-          ✓ {imported} notas importadas com sucesso{pending ? " (simulado em modo demo)" : ""}.
+          ✓ {imported} notas importadas com sucesso{wasDemo ? " (modo demo: sem persistência no DB)" : ""}.
         </div>
       )}
     </div>

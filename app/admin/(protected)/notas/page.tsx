@@ -41,7 +41,7 @@ export default async function NotasPage({ searchParams }: { searchParams: Promis
       <NotasTable
         disciplinaId={selected.id}
         disciplinaLabel={selected.label}
-        notas={selected.notas}
+        notasRaw={selected.notasRaw}
         stats={selected.stats}
         approval={selected.approval}
       />

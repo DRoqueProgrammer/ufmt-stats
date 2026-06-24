@@ -26,9 +26,21 @@ export type Grupo = {
   turmaColor: string;
   /** Cor da disciplina (Cálculo I = laranja, VGA = teal) */
   disciplinaColor: string;
+  /** Notas brutas (apenas números) — usado por gráficos e stats. */
   notas: number[];
+  /** Notas com id e aluno_id — usado pelo admin. Em demo, ids são determinísticos
+   *  (`seed-{turmaId}-{discId}-{i}`); em prod, são os ids reais do Supabase. */
+  notasRaw: NotaRow[];
   stats: StatsResult;
   approval: number;
+};
+
+/** Linha de nota com id (PK do banco) e aluno_id (anônimo). */
+export type NotaRow = {
+  /** PK da nota. Em demo: string determinística. Em prod: stringified bigserial. */
+  id: string;
+  aluno_id: string;
+  nota_final: number;
 };
 
 export type StatsResult = {
