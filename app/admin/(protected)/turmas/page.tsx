@@ -4,8 +4,8 @@ import { NovaTurmaForm, NovaDisciplinaForm } from "./Forms";
 
 export default async function TurmasPage() {
   await requireAdmin();
-  const turmas = getTurmas();
-  const grupos = getGrupos(5);
+  const turmas = await getTurmas();
+  const grupos = await getGrupos(5);
 
   return (
     <div className="container mx-auto px-6 max-w-[1200px] py-10">

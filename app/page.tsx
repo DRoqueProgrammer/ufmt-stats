@@ -7,7 +7,7 @@ import { AcademicArticleJsonLd } from "@/components/Seo/AcademicArticleJsonLd";
 import { PrintHeader } from "@/components/PrintHeader";
 
 export default async function HomePage() {
-  const grupos = getGrupos(5.0);
+  const grupos = await getGrupos(5.0);
   const meta = getMetadata();
   const autores = getAutores();
 

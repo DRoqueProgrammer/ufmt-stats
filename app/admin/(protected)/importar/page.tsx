@@ -4,7 +4,7 @@ import { requireAdmin } from "@/lib/admin-auth";
 
 export default async function ImportarPage() {
   await requireAdmin();
-  const grupos = getGrupos(5);
+  const grupos = await getGrupos(5);
   return (
     <div className="container mx-auto px-6 max-w-[1100px] py-10">
       <div className="mb-7">

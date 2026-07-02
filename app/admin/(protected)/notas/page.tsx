@@ -7,7 +7,7 @@ type SearchParams = { [k: string]: string | string[] | undefined };
 export default async function NotasPage({ searchParams }: { searchParams: Promise<SearchParams> }) {
   await requireAdmin();
   const params = await searchParams;
-  const grupos = getGrupos(5);
+  const grupos = await getGrupos(5);
   const discId = typeof params.disc === "string" ? params.disc : grupos[0]?.id;
   const selected = grupos.find((g) => g.id === discId) ?? grupos[0];
 
