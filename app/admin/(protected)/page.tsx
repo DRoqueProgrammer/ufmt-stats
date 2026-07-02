@@ -5,8 +5,8 @@ import Link from "next/link";
 
 export default async function AdminOverview() {
   await requireAdmin();
-  const grupos = getGrupos(5);
-  const turmas = getTurmas();
+  const grupos = await getGrupos(5);
+  const turmas = await getTurmas();
   const totalNotas = grupos.reduce((a, g) => a + g.notas.length, 0);
   const aprovacaoMedia = grupos.reduce((a, g) => a + g.approval, 0) / grupos.length;
 
